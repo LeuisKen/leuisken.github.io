@@ -1,4 +1,4 @@
 leuisken.github.io
-==================
+================
 
-LeuisKen的个人博客
+Personal Blog powered by Jekyll&amp;Gitpage! http://leuisken.github.io
