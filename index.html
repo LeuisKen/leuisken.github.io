@@ -1,13 +1,48 @@
 ---
 layout: default
-title: LeuisKen的吐槽
+title: "首页：Home"
 ---
-<h2>{{ page.title }}</h2>
-<h5>做喜欢的事，静等成功上门</h5>
-<p>Email:leuisken#gmail.com（PS:由于用@很容易被爬，就换成了#）</p>
-<p>最新文章</p>
-<ul>
-	{% for post in site.posts %}
-		<li>{{ post.date | date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
-	{% endfor %}
+<h1 class="page-header">
+  <small>
+    {{ site.description }}
+  </small>
+</h1>
+<!-- Loop output paged posts -->
+{% for post in paginator.posts %}
+<h2>
+  <a href="{{ post.url }}">
+    {{ post.title }}
+  </a> 
+  <div class="post-date">
+	<span class="glyphicon glyphicon-time"></span>
+	{{ post.date | date_to_string }}
+  </div>
+</h2>
+<hr>
+{{ post.excerpt }}
+	<p> <a href="{{ post.url }}"><span >阅读全文 &raquo; </span></a></p>
+<hr>
+{% endfor %}
+
+<!-- Pager indicator -->
+<ul class="pager">
+  {% if paginator.previous_page %} {% if paginator.previous_page == 1 %}
+  <li class="previous">
+    <a href="{{ site.url }}/">
+      &larr; Older
+    </a>
+  </li>
+  {% else %}
+  <li class="previous">
+    <a href="{{ site.url }}/page{{ paginator.previous_page }}">
+      &larr; Older
+    </a>
+  </li>
+  {% endif %} {% endif %} {% if paginator.next_page %}
+  <li class="next">
+    <a href="{{ site.url }}/page{{ paginator.next_page }}">
+      Newer &rarr;
+    </a>
+  </li>
+  {% endif %}
 </ul>

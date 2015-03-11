@@ -1,15 +1,18 @@
 ---
-layout: default
+layout: post
+category: "Node"
+tag: [Node, Express]
 title: 现在好多node书在讲express的时候命令都不能正常执行不开心
 ---
-<h2>{{ page.title }}</h2>
 <p>在看node的时候，比如《Node.js 开发指南》啦，《Node.js实战》啦，都是要讲express的。但是怎么说呢，书上一开始的命令，至少是在Windows平台上总是会出问题。比如，现在我手上这本《Node.js实战》吧，给的是npm install -g express、express -e blog、cd blog &amp; npm install这三条。但对于现在的版本(4.0)还要加上一个npm install -g express-generator，才能在cmd里使用express。</p>
+<p>很多人都会在这里推荐去看看express的官方文档，我在这里发个传送门。<a href="http://www.expressjs.com.cn/">Express中文站</a></p>
 <p>刚刚去百度了一下，发现了一篇文章，发个<a href="http://www.cnblogs.com/dacheng/p/nodejs.html">链接</a>过来。</p>
 <p>这里反应的也是这个express版本的更新问题啦，里面说了要用老版本要用npm install -g express-generator@3这条命令，受教了。</p>
 <p>以及书上用node app.js来启动项目，现在已经是node start了。你可以打开app.js看看，确实是没有了监听3000端口的代码。</p>
 <p>打开package.json，发现了这么一句。</p>
 <P>"start": "node ./bin/www"</P>
-<p>再打开bin\www，看到里面有如下代码。</p>
+<p>再打开./bin/www，看到里面有如下代码。</p>
+
 <pre>
 #!/usr/bin/env node
 var debug = require('debug')('blog');
@@ -27,4 +30,3 @@ var server = app.listen(app.get('port'), function() {
 <p>于是直接npm ls -g，然后npm remove express -g、npm remove express-generator -g，之后npm install -g express@3</p>
 <p>ok了，这个世界又清净了。</p>
 <p>突然发现这些外部链接会把你们转到别的页面上去啊，写个&lt;base&gt;标签好了。你不管嘛。</p>
-<p>{{ page.date | date_to_string }}</p>

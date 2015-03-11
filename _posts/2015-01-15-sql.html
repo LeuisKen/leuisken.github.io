@@ -1,33 +1,21 @@
 ---
-layout: default
+layout: post
+category: "php"
 title: 记录一些SQL语句
+tag: [SQL]
 ---
-<h2>{{ page.title }}</h2>
 <p>作为一个前端出身的，也是强行做一波后台需求。。。。最基础的就是建数据表了吧，整个项目下来，大概就用了这些命令，做个笔记，以便备忘。各路大神勿喷。。。。。</p>
 <pre>
-	
 create table star_user(
-
 	id int unsigned not null primary key auto_increment,
-
 	username char(20) not null default '',
-
 	login_ip varchar(30) not null,
-
 	`lock` tinyint(1) unsigned not null default 0,
-
 	unique(username)
-
 ) engine myisam default charset utf8;
-
-insert into star_user set password = md5('admin'), login_time = unix_timestamp(now());
-
-truncate table star_blog; -- 清空数据库
-
-alter table star_ip_list add p_times int unsigned not null default 0; -- 修改表结构
-
-update `vote`.`star_blog` set  `href` = 'http://uzone.univs.cn/blog/4465172.html' where  `star_blog`.`id` =21; -- 更新数据
-
 </pre>
+<pre>insert into star_user set password = md5('admin'), login_time = unix_timestamp(now());</pre>
+<pre>truncate table star_blog; -- 清空数据库</pre>
+<pre>alter table star_ip_list add p_times int unsigned not null default 0; -- 修改表结构</pre>
+<pre>update `vote`.`star_blog` set  `href` = 'http://uzone.univs.cn/blog/4465172.html' where  `star_blog`.`id` =21; -- 更新数据</pre>
 <p>其他的比如 use \ show \ desc \ drop 之类的，很常用就不加例子了。</p>
-<p>{{ page.date | date_to_string }}</p>

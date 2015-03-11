@@ -1,1 +1,23 @@
-baseurl: 
+markdown: redcarpet
+permalink: /:categories/:title.html
+url: 
+lsi: false
+pygments: true
+safe: true
+auto: false 
+
+paginate: 8
+paginate_path: "page:num"
+
+# presonal config
+domain: leuisken.github.io
+title: LeuisKen的吐槽
+description: Do What I Love , And Love What I Have
+author: Leuis Ken
+email: leuisken#gmail.com
+github: LeuisKen
+
+config:
+  js_dir:
+  img_dir:
+  css_dir:
