@@ -15,6 +15,7 @@ create table star_user(
 ) engine myisam default charset utf8;
 </pre>
 <pre>insert into star_user set password = md5('admin'), login_time = unix_timestamp(now());</pre>
+<pre>delete from star_user where login_time = 0;</pre>
 <pre>truncate table star_blog; -- 清空数据库</pre>
 <pre>alter table star_ip_list add p_times int unsigned not null default 0; -- 修改表结构</pre>
 <pre>update `vote`.`star_blog` set  `href` = 'http://uzone.univs.cn/blog/4465172.html' where  `star_blog`.`id` =21; -- 更新数据</pre>
