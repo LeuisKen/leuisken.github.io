@@ -11,6 +11,10 @@ create table star_user(
 	username char(20) not null default '',
 	login_ip varchar(30) not null,
 	`lock` tinyint(1) unsigned not null default 0,
+	`fc_msg` text NOT NULL,
+	`msg_dttm` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`ir_msg_detail` tinytext NOT NULL,
+	`ir_func_seq` smallint(3) NOT NULL,
 	unique(username)
 ) engine myisam default charset utf8;
 </pre>
@@ -18,5 +22,5 @@ create table star_user(
 <pre>delete from star_user where login_time = 0;</pre>
 <pre>truncate table star_blog; -- 清空数据库</pre>
 <pre>alter table star_ip_list add p_times int unsigned not null default 0; -- 修改表结构</pre>
-<pre>update `vote`.`star_blog` set  `href` = 'http://uzone.univs.cn/blog/4465172.html' where  `star_blog`.`id` =21; -- 更新数据</pre>
+<pre>update `vote`.`star_blog` set `href` = 'http://uzone.univs.cn/blog/4465172.html' where  `star_blog`.`id` =21; -- 更新数据</pre>
 <p>其他的比如 use \ show \ desc \ drop 之类的，很常用就不加例子了。</p>

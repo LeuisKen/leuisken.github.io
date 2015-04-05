@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<style type="text/css">
+	div,input,input:checked{
+		display: none;
+	}
+	label{
+		background: #fff;
+		display: inline-block;
+		width: 100px;
+		cursor: pointer;
+		text-align: center;
+		line-height: 25px;
+	}
+	input:checked+label{
+		background: yellow;
+		display: inline-block;
+		border: none;
+	}
+	input:checked+label+div{
+		float: left;
+		margin-top: 50px;
+		display: block;
+		width: 500px;
+		height: 300px;
+		border: 1px solid gray;
+		color: red;
+	}
+	</style>
+</head>
+<body>
+	
+	<input type="radio" checked="checked" name="menu" id="tap1" />
+	<label for="tap1">button1</label>
+	<div>only div1.......</div>
+	
+	<input type="radio" name="menu" id="tap2" />
+	<label for="tap2">button2</label>
+	<div>you know div2? right?</div>
+	
+	<input type="radio" name="menu" id="tap3" />
+	<label for="tap3">button3</label>
+	<div>div3 coming!!!!!!!</div>
+	
+	<input type="radio" name="menu" id="tap4" />
+	<label for="tap4">button4</label>
+	<div>div4 there i am</div>
+</body>
+</html>
