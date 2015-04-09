@@ -24,3 +24,17 @@ create table star_user(
 <pre>alter table star_ip_list add p_times int unsigned not null default 0; -- 修改表结构</pre>
 <pre>update `vote`.`star_blog` set `href` = 'http://uzone.univs.cn/blog/4465172.html' where  `star_blog`.`id` =21; -- 更新数据</pre>
 <p>其他的比如 use \ show \ desc \ drop 之类的，很常用就不加例子了。</p>
+
+<p>连接和导出数据库：（<a href="http://blog.csdn.net/zhouhong1026/article/details/38873439">参考链接</a>）</p>
+<pre>
+	mysql -h dbhost -u dbuser -p dbname
+	mysqldump -h dbhost -u dbuser -p dbname
+</pre>
+<p>然而在实际导出的时候报了一个错误。</p>
+<pre>
+	mysqldump:Couldn't execute  ‘SELECT @@GTID_MODE':Unknown system variable 'GTID_MODE' (1193)
+</pre>
+<p>造成此错误的原因是因为5.6引入了Global Transaction Identifiers (GTIDs) 。GTIDs可以让主从结构复制的跟踪和比较变得简单。mysqldump会试图查询这个系统变量，但这个变量在5.6之前的版本中不存在，所以产生错误。的方法很简单。在mysqldump后加上-–set-gtid-purged=OFF命令。即：</p>
+<pre>
+	mysqldump -h dbhost -u dbuser -p dbname -–set-gtid-purged=OFF
+</pre>

@@ -1,0 +1,18 @@
+---
+layout: post
+category: "php"
+tag: [SQL]
+title: 连接和导出远程数据库
+---
+<pre>
+	mysql -h dbhost -u dbuser -p dbname
+	mysqldump -h dbhost -u dbuser -p dbname
+</pre>
+<p>然而在实际导出的时候报了一个错误。</p>
+<pre>
+	mysqldump:Couldn't execute  ‘SELECT @@GTID_MODE':Unknown system variable 'GTID_MODE' (1193)
+</pre>
+<p>造成此错误的原因是因为5.6引入了Global Transaction Identifiers (GTIDs) 。GTIDs可以让主从结构复制的跟踪和比较变得简单。mysqldump会试图查询这个系统变量，但这个变量在5.6之前的版本中不存在，所以产生错误。的方法很简单。在mysqldump后加上-–set-gtid-purged=OFF命令。即：</p>
+<pre>
+	mysqldump -h dbhost -u dbuser -p dbname -–set-gtid-purged=OFF
+</pre>
