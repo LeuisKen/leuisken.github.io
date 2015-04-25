@@ -12,11 +12,11 @@ title: CSS中的负边距
 <p>同时，在上边那篇文章里还解决了一个布局的问题，就是多列间有margin，但是两边没margin的问题（听不懂我中文的直接点<a href="/demo/2015-04-22/center-list.html">这里</a>看demo吧，我知道自己说的不好）。之前一直是循环到一行最后一个的时候给加上一个class，现在可以免了，就比如我在demo里用margin-right:10px;给li之间创建一个间隔，然后用marigin-rignt:-10px;强行加宽ul，使四个li能在一行，但是ul外content的宽度设为width:830px;(4*200px+3*10px;)，这样就可以正确的居中了。</p>
 <p>之后简单说下圣杯布局和双飞翼布局吧，他们主要是为了解决三栏问题。三栏问题的研究可以看看张鑫旭老师的博客文章<a href="http://www.zhangxinxu.com/wordpress/?p=370">我熟知的三种三栏网页自适应的布局方法</a>。然后以双飞翼举例吧，他的DOM结构是这样的。</p>
 <pre>
-	&gt;div class="main"&gt;
-		&gt;div class="main-content"&gt;&gt;/div&gt;
-	&gt;/div&gt;
-	&gt;div class="sub"&gt;&gt;/div&gt;
-	&gt;div class="extra"&gt;&gt;/div&gt;
+	&lt;div class="main"&gt;
+		&lt;div class="main-content"&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class="sub"&gt;&lt;/div&gt;
+	&lt;div class="extra"&gt;&lt;/div&gt;
 </pre>
 <p>把main放在最前面，然后对sub（也就是left）使用margin-left:100%;强行移动到左边；对extra（也就是right）使用margin-left:(right的宽度);强行移动到右边。由于右边的栏会盖住main的内容，所有就直接给main里加上子div，通过给子div加上margin-right防止重叠保证正常显示。如此煞费苦心的布局目的只有一个，就是让浏览器先渲染main，实现主内容先被加载的效果。圣杯布局的话，印象中就是把.main-content的margin换成了main的padding，目的都是一样的。</p>
 <p>自此也算是总结了负边距的一些效果，有时候想想的话，要是pading支持负值的话又会有什么样的奇怪方案出现呢？</p>
