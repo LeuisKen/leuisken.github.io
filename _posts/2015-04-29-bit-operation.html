@@ -1,0 +1,30 @@
+---
+layout: post
+category: "frontend"
+tag: [前端]
+title: JavaScript中的位运算
+---
+<p>详细介绍参考——<a href="http://www.w3school.com.cn/js/pro_js_operators_bitwise.asp">ECMAScript 位运算符</a>。</p>
+<p>之所以会把位运算符重新重视，是因为前一段时间在研究求质数的算法的时候，人家用筛法加二进制保存true / false大大节约了时间和空间。原文传送门：<a href="http://blog.csdn.net/program_think/article/details/7032600/">求质数算法的N种境界 (N > 10)</a>。</p>
+<p>首先列举一下这几个运算符：</p>
+<ul>
+	<li>按位取反：~</li>
+	<li>按位与：&amp;</li>
+	<li>按位或：|</li>
+	<li>按位异或：^ 当只有一个数位存放的是 1 时，它才返回 1</li>
+	<li>左移运算：&lt;&lt; 符号位不变</li>
+	<li>有符号右移：&gt;&gt;</li>
+	<li>无符号右移：&gt;&gt;&gt;</li>
+</ul>
+<p>接下来是位运算符的应用，内容上参考了这两篇文章：<a href="http://www.111cn.net/wy/js-ajax/44975.htm">javascript位运算符与位运算符的技巧</a>、<a href="http://www.cnblogs.com/xljzlw/p/4231354.html">js中位运算的运用。</a></p>
+<ul>
+	<li>判断奇偶数：n &amp; 1 === 0</li>
+	<li>Math.floor：n | 0 / ~~n / n &gt;&gt;&gt; 0 / n &gt;&gt; 0 / n &lt;&lt; 0</li>
+	<li>0和1之间的转换：n ^= 1（n的初值为0或1，然后每次执行，n会变化）</li>
+	<li>判断正负：n === (n &gt;&gt;&gt; 0)</li>
+	<li>有符号转无符号：n &gt;&gt;&gt; 0</li>
+	<li>-1 &gt;&gt;&gt; 0</li>
+	<li>*2 /2 --> 左移 右移</li>
+	<li>两数字换位置：num1 ^= num2, num2 ^= num1, num1 ^= num2</li>
+</ul>
+<p>其实说来说去，也就这么回事，掌握一些特性就好了。虽说这玩意性能挺强，但是你也会降低等量的代码可读性。</p>
