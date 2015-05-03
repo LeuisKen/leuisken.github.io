@@ -6,9 +6,59 @@ title: LeetCode (118 / 119) JS实现
 ---
 <p>看到LeetCode支持JavaScript激起了我再一次刷算法题的愿望。这次打算全部用js实现，并且，每一道题都好好研究一下。题解汇总在LeuisKen / LeetCodeTest下面，大家可以提issue集中讨论。</p>
 <p>另外，为了避免比较麻烦的新建文件的操作，写了一个_posts/new.js的自动生成脚本，大家可以看看，也请给些指正。</p>
-<p>下面开始正文。</p>
+<p>下面开始正文。这两道题的算法参考了——<a href="http://blog.csdn.net/goal00001111/article/details/3393438">杨辉三角算法集锦</a></p>
 <p>题目118：杨辉三角，向函数传入参数n，返回0到n-1层的杨辉三角，返回值为二维数组。</p>
 <p>题目119：杨辉三角：传入n，以数组形式返回第n层的杨辉三角数。</p>
 <p>这两道题，都是处理杨辉三角，可以让其中一题的解答作为另一题的基础，但是仔细分析，还是有很多不同的地方。就118而言，是让你从0开始一层一层的输出，在解法上，可以利用上下两层的关系，由上层算出下层；而119的话，只要输出所求的第n层即可，你当然可以把前面的都算一遍，但是当n很大的时候，没有意义的计算就很多了。而分析119的适合解法，就是二项式定理，由于你要求的是第n行一整行，就可以可以利用这一行数字之间的关系进行求解，而不是单独求解。</p>
 <p>说白了就是，118用层与层之间的关系；119用一层内前后元素之间的关系。虽然利用另外的关系也可以求解，但是，先不管性能，就题目本身的意义来讲，可能就把握的不好。</p>
-<p>下面我先说118</p>
+<p>下面我先说118：</p>
+
+<pre>
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+var generate = function(numRows) {
+	var numCol = [],
+		temp = [],
+		left,
+		right;
+	for(var i = 0; i &lt; numRows; i++){
+		left = temp[0];
+		for(var j = 1; j &lt; i; j++){
+			right = temp[j];
+			temp[j] = left + right;
+			left = right;
+		}
+		temp.push(1);
+		numCol.push(temp.concat());
+	}
+	return numCol;
+};
+</pre>
+<p>这里我的思路就是temp一点一点变成第n-1层，完成一层向numCol里面push一次，另外，之所以用temp.concat()是为了解决数组深复制的问题（参考：<a href="/frontend/array-push.html">JavaScript中Array.push进去的是指针</a>）</p>
+<p>119的解法如下：</p>
+<pre>
+/**
+ * @param {number} rowIndex
+ * @return {number[]}
+ */
+var getRow = function(rowIndex) {
+	var row = [1];
+	rowLength = rowIndex &gt;&gt; 1;
+	for(var i = 1; i &lt;= rowLength; i++){
+		row.push( row[i - 1] * (rowIndex - i + 1) / i);
+	}
+	if(rowIndex % 2 == 1){
+		for(i--; i &gt;= 0; i--){
+			row.push(row[i]);
+		}
+	}else{
+		for(i -= 2; i &gt;= 0; i--){
+			row.push(row[i]);
+		}
+	}
+	return row;
+};
+</pre>
+<p>119就是使用递推公式计算了，其实用119这个函数，解决118相当方便。我这里在做除以2这一操作的时候，很魔性的用了位运算符。关于位运算符我之后的博文也会提到。</p>
