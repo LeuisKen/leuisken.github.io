@@ -1,0 +1,269 @@
+---
+layout: post
+category: "Algorithm"
+tag: [算法]
+title: 关于链表的入门知识
+---
+<p>本文包含LeetCode上面关于链表目前所有Easy难度的习题（19 / 21 / 83 / 160 / 203 / 206）的js实现。通过对这些题目的总结和整理，以期使读者对链表，尤其是js实现下的链表有一个初步的印象。</p>
+<p>首先，我们先看一下LeetCode上对链表是怎么定义的。</p>
+<pre>
+	function ListNode(val) {
+		this.val = val;
+		this.next = null;
+	}
+</pre>
+<p>这就是链表中一个节点的结构。我们来看一下，这个ListNode对象有两个属性，val就是这个节点所保存的变量值，next就是这个节点的下一个节点，这么说可能不好理解，请看我下面的Demo。</p>
+<pre>
+	var list = new ListNode(0);
+	list.next = new ListNode(1);
+	list.next.next = new ListNode(2);
+	list.next.next.next = new ListNode(3);
+	······
+</pre>
+
+<p>虽然看着很恶心，但是这个demo应该也在一定意义上展示出了链表是怎么用的。首先，我声明了一个list变量，然后让他的next变成一个新的节点，新节点也有next，依次类推，就构成了一个形如：0->1->2->3->···这样的链表。当然，通过上面next这种方式给链表添加节点，这样的方法还是太丑了，不如就写成一个函数吧，比如下面这样，实现的功能是给一个链表添加一个新的尾节点。</p>
+<pre>
+	function listAddAtEnd (list, val){
+		var temp = list;
+		while(temp.next !== null){
+			temp = temp.next;
+		}
+		temp.next = new ListNode(val);
+	}
+</pre>
+<p>上面的函数也很好理解，把链表保存在temp里面，然后判断temp的下一个是不是null。如果是，说明temp是尾节点，那么就把temp的next赋值为我们要插入的节点，这样就实现了在表的尾部添加一个新节点的功能。</p>
+<p>添加节点的方法有了，那么我们也就有了遍历链表的方法，如下。</p>
+<pre>
+	function listShow (list){
+		var temp = list;
+		while(temp !== null){
+			console.log(temp.val);
+			temp = temp.next;
+		}
+	}
+</pre>
+<p>结合上面的内容，我们可以构造一个链表类，将两个函数作为类的方法，如下。</p>
+<pre>
+	var ListNode = function (val){
+		this.val = val;
+		this.next = null;
+	}
+
+	ListNode.prototype.show = function (){
+		var temp = this;
+		while(temp !== null){
+			console.log(temp.val);
+			temp = temp.next;
+		}
+	}
+
+	ListNode.prototype.push = function (val){
+		var temp = this;
+		while(temp.next !== null){
+			temp = temp.next;
+		}
+		temp.next = new ListNode(val);
+	}
+</pre>
+<p>现在我们就有了一个简单的，符合LeetCode所示结构的链表节点类。接下来让我们看看如何用我们现在的链表知识去解决LeetCode的题目。</p>
+<p>LeetCode 19：去掉链表中的倒数第n项，其中，链表的最后一项为倒数第一项。</p>
+<pre>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+	var temp = head,
+		pos = head,
+		count = 0;
+	while(temp.next !== null){
+		temp = temp.next;
+		if(++count === n) break;
+	}
+	if(count !== n){
+		head = head.next;
+		return head;
+	}
+	while(temp.next !== null){
+		temp = temp.next;
+		pos = pos.next;
+	}
+	pos.next = pos.next.next;
+	return head;
+};
+</pre>
+<p>下面我来描述一下解题的核心思路：我声明了两个指针，temp和pos，开始的时候他们都指向head，随后通过while循环，让temp先向下遍历，直到和pos拉开n的距离，然后让两个指针一起向下遍历，当temp到达尾节点时，pos指向的正好是要删除的节点。当然了，因为我删除节点用的是pos.next = pos.next.next，然后return的是头节点，这样的话，如果要删除的是头节点，就删不掉了，所以多了一个if来处理这个问题。</p>
+<p>LeetCode 203：删除链表中给定的值。</p>
+<pre>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
+ */
+var removeElements = function(head, val) {
+	while(head !== null){
+		if(head.val !== val) break;
+		head = head.next;
+	}
+	if(head === null) return head;
+	var temp = head;
+	while(temp.next !== null){
+		if(temp.next.val === val){
+			temp.next = temp.next.next;
+		}else{
+			temp = temp.next;
+		}
+	}
+	return head;
+};
+</pre>
+<p>这个题可能比上一题还要轻松，就是判断，删除；不过要先处理头节点，先把头节点变到不是要被删掉的值。</p>
+<p>LeetCode 83：去掉顺序表中的重复项。</p>
+<pre>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteDuplicates = function(head) {
+	if(head === null){
+		return null;
+	}
+	var node = head;
+	while(node.next !== null){
+		if(node.val === node.next.val){
+			node.next = node.next.next;
+		}else{
+			node = node.next;
+		}
+	}
+	return head;
+};
+</pre>
+<p>注意题目中的顺序表，重复项肯定是挨着的，所以删删删。</p>
+<p>LeetCode 206：链表逆序。参考文章：<a href="http://blog.csdn.net/orbit/article/details/7585756">算法系列之十五：循环和递归在算法中的应用</a></p>
+<pre>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function(head) {
+	var prev = null,
+		next = null;
+	while(head !== null){
+		next = head.next;
+		head.next = prev;
+		prev = head;
+		head = next;
+	}
+	return prev;
+};
+</pre>
+<p>原理就请大家移步参考文章吧，实际上就是实现一个前后指针的位置调换，通过两个变量来辅助完成，不愿意移步的同学就好好看看循环体，相信也可以明白的。个人感觉从这个题开始，链表相对数组的优势已经显现出来了。</p>
+<p>LeetCode 21：合并顺序表。参考文章：<a href="http://www.jiuzhang.com/solutions/merge-two-sorted-lists/">九章算法的题解</a></p>
+<pre>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function(l1, l2) {
+	var temp = new ListNode(0),
+		lastNode = temp;
+	while(l1 !== null &amp;&amp; l2 !== null){
+		if(l1.val &lt; l2.val){
+			lastNode.next = l1;
+			l1 = l1.next;
+		}else{
+			lastNode.next = l2;
+			l2 = l2.next;
+		}
+		lastNode = lastNode.next;
+	}
+	if(l1 !== null){
+		lastNode.next = l1;
+	}
+	if(l2 !== null){
+		lastNode.next = l2;
+	}
+	return temp.next;
+};
+</pre>
+<p>教材上其实就有合并顺序表的方法，感觉九章的答案最大的亮点就是 return temp.next 。</p>
+<p>LeetCode 160：返回两个线性表的第一个公有元素，若不存在，返回null。解答参考：<a href="http://www.tuicool.com/articles/m2Mnuev">【leetcode 两个链表的交集点】Intersection of Two Linked Lists</a>、<a href="http://blog.csdn.net/yoxibaga/article/details/41697751">Intersection of Two Linked Lists</a></p>
+<pre>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function(headA, headB) {
+	var ptrA = headA,
+		ptrB = headB;
+
+	if(headA === null || headB === null) return null;
+	while(ptrA.next !== null){
+		ptrA = ptrA.next;
+	}
+
+	while(ptrB.next !== null){
+		ptrB = ptrB.next;
+	}
+
+	if (ptrA !== ptrB) return null;
+
+	ptrA = headA;
+	ptrB = headB;
+
+	while(ptrA !== ptrB){
+		ptrA = ptrA.next || headB;
+		ptrB = ptrB.next || headA;
+	}
+
+	return ptrA;
+};
+</pre>
+<p>只想说，作者的解法确实巧妙。首先是去空；然后遍历到底，以判断有没有公有元素；确定有公有元素之后，就通过构成环来使两者走过等长的路径，最终走到相同的元素，非常棒的思路。</p>

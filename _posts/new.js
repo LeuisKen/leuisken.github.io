@@ -17,7 +17,7 @@ var text =
 var date = new Date();
 var dateDetail = date.getFullYear() + '-' +
 				((date.getMonth() + 1) >= 10 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '-' +
-				date.getDate() + '-';
+				(date.getDate() >= 10 ? date.getDate() : '0' + date.getDate()) + '-';
 
 var fileName = process.argv.splice(2)[0] || 'new';
 fileName = dateDetail + fileName + '.html'
