@@ -14,6 +14,7 @@ title: JavaScript中的深复制
 </pre>
 <p>先把对象转换成json格式的字符串，然后再转换成对象，最后再把源对象的constructor指针赋值过来，完成整个对象的深复制操作。整个过程看上去很完美，但JSON.stringify()本身有一些问题，比如对正则的处理和对函数的处理，结果都不能复制，伤心。</p>
 <p>再找其他的方法，就要好好考虑一下js中的数据类型了。对于不同的数据类型，尤其是引用类型，就得到里面去不停的复制。关于这种解决方案，最终选择了segmentfault上一篇文章中的方案。<a href="http://segmentfault.com/a/1190000000501320">在js中的深复制实现方法</a>。思路就是给每一个内置类型一个clone原型方法，这样代码会显得很优美。</p>
+
 <pre>
 	/* Method of Object*/
 	Object.prototype.clone = function () {
