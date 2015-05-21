@@ -4,3 +4,71 @@ category: "frontend"
 tag: [前端]
 title: JavaScript中的深复制
 ---
+<p>之前在<a href="/frontend/array-push.html">JavaScript中Array.push进去的是指针</a>这篇文里谈过关于深复制的问题，但是依然有很多问题值得讨论。</p>
+<p>首先，我们当时处理数组的深复制时，用了slice / concat两个方法，但是这个处理也有不妥的时候，那就是，当你处理二维数组的时候，第二维又变成了浅复制。</p>
+<p>所以引用类型真是害人不浅，要处理的问题有很多。</p>
+<p>接下来就是不断寻找优雅的深复制方法了，发现了一个超级简单的万能方法，请看：</p>
+<pre>
+	var copy = JSON.parse(JSON.stringify(obj));
+	copy.constructor = obj.constructor;
+</pre>
+<p>先把对象转换成json格式的字符串，然后再转换成对象，最后再把源对象的constructor指针赋值过来，完成整个对象的深复制操作。整个过程看上去很完美，但JSON.stringify()本身有一些问题，比如对正则的处理和对函数的处理，结果都不能复制，伤心。</p>
+<p>再找其他的方法，就要好好考虑一下js中的数据类型了。对于不同的数据类型，尤其是引用类型，就得到里面去不停的复制。关于这种解决方案，最终选择了segmentfault上一篇文章中的方案。<a href="http://segmentfault.com/a/1190000000501320">在js中的深复制实现方法</a>。思路就是给每一个内置类型一个clone原型方法，这样代码会显得很优美。</p>
+<pre>
+	/* Method of Object*/
+	Object.prototype.clone = function () {
+		var Constructor = this.constructor;		//保存源对象的construct指针
+		var obj = new Constructor();			//创建拷贝对象
+
+		for (var attr in this) {				//循环源对象中的属性
+			if (this.hasOwnProperty(attr)) {
+				if (typeof(this[attr]) !== "function") {		//看来作者也并没有打算复制函数 函数看起来确实比较恼人
+					if (this[attr] === null) {
+						obj[attr] = null;
+					}
+					else {
+						obj[attr] = this[attr].clone();
+					}
+				}
+			}
+		}
+		return obj;
+	};
+
+	/* Method of Array*/
+	Array.prototype.clone = function () {
+		var thisArr = this.valueOf();
+		var newArr = [];
+		for (var i=0; i&lt;thisArr.length; i++) {		//在这里有一个问题，如果一个array中保存变量使用字典形式的话，该变量不会使length加1.在这种情况下可以使用Object.keys()来循环数组中的变量
+			newArr.push(thisArr[i].clone());
+		}
+		return newArr;
+	};
+
+	/* Method of Boolean, Number, String*/
+	Boolean.prototype.clone = function() { return this.valueOf(); };
+	Number.prototype.clone = function() { return this.valueOf(); };
+	String.prototype.clone = function() { return this.valueOf(); };
+
+	/* Method of Date*/
+	Date.prototype.clone = function() { return new Date(this.valueOf()); };
+
+	/* Method of RegExp*/
+	RegExp.prototype.clone = function() {
+		var pattern = this.valueOf();
+		var flags = '';				//标定正则表达式的匹配模式
+		flags += pattern.global ? 'g' : '';
+		flags += pattern.ignoreCase ? 'i' : '';
+		flags += pattern.multiline ? 'm' : '';
+		return new RegExp(pattern.source, flags);
+	};
+</pre>
+<p>在这里记录一下，循环字典类型的数组的方式：</p>
+<pre>
+	var arr = [];
+	arr['a'] = 1;
+	for(var key in Object.keys(arr)){
+		var temp = Object.keys(arr)[key];
+		console.log(temp + ': ' + arr[temp]);
+	}
+</pre>
