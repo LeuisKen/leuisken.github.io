@@ -318,16 +318,75 @@ Object.defineProperties(String.prototype, {
 
 ##比较各个深复制方法
 
-特性 | jQuery | lodash | JSON.parse | 所谓“拥抱未来的深复制实现”
---- | :------: | :-----: | :-----: | :-------:
-浏览器兼容性 | IE6+ (1.x) & IE9+ (2.x) | IE6+ | IE8+ | IE9+
-能够深复制存在环的对象 | 抛出异常 RangeError: Maximum call stack size exceeded | 可以出色地处理 | 抛出异常 TypeError: Converting circular structure to JSON | 支持
-对 Date, RegExp 的深复制支持 | × | 支持 | × | 支持 |
-对 ES6 新引入的标准对象的深复制支持 | × | 支持 | × | × |
-复制数组的属性 | × | [仅支持RegExp#exec返回的数组结果](https://github.com/lodash/lodash/blob/5166064453ed6164b76fb20f8dd340d23dd334e5/lodash._baseclone/index.js#215) | × | 支持 |
-是否保留非源生对象的类型 | × | × | × | 支持 |
-复制不可枚举元素 | × | × | × | × |
-复制函数 | × | × | × | × |
+<table>
+  <thead>
+    <tr>
+      <th>特性</th>
+      <th style="text-align: center">jQuery</th>
+      <th style="text-align: center">lodash</th>
+      <th style="text-align: center">JSON.parse</th>
+      <th style="text-align: center">所谓“拥抱未来的深复制实现”</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>浏览器兼容性</td>
+      <td style="text-align: center">IE6+ (1.x) &amp; IE9+ (2.x)</td>
+      <td style="text-align: center">IE6+</td>
+      <td style="text-align: center">IE8+</td>
+      <td style="text-align: center">IE9+</td>
+    </tr>
+    <tr>
+      <td>能够深复制存在环的对象</td>
+      <td style="text-align: center">抛出异常 RangeError: Maximum call stack size exceeded</td>
+      <td style="text-align: center">可以出色地处理</td>
+      <td style="text-align: center">抛出异常 TypeError: Converting circular structure to JSON</td>
+      <td style="text-align: center">支持</td>
+    </tr>
+    <tr>
+      <td>对 Date, RegExp 的深复制支持</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">支持</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">支持</td>
+    </tr>
+    <tr>
+      <td>对 ES6 新引入的标准对象的深复制支持</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">支持</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">×</td>
+    </tr>
+    <tr>
+      <td>复制数组的属性</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center"><a href="https://github.com/lodash/lodash/blob/5166064453ed6164b76fb20f8dd340d23dd334e5/lodash._baseclone/index.js#215">仅支持RegExp#exec返回的数组结果</a></td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">支持</td>
+    </tr>
+    <tr>
+      <td>是否保留非源生对象的类型</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">支持</td>
+    </tr>
+    <tr>
+      <td>复制不可枚举元素</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">×</td>
+    </tr>
+    <tr>
+      <td>复制函数</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">×</td>
+      <td style="text-align: center">×</td>
+    </tr>
+  </tbody>
+</table>
 
 ##执行效率
 
@@ -349,12 +408,47 @@ console.log(Date.now() - start);
 
 下面来看看各个实现方法的具体效率如何，好吧，我承认看到下面的结果时，我是有些失望的。我猜测性能大量地消耗于从原型链中查找方法？具体原因等我有时间再慢慢探究吧，希望这篇文章对你们有帮助~
 
-深复制方法 | jQuery | lodash | JSON.parse | 所谓“拥抱未来的深复制实现”
---- | :------: | :-----: | :-----: | :-------:
-Test 1 | 475 | 341 | 630 | 4801
-Test 2 | 505 | 270 | 690 | 4298
-Test 3 | 456 | 268 | 650 | 4658
-Average | 478.7 | 293 | 656.7 | 4585.7
+<table>
+  <thead>
+    <tr>
+      <th>深复制方法</th>
+      <th style="text-align: center">jQuery</th>
+      <th style="text-align: center">lodash</th>
+      <th style="text-align: center">JSON.parse</th>
+      <th style="text-align: center">所谓“拥抱未来的深复制实现”</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Test 1</td>
+      <td style="text-align: center">475</td>
+      <td style="text-align: center">341</td>
+      <td style="text-align: center">630</td>
+      <td style="text-align: center">4801</td>
+    </tr>
+    <tr>
+      <td>Test 2</td>
+      <td style="text-align: center">505</td>
+      <td style="text-align: center">270</td>
+      <td style="text-align: center">690</td>
+      <td style="text-align: center">4298</td>
+    </tr>
+    <tr>
+      <td>Test 3</td>
+      <td style="text-align: center">456</td>
+      <td style="text-align: center">268</td>
+      <td style="text-align: center">650</td>
+      <td style="text-align: center">4658</td>
+    </tr>
+    <tr>
+      <td>Average</td>
+      <td style="text-align: center">478.7</td>
+      <td style="text-align: center">293</td>
+      <td style="text-align: center">656.7</td>
+      <td style="text-align: center">4585.7</td>
+    </tr>
+  </tbody>
+</table>
 
 ##参考资料
 
