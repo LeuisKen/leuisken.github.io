@@ -9,8 +9,8 @@ var fs = require('fs');
 var text = 
 	'---\n' + 
 	'layout: post\n' + 
-	'category: ""\n' + 
-	'tag: []\n' + 
+	'category: "frontend"\n' + 
+	'tag: [前端]\n' + 
 	'title: \n' + 
 	'---\n';
 
