@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#div1{
+	position: relative;
+	height: 300px;
+	width: 300px;
+	margin: 100px;
+	border: 1px solid black;
+	perspective: 500px;
+}
+#div2{
+	width: 150px;
+	height: 150px;
+	position: absolute;
+	top: 75px;
+	left: 75px;
+	background-color: rgba(51, 151, 204, 0.74902);
+	transform: rotateX(45deg);
+	transform-style: preserve-3d;
+}
+#div3{
+	width: 150px;
+	height: 150px;
+	position: absolute;
+	background-color: rgba(53, 51, 204, 0.74902);
+	-webkit-transform: rotateX(-45deg) rotateY(45deg);
+}
+</style>
+</head>
+<body>
+<div id="div1">
+	<div id="div2">
+		<div id="div3"></div>
+	</div>
+</div>
+</body>
+</html>

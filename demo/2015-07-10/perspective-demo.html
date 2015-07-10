@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#div1
+{
+	margin: 100px auto;
+	height: 150px;
+	width: 1130px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: 1px solid black;
+}
+.div2
+{
+	width: 150px;
+	height: 150px;
+	float: left;
+	margin-left: 10px;
+	transform: rotateY(90deg);
+	background-color: yellow;
+}
+</style>
+</head>
+<body>
+<div id="div1" style="perspective: 1px;perspective-origin: 50% 50%;">
+	<div class="div2" style="background-color:rgba(53, 51, 204, 0.74902)"></div>
+	<div class="div2" style="background-color:rgba(51, 71, 204, 0.74902)"></div>
+	<div class="div2" style="background-color:rgba(51, 204, 151, 0.74902)"></div>
+	<div class="div2" style="background-color:rgba(51, 151, 204, 0.74902);/*backface-visibility:hidden;*/"></div>
+	<div class="div2" style="background-color:rgba(158, 51, 204, 0.74902)"></div>
+	<div class="div2" style="background-color:rgba(204, 51, 58, 0.74902)"></div>
+	<div class="div2" style="margin-right:10px;background-color:rgba(204, 102, 51, 0.74902)"></div>
+</div>
+</body>
+</html>
