@@ -2,8 +2,46 @@
 layout: post
 category: "frontend"
 tag: [前端]
-title: 于是也是遇上了奇葩的IE问题
+title: 处理IE7兼容的一些经验
 ---
-<p>终于有一天写东西碰到IE7了，虽然只是一个简单的展示页，但已经让我知道的IE的傲娇，哭笑不得。</p>
-<p>于是，img默认有了border，就得加了个border:0;。overflow:hidden;不起作用，你得给那个元素加个position:relative;。傲娇如你，怎么做朋友。</p>
-<p>话说回来，现在看到有人在说dw总想去教他做人，我也是快没朋友了。唉，遭重啊。</p>
+<p>当页面需要兼容IE7的时候，就总会有一些让人很无奈很头疼的问题，在此就总结一些IE7兼容方面的经验。</p>
+<p>其实，做pc端的页面，最重要的，是要有一个好的clearfix。之前用的clearfix兼容IE7但不兼容IE8，结果在IE7下调好页面，一开页面到IE8吓尿了。于是找的了一个好的clearfix，如下：</p>
+<pre>
+	/* clearfix */
+	.clearfix:after{
+		content:".";
+		display:block;
+		height:0;
+		clear:both;
+		visibility:hidden
+	}
+	.clearfix{*+height:1%;}
+</pre>
+
+<p>另外一个问题就是不支持before和after伪元素，需要用js处理一下，解决方案传送门：<a href="http://www.zhangxinxu.com/wordpress/?p=2781">小tip:我是如何在实际项目中使用before/after伪类的</a></p>
+<p>附上兼容方案代码（还是很好看懂的）</p>
+<pre>
+var $beforeAfter = function(dom) {
+    if (document.querySelector || !dom &amp;&amp; dom.nodeType !== 1) return;
+    
+    var content = dom.getAttribute("data-content") || '';     
+    var before = document.createElement("before")
+        , after = document.createElement("after");
+      
+    // 内部content
+    before.innerHTML = content;
+    after.innerHTML = content;
+    // 前后分别插入节点
+    dom.insertBefore(before, dom.firstChild);
+    dom.appendChild(after);
+};
+</pre>
+<p>顺带一提，在IE8下，虽然支持伪元素，但是不支持a::before的写法，要用一个冒号的写法才会起作用。</p>
+<p>接下来是一些小问题和经验的总结：</p>
+<ol>
+	<li>被包着的a标签，是不会继承父级标签的color的，你给a的color设为inherit也不行；</li>
+	<li>img默认有了border，加上border:0；</li>
+	<li>overflow:hidden;需要position:relative;的配合才能起作用；</li>
+	<li>position:absolute下left:auto;的默认表现不太一样，不会和前面的元素重叠，要想和别的一样得加一个left:0;；</li>
+	<li>肯定没完，慢慢更新。</li>
+</ol>
