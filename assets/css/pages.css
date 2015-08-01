@@ -1,0 +1,82 @@
+/* articles
+======================================*/
+
+.label-section {
+  margin-bottom: 20px;
+}
+
+.label-section h2,
+.articles-section h2 {
+  font-weight: 400;
+  font-size: 1.1em;
+  margin: 0;
+}
+
+.label-section .post-label {
+  display: inline-block;
+  font-size: 14px;
+  color: #555;
+  background: #FFEFD5;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  padding: 1px 6px;
+  margin: 0 7px 7px 0;
+  cursor: pointer;
+}
+
+.label-section .post-label.select {
+  color: #fff;
+  background: #f59b4d;
+}
+
+.articles {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1em;
+}
+
+.articles .article-title {
+  line-height: 1;
+}
+
+.articles .article-date {
+  color: #818181;
+  padding: 0 10px 0 20px;
+  font-size: 0.8em;
+}
+
+.articles-section h2 {
+  display: inline-block;
+}
+.articles-section .search-icon {
+  display: inline-block;
+  margin-left: 4px;
+  cursor: pointer;
+}
+.articles-section .search-icon img {
+  width: 14px;
+  height: 14px;
+}
+.articles-section .search-box {
+  display: inline-block;
+  font-size: 14px;
+  width: 170px;
+  margin-left: 20px;
+}
+
+.articles-section h3 {
+  display: inline-block;
+  font-size: 1.1em;
+  margin: 0.5em 0;
+  border-bottom: 1px solid #ccc;
+  padding: 0 50px 0 5px;
+  font-weight: 500;
+}
+
+/* Resume
+======================================*/
+
+table#education td{
+    padding-right: 20px;
+}

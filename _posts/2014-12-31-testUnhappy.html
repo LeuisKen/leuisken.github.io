@@ -1,19 +1,40 @@
 ---
-layout: post
-category: "frontend"
-tag: [Node, Express]
 title: 现在好多node书在讲express的时候命令都不能正常执行不开心
+labels: ["Node", "Express"]
+description: 在看node的时候，比如《Node.js 开发指南》啦，《Node.js实战》啦，都是要讲express的。但是怎么说呢，书上一开始的命令，至少是在Windows平台上总是会出问题。
 ---
-<p>在看node的时候，比如《Node.js 开发指南》啦，《Node.js实战》啦，都是要讲express的。但是怎么说呢，书上一开始的命令，至少是在Windows平台上总是会出问题。比如，现在我手上这本《Node.js实战》吧，给的是npm install -g express、express -e blog、cd blog &amp; npm install这三条。但对于现在的版本(4.0)还要加上一个npm install -g express-generator，才能在cmd里使用express。</p>
+<p>在看node的时候，比如《Node.js 开发指南》啦，《Node.js实战》啦，都是要讲express的。但是怎么说呢，书上一开始的命令，至少是在Windows平台上总是会出问题。比如，现在我手上这本《Node.js实战》吧，给出了如下命令：</p>
+
+{% highlight console %}
+	npm install -g express
+	express -e blog
+	cd blog &amp; npm install
+{% endhighlight %}
+
+<p>但对于现在的版本(4.0)还要加上一条才能在cmd里使用express。</p>
+
+{% highlight console %}
+	npm install -g express-generator
+{% endhighlight %}
+
 <p>很多人都会在这里推荐去看看express的官方文档，我在这里发个传送门。<a href="http://www.expressjs.com.cn/">Express中文站</a></p>
 <p>刚刚去百度了一下，发现了一篇文章，发个<a href="http://www.cnblogs.com/dacheng/p/nodejs.html">链接</a>过来。</p>
-<p>这里反应的也是这个express版本的更新问题啦，里面说了要用老版本要用npm install -g express-generator@3这条命令，受教了。</p>
+<p>这里反应的也是这个express版本的更新问题啦，里面说了要用老版本要用加上@3标明使用版本，受教了</p>
+
+{% highlight console %}
+	npm install -g express-generator@3
+{% endhighlight %}
+
 <p>以及书上用node app.js来启动项目，现在已经是node start了。你可以打开app.js看看，确实是没有了监听3000端口的代码。</p>
 <p>打开package.json，发现了这么一句。</p>
-<P>"start": "node ./bin/www"</P>
+
+{% highlight json %}
+	"start": "node ./bin/www"
+{% endhighlight %}
+
 <p>再打开./bin/www，看到里面有如下代码。</p>
 
-<pre>
+{% highlight javascript %}
 #!/usr/bin/env node
 var debug = require('debug')('blog');
 var app = require('../app');
@@ -23,10 +44,19 @@ app.set('port', process.env.PORT || 3000);
 var server = app.listen(app.get('port'), function() {
 	debug('Express server listening on port ' + server.address().port);
 });
-</pre>
+{% endhighlight %}
+
 <p>可以知道，打开端口监听的代码在这里。</p>
 <p>算啦，把原来的包都删掉好了，因为书上讲的跟实例有的代码好大差别的说。。。。。。</p>
 <p>这篇博文里面有一些<a href="http://my.oschina.net/robinjiang/blog/168732">常用的npm命令</a>，可以移步参考下。</p>
-<p>于是直接npm ls -g，然后npm remove express -g、npm remove express-generator -g，之后npm install -g express@3</p>
+<p>于是直接执行下面的命令，把之前犯得错误清理掉。</p>
+
+{% highlight console %}
+	npm ls -g
+	npm remove express -g
+	npm remove express-generator -g
+	npm install -g express@3
+{% endhighlight %}
+
 <p>ok了，这个世界又清净了。</p>
 <p>突然发现这些外部链接会把你们转到别的页面上去啊，写个&lt;base&gt;标签好了。你不管嘛。</p>

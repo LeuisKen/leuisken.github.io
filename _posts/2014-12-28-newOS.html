@@ -1,20 +1,30 @@
 ---
-layout: post
-category: "other"
-tag: [git, cmd]
 title: cmd的ren命令、以及几条git命令
+labels: ["git", "cmd"]
+description: 今天在配置git的时候有几条命令忘了，在这里记一下....
 ---
 <p>作死装了Win8，说好听点是为了学C#做WinPhone。。。。大概就是这样</p>
 <p>今天在配置git的时候有几条命令忘了，在这里记一下</p>
 
-<pre>git config --global user.name &lt;"YouName"&gt;
+{% highlight console %}
+	git config --global user.name &lt;"YouName"&gt;
 	git config --global user.email &lt;"email"&gt;
-	ssh-keygen -t rsa -C &lt;"email"&gt;</pre>
+	ssh-keygen -t rsa -C &lt;"email"&gt;
+{% endhighlight %}
+
 <p>顺便说一下，git bash的粘贴在命令窗口的标题，右键在编辑里找。或者选属性，里面有个快速编辑模式，打勾的话默认右键就是粘贴了，但怎么说呢，我用着觉得有点变扭的说。</p>
-<p>git remote add origin &lt;ssh地址&gt;</p>
-<p>git remote set-url origin &lt;ssh地址&gt;</p>
+
+{% highlight console %}
+	git remote add origin &lt;ssh地址&gt;
+	git remote set-url origin &lt;ssh地址&gt;
+{% endhighlight %}
+
 <p>至于说ren这个命令，本身没什么特别的，但和通配符*结合在一起就强大了。比如</p>
-<p>ren 123*.jpg 456*.jpg</p>
+
+{% highlight console %}
+	ren 123*.jpg 456*.jpg
+{% endhighlight %}
+
 <p>懒得举例子了，大家自己动手试试，实践出真知。</p>
 <p>对了，给页面加上viewport的meta吧，今个就今个了。</p>
 <p>突然来了兴致就在多废话几句吧，在虚拟机里装centOS，先后试了vitrual box和vmware，感觉虽然vmware大了一些，但是我用着还是vmware更舒服一些。看别人电脑用vitrual box挺好的，但我实际测试，感觉比vmware要卡。</p>

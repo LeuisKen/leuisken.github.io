@@ -1,8 +1,7 @@
 ---
-layout: post
-category: "frontend"
-tag: [前端]
 title: 转：深入剖析JavaScript的深复制
+labels: ["前端"]
+description: 前一篇文章研究了JavaScript的深复制，其中也参考了很多大神的博文。当时，测试了其中一篇博文的方法后，发现了一些问题，给大神留言居然回复了，然后大神就又写了一篇。特意转载过来，表示感谢。
 ---
 前一篇文章研究了JavaScript的深复制，其中也参考了很多大神的博文。当时，测试了其中一篇博文的方法后，发现了一些问题，给大神留言居然回复了，然后大神就又写了一篇。特意转载过来，表示感谢。原文链接：<a href="http://jerryzou.com/posts/dive-into-deep-clone-in-javascript/">http://jerryzou.com/posts/dive-into-deep-clone-in-javascript/</a>
 

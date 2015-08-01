@@ -1,12 +1,12 @@
 ---
-layout: post
-category: "frontend"
-tag: [前端]
 title: 处理IE7兼容的一些经验
+labels: ["前端"]
+description: 当页面需要兼容IE7的时候，就总会有一些让人很无奈很头疼的问题，在此就总结一些IE7兼容方面的经验。
 ---
 <p>当页面需要兼容IE7的时候，就总会有一些让人很无奈很头疼的问题，在此就总结一些IE7兼容方面的经验。</p>
 <p>其实，做pc端的页面，最重要的，是要有一个好的clearfix。之前用的clearfix兼容IE7但不兼容IE8，结果在IE7下调好页面，一开页面到IE8吓尿了。于是找的了一个好的clearfix，如下：</p>
-<pre>
+
+{% highlight css %}
 	/* clearfix */
 	.clearfix:after{
 		content:".";
@@ -16,11 +16,12 @@ title: 处理IE7兼容的一些经验
 		visibility:hidden
 	}
 	.clearfix{*+height:1%;}
-</pre>
+{% endhighlight %}
 
 <p>另外一个问题就是不支持before和after伪元素，需要用js处理一下，解决方案传送门：<a href="http://www.zhangxinxu.com/wordpress/?p=2781">小tip:我是如何在实际项目中使用before/after伪类的</a></p>
 <p>附上兼容方案代码（还是很好看懂的）</p>
-<pre>
+
+{% highlight javascript %}
 var $beforeAfter = function(dom) {
     if (document.querySelector || !dom &amp;&amp; dom.nodeType !== 1) return;
     
@@ -35,7 +36,8 @@ var $beforeAfter = function(dom) {
     dom.insertBefore(before, dom.firstChild);
     dom.appendChild(after);
 };
-</pre>
+{% endhighlight %}
+
 <p>顺带一提，在IE8下，虽然支持伪元素，但是不支持a::before的写法，要用一个冒号的写法才会起作用。</p>
 <p>接下来是一些小问题和经验的总结：</p>
 <ol>

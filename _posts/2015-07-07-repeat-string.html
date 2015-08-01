@@ -1,41 +1,51 @@
 ---
-layout: post
-category: "frontend"
-tag: [前端]
 title: JavaScript生成重复字符
+labels: ["前端"]
+description: 放纵了自己好久好久，觉得还是码码字人生会比较充实一些，至少知道今天自己做了些什么，所以现在就来聊聊这个生成重复字符串的东西。
 ---
 <p>放纵了自己好久好久，觉得还是码码字人生会比较充实一些，至少知道今天自己做了些什么，所以现在就来聊聊这个生成重复字符串的东西。</p>
 <p>这是我们前端群大神<a href="https://github.com/jansesun">@jansesun</a>想的思考题，原题为：生成一个内容为n个0的字符串。学习过后，收益良多，故记录到自己的博客。</p>
 <p>最低分的思路，肯定是for循环+=，任何一个初学的程序应该都知道。但是贴合到js的语境的时候，这种思维未免太low了。应用js特性的思路是，用Array.join()这个方法。Array.join()是在一个数组中，给数组元素间生成特定分隔符并以字符串的形式返回。对于本题示例如下：</p>
-<pre>
+
+{% highlight javascript %}
 	function string_repeat(str, n){
 		return new Array(n+1).join(str);
 	}
-</pre>
+{% endhighlight %}
+
 <p>顺便说一句，es6下字符串新增了repeat方法，示例：</p>
-<pre>
+
+{% highlight console %}
 	'0'.repeat(5);		// 返回'00000'，chrome下测试
-</pre>
+{% endhighlight %}
+
 <p>那么继续深入，如果现在要你创建一个长度为n的数组，数组元素均为空数组，怎么处理：</p>
 <p>前端群A君答案：</p>
-<pre>
+
+{% highlight javascript %}
 	function array_fill(n){
 		return new Function('return ['+new Array(n+1).join('[],').slice(0, -1)+']')()
 	}
-</pre>
+{% endhighlight %}
+
 <p>前端群B君答案：</p>
-<pre>
+
+{% highlight javascript %}
 	function array_fill(n){
 		return eval('['+new Array(n+1).join('[],').slice(0, -1)+']');
 	}
-</pre>
+{% endhighlight %}
+
 <p>jansesun给的参考：</p>
-<pre>
+
+{% highlight javascript %}
 	function array_fill(n){
 		return JSON.parse('['+new Array(n+1).join('[],').slice(0, -1)+']');
 	}
-</pre>
+{% endhighlight %}
+
 <p>es6对于数组也给出了fill()方法，示例如下：</p>
-<pre>
+
+{% highlight console %}
 	new Array(10).fill([])		// 返回[[], [], [], [], [], [], [], [], [], []]，火狐下测试
-</pre>
+{% endhighlight %}

@@ -1,40 +1,46 @@
 ---
-layout: post
-category: "php"
 title: 记录一些SQL语句
-tag: [SQL]
+labels: [SQL]
+description: 作为一个前端出身的，也是强行做一波后台需求。。。。最基础的就是建数据表了吧，整个项目下来，大概就用了这些命令，做个笔记，以便备忘。各路大神勿喷。。。。。
 ---
 <p>作为一个前端出身的，也是强行做一波后台需求。。。。最基础的就是建数据表了吧，整个项目下来，大概就用了这些命令，做个笔记，以便备忘。各路大神勿喷。。。。。</p>
-<pre>
-create table star_user(
-	id int unsigned not null primary key auto_increment,
-	username char(20) not null default '',
-	login_ip varchar(30) not null,
-	`lock` tinyint(1) unsigned not null default 0,
-	`fc_msg` text NOT NULL,
-	`msg_dttm` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-	`ir_msg_detail` tinytext NOT NULL,
-	`ir_func_seq` smallint(3) NOT NULL,
-	unique(username)
-) engine myisam default charset utf8;
-</pre>
-<pre>insert into star_user set password = md5('admin'), login_time = unix_timestamp(now());</pre>
-<pre>delete from star_user where login_time = 0;</pre>
-<pre>truncate table star_blog; -- 清空数据库</pre>
-<pre>alter table star_ip_list add p_times int unsigned not null default 0; -- 修改表结构</pre>
-<pre>update `vote`.`star_blog` set `href` = 'http://uzone.univs.cn/blog/4465172.html' where  `star_blog`.`id` =21; -- 更新数据</pre>
+
+{% highlight sql %}
+	create table star_user(
+		id int unsigned not null primary key auto_increment,
+		username char(20) not null default '',
+		login_ip varchar(30) not null,
+		`lock` tinyint(1) unsigned not null default 0,
+		`fc_msg` text NOT NULL,
+		`msg_dttm` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+		`ir_msg_detail` tinytext NOT NULL,
+		`ir_func_seq` smallint(3) NOT NULL,
+		unique(username)
+	) engine myisam default charset utf8;
+	insert into star_user set password = md5('admin'), login_time = unix_timestamp(now());
+	delete from star_user where login_time = 0;
+	truncate table star_blog; -- 清空数据库
+	alter table star_ip_list add p_times int unsigned not null default 0; -- 修改表结构
+	update `vote`.`star_blog` set `href` = 'http://uzone.univs.cn/blog/4465172.html' where  `star_blog`.`id` =21; -- 更新数据
+{% endhighlight %}
+
 <p>其他的比如 use \ show \ desc \ drop 之类的，很常用就不加例子了。</p>
 
 <p>连接和导出数据库：（<a href="http://blog.csdn.net/zhouhong1026/article/details/38873439">参考链接</a>）</p>
-<pre>
+
+{% highlight console %}
 	mysql -h dbhost -u dbuser -p dbname
 	mysqldump -h dbhost -u dbuser -p dbname
-</pre>
+{% endhighlight %}
+
 <p>然而在实际导出的时候报了一个错误。</p>
-<pre>
+
+{% highlight console %}
 	mysqldump:Couldn't execute  ‘SELECT @@GTID_MODE':Unknown system variable 'GTID_MODE' (1193)
-</pre>
+{% endhighlight %}
+
 <p>造成此错误的原因是因为5.6引入了Global Transaction Identifiers (GTIDs) 。GTIDs可以让主从结构复制的跟踪和比较变得简单。mysqldump会试图查询这个系统变量，但这个变量在5.6之前的版本中不存在，所以产生错误。的方法很简单。在mysqldump后加上-–set-gtid-purged=OFF命令。即：</p>
-<pre>
+
+{% highlight console %}
 	mysqldump -h dbhost -u dbuser -p dbname -–set-gtid-purged=OFF
-</pre>
+{% endhighlight %}

@@ -1,12 +1,12 @@
 ---
-layout: post
-category: "frontend"
-tag: [前端]
 title: JavaScript中Array.push进去的是指针
+labels: ["前端"]
+description: 说来惭愧，学前端到今天才发现这么一个问题。不求甚解，早晚会出问题的。
 ---
 <p>说来惭愧，学前端到今天才发现这么一个问题。不求甚解，早晚会出问题的。</p>
 <p>起因是，我写了大概如下的代码。</p>
-<pre>
+
+{% highlight javascript %}
 	var numCol = [],
 		temp = [1];
 	for(var i = 0; i &lt; 2; i++){
@@ -14,16 +14,20 @@ title: JavaScript中Array.push进去的是指针
 		console.log(numCol);
 		temp[0] = 4;
 	}
-</pre>
+{% endhighlight %}
+
 <p>Console.log的结果如下：</p>
-<pre>
+
+{% highlight console %}
 	[ [1] ]
 	[ [4], [4] ]
-</pre>
+{% endhighlight %}
+
 <p>测试环境为Node v0.10.35。在Chrome下测试，发现console.log()出来的好像也是指针。</p>
 
 <p>问题就是，array.push的是一个指针。接下来请看下面的对比样例：</p>
-<pre>
+
+{% highlight javascript %}
 	var numCol = [],
 		temp = [1];
 	for(var i = 0; i &lt; 2; i++){
@@ -31,14 +35,18 @@ title: JavaScript中Array.push进去的是指针
 		console.log(numCol);
 		temp = [4];
 	}
-</pre>
+{% endhighlight %}
+
 <p>输出结果：</p>
-<pre>
+
+{% highlight console %}
 	[ [1] ]
 	[ [1], [4] ]
-</pre>
+{% endhighlight %}
+
 <p>我们想要的结果出来了。之后就在想这个问题，如果换成对象的话，会怎么样呢？测试代码如下：</p>
-<pre>
+
+{% highlight javascript %}
 	var numCol = [],
 		temp = {
 			"a": 'a'
@@ -48,14 +56,18 @@ title: JavaScript中Array.push进去的是指针
 		console.log(numCol);
 		temp.a = 'b';
 	}
-</pre>
+{% endhighlight %}
+
 <p>输出：</p>
-<pre>
+
+{% highlight console %}
 	[ { a: 'a' } ]
 	[ { a: 'b' }, { a: 'b' } ]
-</pre>
+{% endhighlight %}
+
 <p>基本可以确定是指针的问题了，接下来用字符串测试，代码如下：</p>
-<pre>
+
+{% highlight javascript %}
 	var numCol = [],
 		temp = 'abc';
 	for(var i = 0; i &lt; 2; i++){
@@ -63,15 +75,19 @@ title: JavaScript中Array.push进去的是指针
 		console.log(numCol);
 		temp[0] = 'b';
 	}
-</pre>
+{% endhighlight %}
+
 <p>输出：</p>
-<pre>
+
+{% highlight console %}
 	['abc']
 	['abc', 'abc']
-</pre>
+{% endhighlight %}
+
 <p>并没有影响，应该说temp[0] = 'b'这句话形同虚设。</p>
 <p>之后对字符串进行测试，发现temp[0]只有get功能，没有set功能。大家可以通过下面的例子理解。</p>
-<pre>
+
+{% highlight console %}
 	&gt; var a = 'abc'
 	undefined
 	&gt; a[0]
@@ -80,10 +96,12 @@ title: JavaScript中Array.push进去的是指针
 	'b'
 	&gt; a[0]
 	'a'
-</pre>
+{% endhighlight %}
+
 <p>这样试下来，我上面说得意思是不是比较明确了？</p>
 <p>那么如何去解决这个问题呢？先想的是两个数组不停相互赋值，看看可不可以？别急，在试验前先分析一下，看看我下面的测试：</p>
-<pre>
+
+{% highlight console %}
 	&gt; var a = [1, 2, 3]
 	undefined
 	&gt; var b = a
@@ -92,11 +110,13 @@ title: JavaScript中Array.push进去的是指针
 	4
 	&gt; b
 	[ 4, 2, 3 ]
-</pre>
+{% endhighlight %}
+
 <p>握了棵草。。。赋值传的也是指针啊，我突然见感受到了弱类型语音深深的恶意。但如果站在这个角度去看这个问题的话，其实这就是所谓的浅复制和深复制的问题。其实所谓浅复制，就是像这样，b = a实际上是让b也指向a，a变b也变，b变a也变；而深复制，就是让b具有a的内容，a变b不变，b变a不变。</p>
 <p>之后就去查js里面解决深浅复制问题的方案了。对于数组，有两个现成的函数都可以处理，对象的话就要自己写代码遍历了。数组的解决方案也很简单，直接贴上解决后的代码。</p>
 <p>方案一：slice()</p>
-<pre>
+
+{% highlight javascript %}
 	var numCol = [],
 		temp = [1];
 	for(var i = 0; i &lt; 2; i++){
@@ -104,9 +124,11 @@ title: JavaScript中Array.push进去的是指针
 		console.log(numCol);
 		temp[0] = 4;
 	}
-</pre>
+{% endhighlight %}
+
 <p>方案二：concat()</p>
-<pre>
+
+{% highlight javascript %}
 	var numCol = [],
 		temp = [1];
 	for(var i = 0; i &lt; 2; i++){
@@ -114,5 +136,6 @@ title: JavaScript中Array.push进去的是指针
 		console.log(numCol);
 		temp[0] = 4;
 	}
-</pre>
+{% endhighlight %}
+
 <p>现在问题就解决了！</p>

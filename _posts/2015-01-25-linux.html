@@ -1,10 +1,9 @@
 ---
-layout: post
-category: "linux"
-tag: [linux]
 title: 开始学习CentOS（一）：文件（夹）权限
+labels: ["linux"]
+description: linux命令始终还是多用才能记住的，把学到现在的一些命令做下笔记,也算是一个总结和练习吧。之后的目标就是摆脱Windows。
 ---
-<p>放假了以后就变的很懒散而且也很久没有充电了。学了三天车，参加了传销团伙的洗脑活动（其实还是很充实的吧喂。。。。）。抽空看了一些CentOS的视频，后盾网的，也算是开始向真正的程序员迈进了吧（远目。）</p>
+<p>放假了以后就变的很懒散而且也很久没有充电了。学了三天车，参加了传销团伙的洗脑活动。抽空看了一些CentOS的视频，后盾网的，也算是开始向真正的程序员迈进了吧（远目。）</p>
 <p>linux命令始终还是多用才能记住的，把学到现在的一些命令做下笔记。（省得以后想找什么东西去查视频。。。）也算是一个总结和练习吧。之后的目标就是摆脱Windows，（前提是学完WindowsPhone以后。）</p>
 <p>这段时间ThinkPHP用的比较多，（强行做了一波后端项目），过两天把项目总结一下，还有关于在git上搭博客的方法都总结一下。okok，总之人还是不要闲 = V = 。。</p>
 <br />
@@ -23,10 +22,22 @@ title: 开始学习CentOS（一）：文件（夹）权限
 <p>一般使用umask命令来了解系统的默认权限设置，chmod来修改权限。请大家自行查阅使用方法。</p>
 <p>以上只是对文件权限的最基本操作，为了应对实际开发中的诸多特殊情况，linux还有特殊权限位这种设定。<a href="http://www.cnblogs.com/huangzhen/archive/2011/08/22/2149300.html">Linux中的文件特殊权限</a>这篇博文把方法与使用场合都写的很明了，我就不废话了。</p>
 <p>除此之外，由于u+g+o这种用户组合其实还是太少了，所以又加上了acl权限粒这种设置。</p>
-<p>dumpe2fs -h /dev/sda2 | grep acl</p>
+
+{% highlight console %}
+dumpe2fs -h /dev/sda2 | grep acl
+{% endhighlight %}
+
 <p>这条命令是检测你的系统是否开启了acl权限粒功能，如果确认开启，就可以对一个文件（夹）进行如下设置</p>
-<pre>setfacl -m u:&lt;username&gt;:rwx &lt;filename&gt;</pre>
+
+{% highlight console %}
+setfacl -m u:&lt;username&gt;:rwx &lt;filename&gt;
+{% endhighlight %}
+
 <p>个人水平有限，对于很多命令的参数就不详细说明了，希望大家，自己用man命令去查咯。</p>
 <p>其实大家应该也可以看得出来，这就是对一个用户（组）针对性的进行权限设置。获取acl设置的命令如下：</p>
+
+{% highlight console %}
 <pre>getfacl &lt;filename&gt;</pre>
+{% endhighlight %}
+
 <p>关于文件权限这部分，算是进行了简单的说明。先push上去吧。有时间继续更新。</p>

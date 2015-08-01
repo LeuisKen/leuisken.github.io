@@ -1,8 +1,7 @@
 ---
-layout: post
-category: "frontend"
-tag: [前端]
 title: PJAX：pushState和Ajax
+labels: ["前端"]
+description: 终于从漫长的休眠期中清醒过来，改认真搞搞技术了。在研究手机触摸界面的时候接触到了PJAX这个东西，先研究、笔记一下。
 ---
 <p>终于从漫长的休眠期中清醒过来，改认真搞搞技术了。在研究手机触摸界面的时候接触到了PJAX这个东西，先研究、笔记一下。</p>
 <p>其实这个pushState这个东西就是在html5时代，history新增的方法，除了这个还有replaceState方法和onpopstate事件。可以说这几个方法是现在各种单页系统的基础。</p>
@@ -10,7 +9,14 @@ title: PJAX：pushState和Ajax
 <p>对于操作url这里，还有一个location.hash属性。所谓的hash，就是url最后#后面的值，配合onhashchange也可以起到类似的url路由效果，兼容性要比pushState好些。</p>
 <p>接下来说一下pushState的具体用法：</p>
 
-<pre>history.pushState({}, '历史记录标题', '历史url');</pre>
+{% highlight javascript %}
+history.pushState({}, '历史记录标题', '历史url');
+{% endhighlight %}
+
 <p>后面两个应该能看懂就不说什么了。第一个参数，传入的对象，会在onpopstate起到作用，像这样：</p>
-<pre>addEventListener('popstate', function(e){console.log(e.state)})</pre>
+
+{% highlight javascript %}
+addEventListener('popstate', function(e){console.log(e.state)})
+{% endhighlight %}
+
 <p>使用的话大概就是这样。</p>

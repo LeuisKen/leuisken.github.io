@@ -1,23 +1,40 @@
-markdown: redcarpet
-permalink: /:categories/:title.html
-url: 
-lsi: false
-pygments: true
-safe: true
-auto: false 
+# Site settings
+title: LeuisKen的小屋
+email: leuisken@gmail.com
+description: >
+  我现在生活在成都，目前就读于电子科技大学软件工程专业，将来希望去北京从事Web开发相关工作
+  热衷于Web开发技术，也热衷于分享交流，希望能和大家一起共同成长
+baseurl: ""
+url: ""
 
-paginate: 8
+#static images
+
+#github source
+local_url: "/assets/images"
+static_url: "/assets/images"
+
+#pagination
+paginate: 5
 paginate_path: "page:num"
 
-# presonal config
-domain: leuisken.github.io
-title: LeuisKen的吐槽
-description: Do What I Love , And Love What I Have
-author: Leuis Ken
-email: leuisken#gmail.com
-github: LeuisKen
+# Build settings
+markdown: kramdown
+permalink: pretty
+highlighter: pygments
+exclude: [node_modules, .tmp, Gruntfile.js, _config, package.json, articles.raw]
 
-config:
-  js_dir:
-  img_dir:
-  css_dir:
+# default Front matter
+defaults:
+  -
+    scope:
+      path: pages
+      type: pages
+    values:
+      layout: page
+  -
+    scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      release: true

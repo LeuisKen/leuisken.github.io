@@ -8,10 +8,9 @@ var fs = require('fs');
 
 var text = 
 	'---\n' + 
-	'layout: post\n' + 
-	'category: "frontend"\n' + 
-	'tag: [前端]\n' + 
 	'title: \n' + 
+	'labels: [前端]\n' + 
+	'description: \n' + 
 	'---\n';
 
 var date = new Date();

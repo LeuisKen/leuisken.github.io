@@ -1,48 +1,59 @@
 ---
 layout: default
-title: "首页：Home"
+sidePart: true
 ---
-<h1 class="page-header">
-  <small>
-    {{ site.description }}
-  </small>
-</h1>
-<!-- Loop output paged posts -->
-{% for post in paginator.posts %}
-<h2>
-  <a href="{{ post.url }}">
-    {{ post.title }}
-  </a> 
-  <div class="post-date">
-	<span class="glyphicon glyphicon-time"></span>
-	{{ post.date | date_to_string }}
-  </div>
-</h2>
-<hr>
-{{ post.excerpt }}
-	<p> <a href="{{ post.url }}"><span >阅读全文 &raquo; </span></a></p>
-<hr>
-{% endfor %}
+
+<div class="home">
+  <ul class="posts">
+    {% for post in paginator.posts %}
+      {% if post.release %}
+      <li>
+        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        <p class="post-date">Posted on {{ post.date | date: "%b %-d, %Y" }}
+        	{% for label in post.labels %}
+        	<a href="{{ site.baseurl }}/all-articles/?label={{ label }}"><span class="post-label">{{ label }}</span></a>
+        	{% endfor %}
+        </p>
+        <p class="post-description">{{ post.description }} <a class="post-link2" href="{{ post.url | prepend: site.baseurl }}">继续阅读...</a></p>
+      </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
 
 <!-- Pager indicator -->
 <ul class="pager">
   {% if paginator.previous_page %} {% if paginator.previous_page == 1 %}
   <li class="previous">
     <a href="{{ site.url }}/">
-      &larr; Older
+      &larr; Newer
     </a>
   </li>
   {% else %}
   <li class="previous">
     <a href="{{ site.url }}/page{{ paginator.previous_page }}">
-      &larr; Older
+      &larr; Newer
     </a>
   </li>
   {% endif %} {% endif %} {% if paginator.next_page %}
   <li class="next">
     <a href="{{ site.url }}/page{{ paginator.next_page }}">
-      Newer &rarr;
+      Older &rarr;
     </a>
   </li>
   {% endif %}
 </ul>
+
+<script>
+    jsonp('http://analytics1.sinaapp.com/page.php', {
+        callback: 'getCallback',
+        type: 'getByDomain',
+        domain: 'http://jerryzou.com'
+    });
+
+    function getCallback(result) {
+        for (var i = 0; i < result.length; i++) {
+            $('.visit-count[data-link="'+ result[i].url +'"]').html(result[i].count);
+        }
+    }
+</script>
