@@ -1,6 +1,6 @@
 #jekyll & grunt build
 _site
-release
+#release
 #_includes/head.html
 #pages/1_articles.md
 
