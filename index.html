@@ -22,7 +22,7 @@ sidePart: true
 </div>
 
 <!-- Pager indicator -->
-<ul class="pager clearfix">
+<ul class="pager wrap">
   {% if paginator.previous_page %} {% if paginator.previous_page == 1 %}
   <li class="previous">
     <a href="{{ site.url }}/">
@@ -43,17 +43,3 @@ sidePart: true
   </li>
   {% endif %}
 </ul>
-
-<script>
-    jsonp('http://analytics1.sinaapp.com/page.php', {
-        callback: 'getCallback',
-        type: 'getByDomain',
-        domain: 'http://jerryzou.com'
-    });
-
-    function getCallback(result) {
-        for (var i = 0; i < result.length; i++) {
-            $('.visit-count[data-link="'+ result[i].url +'"]').html(result[i].count);
-        }
-    }
-</script>
