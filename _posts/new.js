@@ -19,7 +19,7 @@ var dateDetail = date.getFullYear() + '-' +
 				(date.getDate() >= 10 ? date.getDate() : '0' + date.getDate()) + '-';
 
 var fileName = process.argv.splice(2)[0] || 'new';
-fileName = dateDetail + fileName + '.html'
+fileName = dateDetail + fileName + '.md';
 
 fs.writeFile(fileName, text, function (err){
 	if(err){
@@ -27,4 +27,4 @@ fs.writeFile(fileName, text, function (err){
 	}else{
 		console.log('Create new passage successfully! The file name is ' + fileName);
 	}
-})
+});
