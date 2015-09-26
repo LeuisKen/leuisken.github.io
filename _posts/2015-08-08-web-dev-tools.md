@@ -10,53 +10,58 @@ description: 我将自己所学到的一些东西，在这里重新整理成一�
 
 我将自己所学到的一些东西，在这里重新整理成一个提纲，希望能给大家一些学习的方向：
 
-工具篇：
+<h3>工具篇：</h3>
 
-一、运行环境
+<h4>一、运行环境</h4>
 
 运行环境，就是指你的代码是在哪里运行的。对于js，主要有浏览器端和服务器端两种环境：
-1.Node.js（io.js）
+<h5>1.Node.js（io.js）</h5>
 
 服务器端环境的代表。前端的同学如果不想学shell之类的脚本，用node写点命令行工具也是很爽的。
 
-2.Chrome浏览器和其他浏览器
+<h5>2.Chrome浏览器和其他浏览器</h5>
 
 一般来说做前端，主流浏览器肯定是必备的：Chrome / Firefox / IE / Safari
 
 对于如何最大限度地使用浏览器给我们开发带来的优势，我将在后面提到。
 
-二、开发工具
+<h4>二、开发工具</h4>
 
-1.编辑器之王：Vim / Emacs
+<h5>1.编辑器之王：Vim / Emacs</h5>
 
 程序员专属，和机械键盘简直绝配。个人感觉最大的优点就是：如果需求紧张，直接在服务器上就用vi改起来，很方便。
 
 另外，完全可以用自己写的脚本来自定义，让你感受自由的最高境界。
 
-2.亲民编辑器：Sublime Text / Atom
+<h5>2.亲民编辑器：Sublime Text / Atom</h5>
 
 Sublime是我的最爱，用了就知道了。
 
-Atom可谓新秀，能与Sublime一战，尤其是针对React的http://nuclide.io/，React专属，值得一试。
+Atom可谓新秀，能与Sublime一战，尤其是针对React的[http://nuclide.io/](http://nuclide.io/)，React专属，值得一试。
 
-3.健全IDE：WebStorm / Hbuilder
+<h5>3.健全IDE：WebStorm / Hbuilder</h5>
 
 说实话，我没用过（单纯是用惯了Sublime觉得有点卡），但是在接触的圈子里，也还是有不少用户的，尤其是WebStrom。Hbuilder是国产神器，也拥有一定用户量。（虽然我试着用了一会儿就卸了吧，但是还是知道下比较好）
 
-三、构建工具
+/**
+	别用Dw
+ */
+
+<h4>三、构建工具</h4>
 
 构建工具我稍微解释一下。一般来说，前端代码上线肯定要压缩的，至少能给用户省不少流量对吧。诸如自动压缩一类的任务，就可以用构建工具自动完成。当然，应用不止这么简单，需求到了，自然就会用到。
 
-1.Grunt
+<h5>1.Grunt</h5>
 
 教程相对亲民，也易用。
 
 参考学习：
 
-http://acgtofe.com/posts/2013/10/grunt-for-automation/
+[http://acgtofe.com/posts/2013/10/grunt-for-automation/](http://acgtofe.com/posts/2013/10/grunt-for-automation/)
 
 以下为压缩css的任务的配置文件：
 
+{% highlight javascript %}
 //Gruntfile.js
 module.exports = function (grunt) {//初始化配置
 	grunt.initConfig({
@@ -78,8 +83,9 @@ module.exports = function (grunt) {//初始化配置
 	grunt.loadNpmTasks('grunt-contrib-cssmin'); //加载npm安装的cssmin模块
 	grunt.registerTask('default', ['cssmin:minify', 'cssmin:combine']); //注册任务
 };
+{% endhighlight %}
 
-2.Gulp
+<h5>2.Gulp</h5>
 
 会写Grunt，一般直接看现成的Gulp也能明白。
 
@@ -87,6 +93,7 @@ module.exports = function (grunt) {//初始化配置
 
 以下为压缩css的任务的配置文件
 
+{% highlight javascript %}
 //Gulpfile.js
 var gulp = require("gulp"),
 	mincss = require("gulp-minify-css"),
@@ -104,10 +111,11 @@ gulp.task("mincss", function () {
 gulp.task("default", ["clean"], function () {
 	gulp.start("mincss");//clear任务执行时，执行压缩。start方法可传入多个任务参数，表依次执行
 });
+{% endhighlight %}
 
-四、测试工具
+<h4>四、测试工具</h4>
 
-1.单元测试
+<h5>1.单元测试</h5>
 
 说真的，有段时间测试很流行，也诞生了一系列js的测试方法，有兴趣的可以看看《编写可测试的JavaScript》和《测试驱动的JavaScript》。测试驱动开发（TDD）也是敏捷开发里面常提到的东西。
 
@@ -117,19 +125,19 @@ gulp.task("default", ["clean"], function () {
 
 1.1前端单元测试Qunit
 
-http://www.zhangxinxu.com/wordpress/?p=3170（张大神博文镇楼，本人最爱博客之一）
+[http://www.zhangxinxu.com/wordpress/?p=3170](http://www.zhangxinxu.com/wordpress/?p=3170)（张大神博文镇楼，本人最爱博客之一）
 
 1.2后端单元测试NodeUnit / Node自带的Assert模块 / Mocha
 
 由于没有接触过相关的东西，缺乏感悟，辛苦大家自行捉摸咯。
 
-2.性能测试
+<h5>2.性能测试</h5>
 
 web页面怎么能少的了对性能的追求呢，在可控的范围内，用户看到页面所需的加载时间越短，自然是越容易受到青睐。
 
 2.1 PageSpeed Insights（页面性能）
 
-https://developers.google.com/speed/pagespeed 在线工具，让google给你建议吧。
+[https://developers.google.com/speed/pagespeed](https://developers.google.com/speed/pagespeed) 在线工具，让google给你建议吧。
 
 页面性能方面还有其他工具，比如Chrome_Dev_Tools里面的Audits，火狐下的Yslow。
 
@@ -137,17 +145,17 @@ https://developers.google.com/speed/pagespeed 在线工具，让google给你建�
 
 估计当了SA的话，肯定要接触的东西吧（我没干过SA并不知道）。
 
-五、调试工具
+<h4>五、调试工具</h4>
 
-1.浏览器系列
+<h5>1.浏览器系列</h5>
 
 Chrome开发者工具，我的最爱，想深入学习请看官方文档，简单入门可看下面链接
 
-http://www.cnblogs.com/constantince/category/712675.html
+[http://www.cnblogs.com/constantince/category/712675.html](http://www.cnblogs.com/constantince/category/712675.html)
 
-http://www.kazaff.me/tag/chrome/
+[http://www.kazaff.me/tag/chrome/](http://www.kazaff.me/tag/chrome/)
 
-http://frontenddev.org/link/js-memory-leak-screening-method-chrome-profiles.html
+[http://frontenddev.org/link/js-memory-leak-screening-method-chrome-profiles.html](http://frontenddev.org/link/js-memory-leak-screening-method-chrome-profiles.html)
 
 尤其是最后一篇，内存泄漏可是不得不管的一个问题哦。
 
@@ -157,27 +165,27 @@ http://frontenddev.org/link/js-memory-leak-screening-method-chrome-profiles.html
 
 关于手机的调试，现在可以说已经很方便了：Chrome Inspect / Safari Inspect / UC浏览器开发者版本 / QQ浏览器都有着自己的解决方案。UC和QQ见下方链接：
 
-UC：http://www.cnblogs.com/constantince/p/4711098.html
-QQ：http://bbs.mb.qq.com/thread-227056-1-1.html
+UC：[http://www.cnblogs.com/constantince/p/4711098.html](http://www.cnblogs.com/constantince/p/4711098.html)
+QQ：[http://bbs.mb.qq.com/thread-227056-1-1.html](http://bbs.mb.qq.com/thread-227056-1-1.html)
 
-2.Http抓包工具——Fiddler
+<h5>2.Http抓包工具——Fiddler</h5>
 
 之前在处理手机页面debug的时候，看到过不少推荐使用Fiddler抓包来debug的方案，但是没有尝试过，不敢妄言。
 
 推荐几款Fiddler插件，希望对大家有帮助：
 
-Rosin：https://github.com/AlloyTeam/Rosin
-SSI Proxy：http://tid.tenpay.com/labs/ssiproxy/index.html
-Willow：http://tid.tenpay.com/?p=3011
+Rosin：[https://github.com/AlloyTeam/Rosin](https://github.com/AlloyTeam/Rosin)
+SSI Proxy：[http://tid.tenpay.com/labs/ssiproxy/index.html](http://tid.tenpay.com/labs/ssiproxy/index.html)
+Willow：[http://tid.tenpay.com/?p=3011](http://tid.tenpay.com/?p=3011)
 
-框架篇：
+<h3>框架篇：</h3>
 
 以后再说，先给大家看个好东西：
-http://todomvc.com/
+[http://todomvc.com/](http://todomvc.com/)
 
-工作室前端代码规范：（制定中。。。）
+<h3>工作室前端代码规范：（制定中。。。）</h3>
 
 主要参考腾讯AlloyTeam和BaiduFECodeStyle来制定，大家可以先观摩一下这两个规范：
 
-http://alloyteam.github.io/CodeGuide/
-https://github.com/ecomfe/spec
+[http://alloyteam.github.io/CodeGuide/](http://alloyteam.github.io/CodeGuide/)
+[https://github.com/ecomfe/spec](https://github.com/ecomfe/spec)
