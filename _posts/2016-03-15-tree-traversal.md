@@ -1,5 +1,5 @@
 ---
-title: [转]JS中的二叉树遍历
+title: 转:JS中的二叉树遍历
 labels: [算法]
 description: 简单介绍js中的递归遍历和非递归遍历
 ---
