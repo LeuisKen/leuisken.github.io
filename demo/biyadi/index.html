@@ -12,6 +12,8 @@
   <script type="text/javascript" src="./scripts/css3d.js"></script>
 </head>
 <body scroll="no">
+  <div class="layer" id="layer"></div>
+  <div class="back" id="back"></div>
   <div id="main">
     <div id="world"></div>
     <div id="start"></div>
@@ -21,663 +23,1099 @@
     <div id="page5"></div>
     <div id="page6"></div>
     <div id="page7"></div>
+    <div id="page8"></div>
+    <div id="page9"></div>
+    <div id="page10"></div>
+    <div id="page11">
+      <div class="main">
+        <div class="last" id="last">
+          <video></video>
+          <div class="text1"></div>
+          <div class="text2"></div>
+          <div class="btn"></div>
+        </div>
+      </div>
+    </div>
+    <div id="page12">
+      <div class="form" id="form">
+        <form>
+          <div class="name"><input type="text"></div>
+          <div class="phone"><input type="text"></div>
+          <div class="add">
+            <select>
+              <option>龙岗区</option>
+              <option>宝安区</option>
+              <option>龙华新区</option>
+              <option>福田区</option>
+              <option>南山区</option>
+            </select>
+          </div>
+          <input class="submit" type="submit" value="提交">
+        </form>
+      </div>
+    </div>
   </div>
 </body>
 <script type="text/javascript">
 
-var stage = new C3D.Stage() 
-stage.size(window.innerWidth, window.innerHeight).material({
-  color: '#000000',
-  image: './images/index_bg.jpg'
-}).update()
+document.getElementsByTagName('body')[0].style.width = window.innerWidth + 'px'
+document.getElementsByTagName('body')[0].style.height = window.innerHeight + 'px'
 
-document.getElementById('world').appendChild(stage.el)
+document.getElementById('page11').style.width = window.innerWidth + 'px'
+document.getElementById('page11').style.height = window.innerHeight + 'px'
 
-var indexSprite = new C3D.Sprite()
-indexSprite.position(0, 0, -600).update()
-stage.addChild(indexSprite)
+document.getElementById('page12').style.width = window.innerWidth + 'px'
+document.getElementById('page12').style.height = window.innerHeight + 'px'
 
-var car = new C3D.Plane()
-car.size(430, 342).position(0, 0, -9000).material({
-  image: './images/index_car.png'
-}).update()
-
-indexSprite.addChild(car)
-
-var charSprite = new C3D.Sprite()
-charSprite.position(0, 250, 0).update()
-indexSprite.addChild(charSprite)
-
-var largeChar = new C3D.Plane()
-largeChar.size(204, 100).position(0, 300, 300).material({
-  image: './images/index_char_lar.png'
-}).update()
-
-charSprite.addChild(largeChar)
-
-var smallChar = new C3D.Plane()
-smallChar.size(305, 37).position(0, 300, 300).rotation(0, 0, 180).material({
-  image: './images/index_char_sm.png'
-}).update()
-
-charSprite.addChild(smallChar)
-
-//刷新场景
-requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||
-function(callback) {
-  setTimeout(callback, 1000 / 60);
-};
-
-function changeStage() {
-  document.getElementById('main').style.top = -window.innerHeight + 'px'
-  requestAnimationFrame(s1);
-  document.removeEventListener('click', changeStage)
+document.getElementsByClassName('btn')[0].onclick = function() {
+  document.getElementById('main').style.top = -window.innerHeight*12 + 'px'
 }
 
-function go() {
-  if (car.z < -300) {
-    car.move(0, 0, 200).update()
-  } else if (largeChar.z > 0) {
-    largeChar.move(0, -10, -10).update()
-  }
-  if (largeChar.z < 150) {
-    smallChar.move(0, -10, -10).rotation(0, 0, smallChar.rotationZ - 6).update()
+var imgs = [
+  './images/11_back.jpg',
+  './images/11_btn.png',
+  './images/11_text1.png',
+  './images/11_text2.png',
+  './images/12_back.png',
+  './images/12_border.png',
+  './images/12_in1.png',
+  './images/12_in2.png',
+  './images/12_in3.png',
+  './images/12_sub.png',
+  './images/index_bg.jpg',
+  './images/index_car.png',
+  './images/index_char_lar.png',
+  './images/index_char_sm.png',
+  './images/page_rect.png',
+  './images/page1_bg.jpg',
+  './images/page1_car.png',
+  './images/page1_char_lar.png',
+  './images/page1_char_sm.png',
+  './images/page2_bg.jpg',
+  './images/page2_car.png',
+  './images/page2_char_lar.png',
+  './images/page2_rect.png',
+  './images/page3_bg.jpg',
+  './images/page3_char_lar.png',
+  './images/page3_person.png',
+  './images/page4_char.png',
+  './images/page4_line_left.png',
+  './images/page4_line_right.png',
+  './images/page5_band.png',
+  './images/page5_bg.jpg',
+  './images/page5_car.png',
+  './images/page5_char.png',
+  './images/page6_bg.png',
+  './images/page6_car.png',
+  './images/page6_char.png',
+  './images/page7_char.png',
+  './images/page7_s1.png',
+  './images/page7_s2.png',
+  './images/page7_s3.png',
+  './images/page7_s4.png',
+  './images/page8_char.png',
+  './images/page8_line_down.png',
+  './images/page8_line_up.png',
+  './images/page9_4G.png',
+  './images/page9_char.png',
+  './images/page9_signal_left1.png',
+  './images/page9_signal_left2.png',
+  './images/page9_signal_left3.png',
+  './images/page9_signal_right1.png',
+  './images/page9_signal_right2.png',
+  './images/page9_signal_right3.png',
+  './images/page9_tel.png',
+  './images/page10_s1.jpg',
+  './images/page10_s2.jpg',
+  './images/page10_s3.jpg',
+  './images/page10_s4.jpg'
+];
+function callback () {
+  render()
+}
+loadImg(imgs,callback)
+
+function loadImg (imgs,callback) {
+  var imgsLen = imgs.length;
+  var back = document.getElementById('back');
+  var loaded = 0;
+  var layer = document.getElementById('layer');
+  for (var i = 0; i < imgsLen; i++) {
+    var imgDOM = document.createElement('img');
+    imgDOM.src = imgs[i];
+    imgDOM.onload = function () {
+      loaded++
+      back.style.width = (loaded / imgsLen * 36 + 32) + '%' //32 - 67 35
+      if (loaded == imgsLen) {
+        setTimeout(function () {
+          layer.style.display = "none";
+          back.style.display = "none";
+          callback()
+        },500)
+        
+      };
+    }
+    
   };
-  if (largeChar.z <= 0 && smallChar.rotationZ === 0) {
-    document.addEventListener('click', changeStage)
-    return 
+}
+
+function render() {
+  var stage = new C3D.Stage() 
+  stage.size(window.innerWidth, window.innerHeight).material({
+    color: '#000000',
+    image: './images/index_bg.jpg'
+  }).update()
+
+  document.getElementById('world').appendChild(stage.el)
+
+  var indexSprite = new C3D.Sprite()
+  indexSprite.position(0, 0, -600).update()
+  stage.addChild(indexSprite)
+
+  var car = new C3D.Plane()
+  car.size(430, 342).position(0, 0, -9000).material({
+    image: './images/index_car.png'
+  }).update()
+
+  indexSprite.addChild(car)
+
+  var charSprite = new C3D.Sprite()
+  charSprite.position(0, 250, 0).update()
+  indexSprite.addChild(charSprite)
+
+  var largeChar = new C3D.Plane()
+  largeChar.size(204, 100).position(0, 300, 300).material({
+    image: './images/index_char_lar.png'
+  }).update()
+
+  charSprite.addChild(largeChar)
+
+  var smallChar = new C3D.Plane()
+  smallChar.size(305, 37).position(0, 300, 300).rotation(0, 0, 180).material({
+    image: './images/index_char_sm.png'
+  }).update()
+
+  charSprite.addChild(smallChar)
+
+  //刷新场景
+  requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||
+  function(callback) {
+    setTimeout(callback, 1000 / 60);
+  };
+
+  function changeStage() {
+    document.getElementById('main').style.top = -window.innerHeight + 'px'
+    requestAnimationFrame(s1);
+    document.removeEventListener('click', changeStage)
   }
+
+  function go() {
+    if (car.z < -300) {
+      car.move(0, 0, 200).update()
+    } else if (largeChar.z > 0) {
+      largeChar.move(0, -10, -10).update()
+    }
+    if (largeChar.z < 150) {
+      smallChar.move(0, -10, -10).rotation(0, 0, smallChar.rotationZ - 6).update()
+    };
+    if (largeChar.z <= 0 && smallChar.rotationZ === 0) {
+      document.addEventListener('click', changeStage)
+      return 
+    }
+    requestAnimationFrame(go);
+  }
+
   requestAnimationFrame(go);
-}
 
-requestAnimationFrame(go);
+  var mainStage = new C3D.Stage()
+  mainStage.size(window.innerWidth, window.innerHeight).material({
+    color: '#cccccc',
+    image: './images/page1_bg.jpg'
+  }).update()
 
-var mainStage = new C3D.Stage()
-mainStage.size(window.innerWidth, window.innerHeight).material({
-  color: '#cccccc',
-  image: './images/page1_bg.jpg'
-}).update()
+  document.getElementById('start').appendChild(mainStage.el)
 
-document.getElementById('start').appendChild(mainStage.el)
+  var page1 = new C3D.Plane()
+  page1.origin(0, 0, 0).position(0, 0, -800).update()
+  mainStage.addChild(page1)
 
-var page1 = new C3D.Plane()
-page1.origin(0, 0, 0).position(0, 0, -800).update()
-mainStage.addChild(page1)
+  var page1Car = new C3D.Plane()
+  page1Car.size(569, 319, 20).position(-3000, -1000, -8200).material({
+    image: './images/page1_car.png'
+  }).update()
+  page1.addChild(page1Car)
 
-var page1Car = new C3D.Plane()
-page1Car.size(569, 319, 20).position(-3000, -1000, -8200).material({
-  image: './images/page1_car.png'
-}).update()
-page1.addChild(page1Car)
+  var page1Sprite = C3D.create({
+    type: 'sprite',
+    position: [-700, -970, 0],
+    children: [
+      {
+        type: 'plane',
+        size: [1000, 900],
+        position: [0, 0, 0],
+        material: [{image: './images/page_rect.png'}]
+      },
+      {
+        type: 'plane',
+        size: [417, 57],
+        position: [0, 0, 0],
+        material: [{image: './images/page1_char_sm.png'}]
+      },
+      {
+        type: 'plane',
+        size: [210, 94],
+        position: [200, 110, 0],
+        material: [{image: './images/page1_char_lar.png'}]
+      }
+    ]
+  }).update()
+  page1.addChild(page1Sprite)
 
-var page1Sprite = C3D.create({
-  type: 'sprite',
-  position: [-700, -970, 0],
-  children: [
-    {
-      type: 'plane',
-      size: [1000, 900],
-      position: [0, 0, 0],
-      material: [{image: './images/page_rect.png'}]
-    },
-    {
-      type: 'plane',
-      size: [417, 57],
-      position: [0, 0, 0],
-      material: [{image: './images/page1_char_sm.png'}]
-    },
-    {
-      type: 'plane',
-      size: [210, 94],
-      position: [200, 110, 0],
-      material: [{image: './images/page1_char_lar.png'}]
-    }
-  ]
-}).update()
-page1.addChild(page1Sprite)
+  var page2Sprite = C3D.create({
+    type: 'sprite',
+    position: [0, 0, 0],
+    rotation: [0, 270, 0],
+    children: [
+      {
+        type: 'plane',
+        position: [0, 0, -85],
+        size: [window.innerWidth, window.innerHeight],
+        material: [{image: './images/page2_bg.jpg'}]
+      }
+    ]
+  })
 
-var page2Sprite = C3D.create({
-  type: 'sprite',
-  position: [0, 0, 0],
-  rotation: [0, 270, 0],
-  children: [
-    {
-      type: 'plane',
-      position: [0, 0, -85],
-      size: [window.innerWidth, window.innerHeight],
-      material: [{image: './images/page2_bg.jpg'}]
-    }
-  ]
-})
+  mainStage.addChild(page2Sprite)
 
-mainStage.addChild(page2Sprite)
-
-function s1() {
-  if (page1Car.z < 0) {
-    page1Car.move(72, 30.952380, 200).update()
-  } else if (page1Sprite.x < 0) {
-    page1Sprite.move(20, 20, 0).update()
-  } else if(page1.rotationY !== 90) {
-    if (page1.rotationY === 0) {
-      setTimeout(function() {
-        page1.rotationY += 3
-        requestAnimationFrame(s1);
-      }, 1000)
-      return
-    }
-    page1.rotate(0, 3, 0).update()
-  } else {
-    page2Sprite.rotate(0, 3, 0).update()
-    if (page2Sprite.rotationY === 360) {
-      document.getElementById('main').style.top = -window.innerHeight*2 + 'px'
-      requestAnimationFrame(s2);
-      return 
-    }
-  }
-  requestAnimationFrame(s1);
-}
-
-var page2Stage = new C3D.Stage()
-page2Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
-  image: './images/page2_bg.jpg'
-}).update()
-document.getElementById('page2').appendChild(page2Stage.el)
-
-var page2 = new C3D.Plane()
-page2.origin(0, 0, 0).position(0, 0, -800).update()
-page2Stage.addChild(page2)
-
-var page2Car = new C3D.Plane()
-page2Car.size(569, 319, 20).position(3000, -1000, -8200).material({
-  image: './images/page2_car.png'
-}).update()
-page2.addChild(page2Car)
-
-var page2SpriteExtra = C3D.create({
-  type: 'sprite',
-  position: [800, -1050, 0],
-  children: [
-    {
-      type: 'plane',
-      size: [1000, 900],
-      position: [0, 0, 0],
-      material: [{image: './images/page2_rect.png'}]
-    },
-    {
-      type: 'plane',
-      size: [356, 147],
-      position: [0, 0, 0],
-      material: [{image: './images/page2_char_lar.png'}]
-    }
-  ]
-}).update()
-page2.addChild(page2SpriteExtra)
-
-var page3Sprite = C3D.create({
-  type: 'sprite',
-  position: [0, 0, 0],
-  rotation: [270, 0, 0],
-  children: [
-    {
-      type: 'plane',
-      position: [0, 0, -260],
-      size: [window.innerWidth, window.innerHeight],
-      material: [{image: './images/page3_bg.jpg'}]
-    }
-  ]
-})
-
-page2Stage.addChild(page3Sprite)
-
-function s2() {
-  if (page2Car.z < 0) {
-    page2Car.move(-72, 30.952380, 200).update()
-  } else if (page2SpriteExtra.x > 0) {
-    page2SpriteExtra.move(-20, 20, 0).update()
-  } else if (page2.rotationX !== 90) {
-    if (page2.rotationX === 0) {
-      setTimeout(function() {
-        page2.rotationX += 3
+  function s1() {
+    if (page1Car.z < 0) {
+      page1Car.move(72, 30.952380, 200).update()
+    } else if (page1Sprite.x < 0) {
+      page1Sprite.move(20, 20, 0).update()
+    } else if(page1.rotationY !== 90) {
+      if (page1.rotationY === 0) {
+        setTimeout(function() {
+          page1.rotationY += 3
+          requestAnimationFrame(s1);
+        }, 1000)
+        return
+      }
+      page1.rotate(0, 3, 0).update()
+    } else {
+      page2Sprite.rotate(0, 3, 0).update()
+      if (page2Sprite.rotationY === 360) {
+        document.getElementById('main').style.top = -window.innerHeight*2 + 'px'
         requestAnimationFrame(s2);
-      }, 1000)
-      return
+        return 
+      }
     }
-    page2.rotate(3, 0, 0).update()
-  } else {
-    page3Sprite.rotate(3, 0, 0).update()
-    if (page3Sprite.rotationX === 360) {
-      document.getElementById('main').style.top = -window.innerHeight*3 + 'px'
-      requestAnimationFrame(s3);
-      return 
-    }
+    requestAnimationFrame(s1);
   }
-  requestAnimationFrame(s2);
-}
 
-var page3Stage = new C3D.Stage()
-page3Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
-  image: './images/page3_bg.jpg'
-}).update()
-document.getElementById('page3').appendChild(page3Stage.el)
+  var page2Stage = new C3D.Stage()
+  page2Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+    image: './images/page2_bg.jpg'
+  }).update()
+  document.getElementById('page2').appendChild(page2Stage.el)
 
-var page3 = new C3D.Plane()
-page3.origin(0, 0, 0).position(0, 0, -800).update()
-page3Stage.addChild(page3)
+  var page2 = new C3D.Plane()
+  page2.origin(0, 0, 0).position(0, 0, -800).update()
+  page2Stage.addChild(page2)
 
-var page3SpriteExtra = C3D.create({
-  type: 'sprite',
-  position: [1000, 0, 0],
-  children: [
-    {
-      type: 'plane',
-      size: [800, 416],
-      scale: [2, 2, 1],
-      position: [0, 0, 0],
-      material: [{image: './images/page3_person.png'}]
-    },
-    {
-      type: 'plane',
-      name: 'text',
-      size: [478, 202],
-      position: [0, 200, 0],
-      material: [{image: './images/page3_char_lar.png'}]
-    }
-  ]
-}).update()
-page3SpriteExtra.text.alpha = 0
-page3SpriteExtra.text.update()
-page3.addChild(page3SpriteExtra)
+  var page2Car = new C3D.Plane()
+  page2Car.size(569, 319, 20).position(3000, -1000, -8200).material({
+    image: './images/page2_car.png'
+  }).update()
+  page2.addChild(page2Car)
 
-var page3Car = new C3D.Plane()
-page3Car.size(569, 319, 20).position(-3000, -1000, -8200).material({
-  image: './images/page1_car.png'
-}).update()
-page3.addChild(page3Car)
+  var page2SpriteExtra = C3D.create({
+    type: 'sprite',
+    position: [800, -1050, 0],
+    children: [
+      {
+        type: 'plane',
+        size: [1000, 900],
+        position: [0, 0, 0],
+        material: [{image: './images/page2_rect.png'}]
+      },
+      {
+        type: 'plane',
+        size: [356, 147],
+        position: [0, 0, 0],
+        material: [{image: './images/page2_char_lar.png'}]
+      }
+    ]
+  }).update()
+  page2.addChild(page2SpriteExtra)
 
-var page4Sprite = C3D.create({
-  type: 'sprite',
-  position: [0, 0, 0],
-  rotation: [270, 0, 0],
-  children: [
-    {
-      type: 'plane',
-      position: [0, 0, -260],
-      size: [window.innerWidth, window.innerHeight],
-      material: [{image: './images/page1_bg.jpg'}]
-    }
-  ]
-})
+  var page3Sprite = C3D.create({
+    type: 'sprite',
+    position: [0, 0, 0],
+    rotation: [270, 0, 0],
+    children: [
+      {
+        type: 'plane',
+        position: [0, 0, -260],
+        size: [window.innerWidth, window.innerHeight],
+        material: [{image: './images/page3_bg.jpg'}]
+      }
+    ]
+  })
 
-page3Stage.addChild(page4Sprite)
+  page2Stage.addChild(page3Sprite)
 
-function s3() {
-  if (page3Car.z < 0) {
-    page3Car.move(72, 21.42857, 200).update()
-  } else if (page3SpriteExtra.x > 0) {
-    page3SpriteExtra.move(-20, 0, 0).update()
-  } else if (page3SpriteExtra.text.alpha < 1) {
-    page3SpriteExtra.text.alpha += 0.02
-    page3SpriteExtra.text.update()
-  } else if (page3.rotationX !== 90) {
-    if (page3.rotationX === 0) {
-      setTimeout(function() {
-        page3.rotationX += 3
+  function s2() {
+    if (page2Car.z < 0) {
+      page2Car.move(-72, 30.952380, 200).update()
+    } else if (page2SpriteExtra.x > 0) {
+      page2SpriteExtra.move(-20, 20, 0).update()
+    } else if (page2.rotationX !== 90) {
+      if (page2.rotationX === 0) {
+        setTimeout(function() {
+          page2.rotationX += 3
+          requestAnimationFrame(s2);
+        }, 1000)
+        return
+      }
+      page2.rotate(3, 0, 0).update()
+    } else {
+      page3Sprite.rotate(3, 0, 0).update()
+      if (page3Sprite.rotationX === 360) {
+        document.getElementById('main').style.top = -window.innerHeight*3 + 'px'
         requestAnimationFrame(s3);
-      }, 1000)
-      return
+        return 
+      }
     }
-    page3.rotate(3, 0, 0).update()
-  } else {
-    page4Sprite.rotate(3, 0, 0).update()
-    if (page4Sprite.rotationX === 360) {
-      document.getElementById('main').style.top = -window.innerHeight*4 + 'px'
-      requestAnimationFrame(s4);
-      return 
-    }
+    requestAnimationFrame(s2);
   }
-  requestAnimationFrame(s3);
-}
 
-var page4Stage = new C3D.Stage()
-page4Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
-  image: './images/page1_bg.jpg'
-}).update()
-document.getElementById('page4').appendChild(page4Stage.el)
+  var page3Stage = new C3D.Stage()
+  page3Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+    image: './images/page3_bg.jpg'
+  }).update()
+  document.getElementById('page3').appendChild(page3Stage.el)
 
-var page4 = new C3D.Plane()
-page4.origin(0, 0, 0).position(0, 0, -800).update()
-page4Stage.addChild(page4)
+  var page3 = new C3D.Plane()
+  page3.origin(0, 0, 0).position(0, 0, -800).update()
+  page3Stage.addChild(page3)
 
-var page4Container = C3D.create({
-  type: 'sprite',
-  position: [0, 0, 0],
-  children: [
-    {
-      type: 'plane',
-      name: 'text',
-      position: [0, 0, 0],
-      size: [203, 540],
-      material: [{image: './images/page4_char.png'}]
-    },
-    {
-      type: 'plane',
-      name: 'left_line',
-      position: [0, 0, 0],
-      size: [338, 2696],
-      material: [{image: './images/page4_line_left.png'}]
-    },
-    {
-      type: 'plane',
-      name: 'right_line',
-      position: [0, 0, 0],
-      size: [565, 2569],
-      material: [{image: './images/page4_line_right.png'}]
-    }
-  ]
-})
+  var page3SpriteExtra = C3D.create({
+    type: 'sprite',
+    position: [1000, 0, 0],
+    children: [
+      {
+        type: 'plane',
+        size: [800, 416],
+        scale: [2, 2, 1],
+        position: [0, 0, 0],
+        material: [{image: './images/page3_person.png'}]
+      },
+      {
+        type: 'plane',
+        name: 'text',
+        size: [478, 202],
+        position: [0, 200, 0],
+        material: [{image: './images/page3_char_lar.png'}]
+      }
+    ]
+  }).update()
+  page3SpriteExtra.text.alpha = 0
+  page3SpriteExtra.text.update()
+  page3.addChild(page3SpriteExtra)
 
-page4Container.text.alpha = 0
-page4Container.text.update()
-page4.addChild(page4Container)
+  var page3Car = new C3D.Plane()
+  page3Car.size(569, 319, 20).position(-3000, -1000, -8200).material({
+    image: './images/page1_car.png'
+  }).update()
+  page3.addChild(page3Car)
 
-var page5Sprite = C3D.create({
-  type: 'sprite',
-  position: [0, 0, 0],
-  rotation: [270, 0, 0],
-  children: [
-    {
-      type: 'plane',
-      position: [0, 0, -260],
-      size: [window.innerWidth, window.innerHeight],
-      material: [{image: './images/page5_bg.jpg'}]
-    }
-  ]
-})
+  var page4Sprite = C3D.create({
+    type: 'sprite',
+    position: [0, 0, 0],
+    rotation: [270, 0, 0],
+    children: [
+      {
+        type: 'plane',
+        position: [0, 0, -260],
+        size: [window.innerWidth, window.innerHeight],
+        material: [{image: './images/page1_bg.jpg'}]
+      }
+    ]
+  })
 
-page4Stage.addChild(page5Sprite)
+  page3Stage.addChild(page4Sprite)
 
-function s4() {
-  if (page4Container.left_line.x > -500) {
-    page4Container.left_line.move(-10, -20, 0).update()
-    page4Container.right_line.move(10, 20, 0).update()
-    page4Container.text.alpha += 0.02
-    page4Container.text.update()
-  } else if (page4.rotationX !== 90) {
-    if (page4.rotationX === 0) {
-      setTimeout(function() {
-        page4.rotationX += 3
+  function s3() {
+    if (page3Car.z < 0) {
+      page3Car.move(72, 21.42857, 200).update()
+    } else if (page3SpriteExtra.x > 0) {
+      page3SpriteExtra.move(-20, 0, 0).update()
+    } else if (page3SpriteExtra.text.alpha < 1) {
+      page3SpriteExtra.text.alpha += 0.02
+      page3SpriteExtra.text.update()
+    } else if (page3.rotationX !== 90) {
+      if (page3.rotationX === 0) {
+        setTimeout(function() {
+          page3.rotationX += 3
+          requestAnimationFrame(s3);
+        }, 1000)
+        return
+      }
+      page3.rotate(3, 0, 0).update()
+    } else {
+      page4Sprite.rotate(3, 0, 0).update()
+      if (page4Sprite.rotationX === 360) {
+        document.getElementById('main').style.top = -window.innerHeight*4 + 'px'
         requestAnimationFrame(s4);
-      }, 1000)
-      return
+        return 
+      }
     }
-    page4.rotate(3, 0, 0).update()
-  } else {
-    page5Sprite.rotate(3, 0, 0).update()
-    if (page5Sprite.rotationX === 360) {
-      document.getElementById('main').style.top = -window.innerHeight*5 + 'px'
-      requestAnimationFrame(s5);
-      return 
-    }
+    requestAnimationFrame(s3);
   }
-  requestAnimationFrame(s4);
-}
 
-var page5Stage = new C3D.Stage()
-page5Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
-  image: './images/page5_bg.jpg'
-}).update()
-document.getElementById('page5').appendChild(page5Stage.el)
+  var page4Stage = new C3D.Stage()
+  page4Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+    image: './images/page1_bg.jpg'
+  }).update()
+  document.getElementById('page4').appendChild(page4Stage.el)
 
-var page5 = new C3D.Plane()
-page5.origin(0, 0, 0).position(0, 0, -800).update()
-page5Stage.addChild(page5)
+  var page4 = new C3D.Plane()
+  page4.origin(0, 0, 0).position(0, 0, -800).update()
+  page4Stage.addChild(page4)
 
-var page5Container = C3D.create({
-  type: 'sprite',
-  position: [0, 0, 0],
-  children: [
-    {
-      type: 'plane',
-      name: 'band',
-      position: [0, 1000, 0],
-      size: [809, 339],
-      material: [{image: './images/page5_band.png'}]
-    },
-    {
-      type: 'plane',
-      name: 'car',
-      position: [0, 370, 0],
-      scale: [0, 0, 0],
-      size: [601, 124],
-      material: [{image: './images/page5_car.png'}]
-    },
-    {
-      type: 'plane',
-      name: 'char',
-      position: [0, 0, 0],
-      size: [430, 209],
-      material: [{image: './images/page5_char.png'}]
-    }
-  ]
-})
+  var page4Container = C3D.create({
+    type: 'sprite',
+    position: [0, 0, 0],
+    children: [
+      {
+        type: 'plane',
+        name: 'text',
+        position: [0, 0, 0],
+        size: [203, 540],
+        material: [{image: './images/page4_char.png'}]
+      },
+      {
+        type: 'plane',
+        name: 'left_line',
+        position: [0, 0, 0],
+        size: [338, 2696],
+        material: [{image: './images/page4_line_left.png'}]
+      },
+      {
+        type: 'plane',
+        name: 'right_line',
+        position: [0, 0, 0],
+        size: [565, 2569],
+        material: [{image: './images/page4_line_right.png'}]
+      }
+    ]
+  })
 
-page5Container.char.alpha = 0
-page5Container.char.update()
-page5.addChild(page5Container)
+  page4Container.text.alpha = 0
+  page4Container.text.update()
+  page4.addChild(page4Container)
 
-var page6Sprite = C3D.create({
-  type: 'sprite',
-  position: [0, 0, 0],
-  rotation: [270, 0, 0],
-  children: [
-    {
-      type: 'plane',
-      position: [0, 0, -260],
-      size: [window.innerWidth, window.innerHeight],
-      material: [{image: './images/page6_bg.png'}]
-    }
-  ]
-})
+  var page5Sprite = C3D.create({
+    type: 'sprite',
+    position: [0, 0, 0],
+    rotation: [270, 0, 0],
+    children: [
+      {
+        type: 'plane',
+        position: [0, 0, -260],
+        size: [window.innerWidth, window.innerHeight],
+        material: [{image: './images/page5_bg.jpg'}]
+      }
+    ]
+  })
 
-page5Stage.addChild(page6Sprite)
+  page4Stage.addChild(page5Sprite)
 
-function s5() {
-  if (page5Container.car.scaleX < 1) {
-    page5Container.car.scale(page5Container.car.scaleX + 0.02, page5Container.car.scaleY + 0.02, page5Container.car.scaleX + 0.02).update()
-  } else if (page5Container.band.y > 510) {
-    page5Container.band.move(0, -10, 0).update()
-  } else if (page5Container.char.alpha < 1) {
-    page5Container.char.alpha += 0.02
-    page5Container.char.update()
-  } else if (page5.rotationX !== 90) {
-    if (page5.rotationX === 0) {
-      setTimeout(function() {
-        page5.rotationX += 3
+  function s4() {
+    if (page4Container.left_line.x > -500) {
+      page4Container.left_line.move(-10, -20, 0).update()
+      page4Container.right_line.move(10, 20, 0).update()
+      page4Container.text.alpha += 0.02
+      page4Container.text.update()
+    } else if (page4.rotationX !== 90) {
+      if (page4.rotationX === 0) {
+        setTimeout(function() {
+          page4.rotationX += 3
+          requestAnimationFrame(s4);
+        }, 1000)
+        return
+      }
+      page4.rotate(3, 0, 0).update()
+    } else {
+      page5Sprite.rotate(3, 0, 0).update()
+      if (page5Sprite.rotationX === 360) {
+        document.getElementById('main').style.top = -window.innerHeight*5 + 'px'
         requestAnimationFrame(s5);
-      }, 1000)
-      return
+        return 
+      }
     }
-    page5.rotate(3, 0, 0).update()
-  } else {
-    page6Sprite.rotate(3, 0, 0).update()
-    if (page6Sprite.rotationX === 360) {
-      document.getElementById('main').style.top = -window.innerHeight*6 + 'px'
-      requestAnimationFrame(s6);
+    requestAnimationFrame(s4);
+  }
+
+  var page5Stage = new C3D.Stage()
+  page5Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+    image: './images/page5_bg.jpg'
+  }).update()
+  document.getElementById('page5').appendChild(page5Stage.el)
+
+  var page5 = new C3D.Plane()
+  page5.origin(0, 0, 0).position(0, 0, -800).update()
+  page5Stage.addChild(page5)
+
+  var page5Container = C3D.create({
+    type: 'sprite',
+    position: [0, 0, 0],
+    children: [
+      {
+        type: 'plane',
+        name: 'band',
+        position: [0, 1000, 0],
+        size: [809, 339],
+        material: [{image: './images/page5_band.png'}]
+      },
+      {
+        type: 'plane',
+        name: 'car',
+        position: [0, 370, 0],
+        scale: [0, 0, 0],
+        size: [601, 124],
+        material: [{image: './images/page5_car.png'}]
+      },
+      {
+        type: 'plane',
+        name: 'char',
+        position: [0, 0, 0],
+        size: [430, 209],
+        material: [{image: './images/page5_char.png'}]
+      }
+    ]
+  })
+
+  page5Container.char.alpha = 0
+  page5Container.char.update()
+  page5.addChild(page5Container)
+
+  var page6Sprite = C3D.create({
+    type: 'sprite',
+    position: [0, 0, 0],
+    rotation: [270, 0, 0],
+    children: [
+      {
+        type: 'plane',
+        position: [0, 0, -260],
+        size: [window.innerWidth, window.innerHeight],
+        material: [{image: './images/page6_bg.png'}]
+      }
+    ]
+  })
+
+  page5Stage.addChild(page6Sprite)
+
+  function s5() {
+    if (page5Container.car.scaleX < 1) {
+      page5Container.car.scale(page5Container.car.scaleX + 0.02, page5Container.car.scaleY + 0.02, page5Container.car.scaleX + 0.02).update()
+    } else if (page5Container.band.y > 510) {
+      page5Container.band.move(0, -10, 0).update()
+    } else if (page5Container.char.alpha < 1) {
+      page5Container.char.alpha += 0.02
+      page5Container.char.update()
+    } else if (page5.rotationX !== 90) {
+      if (page5.rotationX === 0) {
+        setTimeout(function() {
+          page5.rotationX += 3
+          requestAnimationFrame(s5);
+        }, 1000)
+        return
+      }
+      page5.rotate(3, 0, 0).update()
+    } else {
+      page6Sprite.rotate(3, 0, 0).update()
+      if (page6Sprite.rotationX === 360) {
+        document.getElementById('main').style.top = -window.innerHeight*6 + 'px'
+        requestAnimationFrame(s6);
+        return 
+      }
+    }
+    requestAnimationFrame(s5);
+  }
+
+  var page6Stage = new C3D.Stage()
+  page6Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+    color: '#000000',
+    image: './images/page6_bg.png'
+  }).update()
+  document.getElementById('page6').appendChild(page6Stage.el)
+
+  var page6 = new C3D.Plane()
+  page6.origin(0, 0, 0).position(0, 0, -700).update()
+  page6Stage.addChild(page6)
+
+  var page6Container = C3D.create({
+    type: 'sprite',
+    position: [0, 0, 0],
+    children: [
+      {
+        type: 'plane',
+        name: 'car',
+        position: [0, 370, 0],
+        size: [644, 337],
+        material: [{image: './images/page6_car.png'}]
+      },
+      {
+        type: 'plane',
+        name: 'char',
+        position: [0, 0, 0],
+        size: [430, 201],
+        material: [{image: './images/page6_char.png'}]
+      }
+    ]
+  })
+
+  page6Container.char.alpha = 0
+  page6Container.char.update()
+  page6.addChild(page6Container)
+
+  function s6() {
+    if (page6Container.car.y < 720) {
+      page6Container.car.move(0, 5, 0).update()
+    } else if (page6Container.char.alpha < 1) {
+      page6Container.char.alpha += 0.02
+      page6Container.char.update()
+    } else if (page6.rotationX !== 90) {
+      if (page6.rotationX === 0) {
+        setTimeout(function() {
+          page6.rotationX += 3
+          requestAnimationFrame(s6);
+        }, 1000)
+        return
+      }
+      page6.rotate(3, 0, 0).update()
+    } else {
+      document.getElementById('main').style.top = -window.innerHeight*7 + 'px'
+      requestAnimationFrame(s7);
       return 
     }
+    requestAnimationFrame(s6);
   }
-  requestAnimationFrame(s5);
-}
 
-var page6Stage = new C3D.Stage()
-page6Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
-  color: '#000000',
-  image: './images/page6_bg.png'
-}).update()
-document.getElementById('page6').appendChild(page6Stage.el)
+  var page7Stage = new C3D.Stage()
+  page7Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+    color: '#000000',
+    image: './images/page5_bg.jpg'
+  }).update()
+  document.getElementById('page7').appendChild(page7Stage.el)
 
-var page6 = new C3D.Plane()
-page6.origin(0, 0, 0).position(0, 0, -700).update()
-page6Stage.addChild(page6)
+  var page7 = new C3D.Plane()
+  page7.origin(0, 0, 0).position(0, 0, -700).update()
+  page7Stage.addChild(page7)
 
-var page6Container = C3D.create({
-  type: 'sprite',
-  position: [0, 0, 0],
-  children: [
-    {
-      type: 'plane',
-      name: 'car',
-      position: [0, 370, 0],
-      size: [644, 337],
-      material: [{image: './images/page6_car.png'}]
-    },
-    {
-      type: 'plane',
-      name: 'char',
-      position: [0, 0, 0],
-      size: [430, 201],
-      material: [{image: './images/page6_char.png'}]
-    }
-  ]
-})
+  var page7Container = C3D.create({
+    type: 'sprite',
+    position: [0, 0, 0],
+    children: [
+      {
+        type: 'plane',
+        name: 's1',
+        position: [0, 250, 0],
+        size: [460, 377],
+        material: [{image: './images/page7_s1.png'}]
+      },
+      {
+        type: 'plane',
+        name: 's2',
+        position: [0, 250, 0],
+        size: [482, 457],
+        material: [{image: './images/page7_s2.png'}]
+      },
+      {
+        type: 'plane',
+        name: 's3',
+        position: [0, 250, 0],
+        size: [518, 457],
+        material: [{image: './images/page7_s3.png'}]
+      },
+      {
+        type: 'plane',
+        name: 's4',
+        position: [0, 250, 0],
+        size: [476, 408],
+        material: [{image: './images/page7_s4.png'}]
+      },
+      {
+        type: 'plane',
+        name: 'car',
+        position: [-3000, -1000, -8200],
+        size: [569, 319],
+        material: [{image: './images/page1_car.png'}]
+      },
+      {
+        type: 'plane',
+        name: 'char',
+        position: [0, 0, 0],
+        size: [539, 274],
+        material: [{image: './images/page7_char.png'}]
+      }
+    ]
+  })
+  page7Container.s1.alpha = 0
+  page7Container.s2.alpha = 0
+  page7Container.s3.alpha = 0
+  page7Container.s4.alpha = 0
+  page7Container.char.alpha = 0
+  page7Container.s1.update()
+  page7Container.s2.update()
+  page7Container.s3.update()
+  page7Container.s4.update()
+  page7Container.char.update()
 
-page6Container.char.alpha = 0
-page6Container.char.update()
-page6.addChild(page6Container)
+  page7.addChild(page7Container)
 
-function s6() {
-  if (page6Container.car.y < 720) {
-    page6Container.car.move(0, 10, 0).update()
-  } else if (page6Container.char.alpha < 1) {
-    page6Container.char.alpha += 0.02
-    page6Container.char.update()
-  } else if (page6.rotationX !== 90) {
-    if (page6.rotationX === 0) {
+  function s7() {
+    if (page7Container.car.z < 0) {
+      page7Container.car.move(36, 15.952380, 100).update()
+      if (page7Container.s1.alpha < 1) {
+        page7Container.s1.alpha += 0.05
+        page7Container.s1.update()
+      } else if (page7Container.s2.alpha < 1) {
+        page7Container.s1.visible = false
+        page7Container.s1.update()
+        page7Container.s2.alpha += 0.05
+        page7Container.s2.update()
+      } else if (page7Container.s3.alpha < 1) {
+        page7Container.s2.visible = false
+        page7Container.s2.update()
+        page7Container.s3.alpha += 0.05
+        page7Container.s3.update()
+      } else if (page7Container.s4.alpha < 1) {
+        page7Container.s3.visible = false
+        page7Container.s3.update()
+        page7Container.s4.alpha += 0.05
+        page7Container.s4.update()
+      }
+    } else if (page7Container.char.alpha < 1) {
+      page7Container.char.alpha += 0.02
+      page7Container.char.update()
+    } else {
       setTimeout(function() {
-        page6.rotationX += 3
-        requestAnimationFrame(s6);
+        document.getElementById('main').style.top = -window.innerHeight*8 + 'px'
+        requestAnimationFrame(s8);
       }, 1000)
       return
     }
-    page6.rotate(3, 0, 0).update()
-  } else {
-    document.getElementById('main').style.top = -window.innerHeight*7 + 'px'
     requestAnimationFrame(s7);
-    return 
   }
-  requestAnimationFrame(s6);
+
+  var page8Stage = new C3D.Stage()
+  page8Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+    color: '#000000',
+    image: './images/page5_bg.jpg'
+  }).update()
+  document.getElementById('page8').appendChild(page8Stage.el)
+
+  var page8 = new C3D.Plane()
+  page8.origin(0, 0, 0).position(0, 0, -700).update()
+  page8Stage.addChild(page8)
+
+  var page8Container = C3D.create({
+    type: 'sprite',
+    position: [0, 0, 0],
+    children: [
+      {
+        type: 'sprite',
+        name: 'line',
+        position: [1600, 400, 0],
+        children: [
+          {
+            type: 'plane',
+            position: [0, 200, 0],
+            size: [2476, 1043],
+            material: [{image: './images/page8_line_up.png'}]
+          },
+          {
+            type: 'plane',
+            position: [0, 700, 0],
+            size: [2319, 878],
+            material: [{image: './images/page8_line_down.png'}]
+          },
+        ]
+      },
+      {
+        type: 'plane',
+        name: 'car',
+        position: [-600, 320, 0],
+        size: [569, 319],
+        material: [{image: './images/page1_car.png'}]
+      },
+      {
+        type: 'plane',
+        name: 'char',
+        position: [0, -300, 0],
+        size: [527, 201],
+        material: [{image: './images/page8_char.png'}]
+      }
+    ]
+  })
+  page8Container.char.alpha = 0
+  page8Container.char.update()
+
+  page8.addChild(page8Container)
+
+  function s8() {
+    if (page8Container.car.x < 0) {
+      page8Container.car.move(30, 0, 0).update()
+    } else if (page8Container.line.y > 0) {
+      page8Container.line.move(-20, -5, 0).update()
+    } else if (page8Container.char.alpha < 1) {
+      page8Container.char.alpha += 0.02
+      page8Container.char.update()
+    } else {
+      setTimeout(function() {
+        document.getElementById('main').style.top = -window.innerHeight*9 + 'px'
+        requestAnimationFrame(s9);
+      }, 1000)
+      return
+    }
+    requestAnimationFrame(s8);
+  }
+
+  var page9Stage = new C3D.Stage()
+  page9Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+    color: '#000000',
+    image: './images/page5_bg.jpg'
+  }).update()
+  document.getElementById('page9').appendChild(page9Stage.el)
+
+  var page9 = new C3D.Plane()
+  page9.origin(0, 0, 0).position(0, 0, -700).update()
+  page9Stage.addChild(page9)
+
+  var page9Container = C3D.create({
+    type: 'sprite',
+    position: [0, 0, 0],
+    children: [
+      {
+        type: 'plane',
+        position: [0, 178, -195],
+        name: 'car',
+        size: [569, 319],
+        material: [{image: './images/page1_car.png'}]
+      },
+      {
+        type: 'plane',
+        position: [-300, 500, -300],
+        name: 'tel',
+        size: [120, 226],
+        material: [{image: './images/page9_tel.png'}]
+      },
+      {
+        type: 'plane',
+        position: [-234, 369, -85],
+        name: '4G',
+        size: [54, 84],
+        material: [{image: './images/page9_4G.png'}]
+      },
+      {
+        type: 'plane',
+        position: [-220, 48, 0],
+        name: 'signal_left1',
+        size: [32, 74],
+        material: [{image: './images/page9_signal_left1.png'}]
+      },
+      {
+        type: 'plane',
+        position: [-240, 45, 0],
+        name: 'signal_left2',
+        size: [46, 96],
+        material: [{image: './images/page9_signal_left2.png'}]
+      },
+      {
+        type: 'plane',
+        position: [-265, 45, 0],
+        name: 'signal_left3',
+        size: [58, 117],
+        material: [{image: './images/page9_signal_left3.png'}]
+      },
+      {
+        type: 'plane',
+        position: [225, 85, 0],
+        name: 'signal_right1',
+        size: [27, 58],
+        material: [{image: './images/page9_signal_right1.png'}]
+      },
+      {
+        type: 'plane',
+        position: [245, 85, 0],
+        name: 'signal_right2',
+        size: [47, 90],
+        material: [{image: './images/page9_signal_right2.png'}]
+      },
+      {
+        type: 'plane',
+        position: [275, 85, 0],
+        name: 'signal_right3',
+        size: [45, 122],
+        material: [{image: './images/page9_signal_right3.png'}]
+      },
+      {
+        type: 'plane',
+        position: [50, -200, 0],
+        name: 'char',
+        size: [476, 130],
+        material: [{image: './images/page9_char.png'}]
+      }
+    ]
+  })
+
+  page9Container.car.alpha = 0
+  page9Container.tel.alpha = 0
+  page9Container['4G'].alpha = 0
+  page9Container.signal_left1.alpha = 0
+  page9Container.signal_left2.alpha = 0
+  page9Container.signal_left3.alpha = 0
+  page9Container.signal_right1.alpha = 0
+  page9Container.signal_right2.alpha = 0
+  page9Container.signal_right3.alpha = 0
+  page9Container.char.alpha = 0
+
+  page9Container.car.update()
+  page9Container.tel.update()
+  page9Container['4G'].update()
+  page9Container.signal_left1.update()
+  page9Container.signal_left2.update()
+  page9Container.signal_left3.update()
+  page9Container.signal_right1.update()
+  page9Container.signal_right2.update()
+  page9Container.signal_right3.update()
+  page9Container.char.update()
+
+  page9.addChild(page9Container)
+
+  function s9() {
+    if (page9Container.car.alpha < 1) {
+      page9Container.car.alpha += 0.02
+      page9Container.car.update()
+    } else if (page9Container.tel.alpha < 1) {
+      page9Container.tel.alpha += 0.02
+      page9Container.tel.update()
+    } else if (page9Container['4G'].alpha < 1) {
+      page9Container['4G'].alpha += 0.02
+      page9Container['4G'].update()
+    } else if (page9Container.signal_left1.alpha < 1) {
+      page9Container.signal_left1.alpha += 0.02
+      page9Container.signal_left1.update()
+      page9Container.signal_right1.alpha += 0.02
+      page9Container.signal_right1.update()
+    } else if (page9Container.signal_left2.alpha < 1) {
+      page9Container.signal_left2.alpha += 0.02
+      page9Container.signal_left2.update()
+      page9Container.signal_right2.alpha += 0.02
+      page9Container.signal_right2.update()
+    } else if (page9Container.signal_left3.alpha < 1) {
+      page9Container.signal_left3.alpha += 0.02
+      page9Container.signal_left3.update()
+      page9Container.signal_right3.alpha += 0.02
+      page9Container.signal_right3.update()
+    } else if (page9Container.char.alpha < 1) {
+      page9Container.char.alpha += 0.02
+      page9Container.char.update()
+    } else {
+      setTimeout(function() {
+        document.getElementById('main').style.top = -window.innerHeight*10 + 'px'
+        requestAnimationFrame(s10);
+      }, 1000)
+      return
+    }
+    requestAnimationFrame(s9);
+  }
+
+  var page10Stage = new C3D.Stage()
+  page10Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+    color: '#000000'
+  }).update()
+  document.getElementById('page10').appendChild(page10Stage.el)
+
+  var page10S1 = new C3D.Plane()
+  page10S1.size(643, 1040).position(0, 0, -740).material({
+    image: './images/page10_s1.jpg'
+  }).update()
+
+  var page10S2 = new C3D.Plane()
+  page10S2.size(643, 1040).position(0, 0, -740).rotation(0, 270, 0).material({
+    image: './images/page10_s2.jpg'
+  }).update()
+
+  var page10S3 = new C3D.Plane()
+  page10S3.size(643, 1040).position(0, 0, -740).rotation(0, 270, 0).material({
+    image: './images/page10_s3.jpg'
+  }).update()
+
+  var page10S4 = new C3D.Plane()
+  page10S4.size(643, 1040).position(0, 0, -740).rotation(0, 270, 0).material({
+    image: './images/page10_s4.jpg'
+  }).update()
+
+  page10Stage.addChild(page10S1)
+  page10Stage.addChild(page10S2)
+  page10Stage.addChild(page10S3)
+  page10Stage.addChild(page10S4)
+
+  function s10() {
+    if (page10S1.rotationY < 90) {
+      if (page10S1.rotationY === 0) {
+        setTimeout(function() {
+          page10S1.rotationY += 3
+          requestAnimationFrame(s10);
+        }, 1000)
+        return
+      }
+      page10S1.rotate(0, 3, 0).update()
+    } else if (page10S2.rotationY < 360) {
+      page10S2.rotate(0, 3, 0).update()
+    } else if (page10S2.rotationY < 450) {
+      if (page10S2.rotationY === 360) {
+        setTimeout(function() {
+          page10S2.rotationY += 3
+          requestAnimationFrame(s10);
+        }, 1000)
+        return
+      }
+      page10S2.rotate(0, 3, 0).update()
+    } else if (page10S3.rotationY < 360) {
+      page10S3.rotate(0, 3, 0).update()
+    } else if (page10S3.rotationY < 450) {
+      if (page10S3.rotationY === 360) {
+        setTimeout(function() {
+          page10S3.rotationY += 3
+          requestAnimationFrame(s10);
+        }, 1000)
+        return
+      }
+      page10S3.rotate(0, 3, 0).update()
+    } else if (page10S4.rotationY < 360) {
+      page10S4.rotate(0, 3, 0).update()
+    } else if (page10S4.rotationY < 450) {
+      if (page10S4.rotationY === 360) {
+        setTimeout(function() {
+          page10S4.rotationY += 3
+          requestAnimationFrame(s10);
+        }, 1000)
+        return
+      }
+      page10S4.rotate(0, 3, 0).update()
+    } else {
+      document.getElementById('main').style.top = -window.innerHeight*11 + 'px'
+      return
+    }
+    requestAnimationFrame(s10);
+  }
 }
 
-var page7Stage = new C3D.Stage()
-page7Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
-  color: '#000000',
-  image: './images/page5_bg.jpg'
-}).update()
-document.getElementById('page7').appendChild(page7Stage.el)
-
-var page7 = new C3D.Plane()
-page7.origin(0, 0, 0).position(0, 0, -700).update()
-page7Stage.addChild(page7)
-
-var page7Container = C3D.create({
-  type: 'sprite',
-  position: [0, 0, 0],
-  children: [
-    {
-      type: 'plane',
-      name: 's1',
-      position: [0, 250, 0],
-      size: [460, 377],
-      material: [{image: './images/page7_s1.png'}]
-    },
-    {
-      type: 'plane',
-      name: 's2',
-      position: [0, 250, 0],
-      size: [482, 457],
-      material: [{image: './images/page7_s2.png'}]
-    },
-    {
-      type: 'plane',
-      name: 's3',
-      position: [0, 250, 0],
-      size: [518, 457],
-      material: [{image: './images/page7_s3.png'}]
-    },
-    {
-      type: 'plane',
-      name: 's4',
-      position: [0, 250, 0],
-      size: [476, 408],
-      material: [{image: './images/page7_s4.png'}]
-    },
-    {
-      type: 'plane',
-      name: 'car',
-      position: [-3000, -1000, -8200],
-      size: [569, 319],
-      material: [{image: './images/page1_car.png'}]
-    },
-    {
-      type: 'plane',
-      name: 'char',
-      position: [0, 0, 0],
-      size: [539, 274],
-      material: [{image: './images/page7_char.png'}]
-    }
-  ]
-})
-page7Container.s1.alpha = 0
-page7Container.s2.alpha = 0
-page7Container.s3.alpha = 0
-page7Container.s4.alpha = 0
-page7Container.s1.update()
-page7Container.s2.update()
-page7Container.s3.update()
-page7Container.s4.update()
-
-page7.addChild(page7Container)
-
-function s7() {
-  if (page7Container.car.z < 0) {
-    page7Container.car.move(72, 30.952380, 200).update()
-    if (page7Container.s1.alpha < 1) {
-      page7Container.s1.alpha += 0.1
-      page7Container.s1.update()
-    } else if (page7Container.s2.alpha < 1) {
-      page7Container.s2.alpha += 0.1
-      page7Container.s2.update()
-    } else if (page7Container.s3.alpha < 1) {
-      page7Container.s3.alpha += 0.1
-      page7Container.s3.update()
-    } else if (page7Container.s4.alpha < 1) {
-      page7Container.s4.alpha += 0.1
-      page7Container.s4.update()
-    }
-  } else {
-    return
-  }
-  // else if (page1Sprite.x < 0) {
-  //   page1Sprite.move(20, 20, 0).update()
-  // } else if(page1.rotationY !== 90) {
-  //   if (page1.rotationY === 0) {
-  //     setTimeout(function() {
-  //       page1.rotationY += 3
-  //       requestAnimationFrame(s1);
-  //     }, 1000)
-  //     return
-  //   }
-  //   page1.rotate(0, 3, 0).update()
-  // } else {
-  //   page2Sprite.rotate(0, 3, 0).update()
-  //   if (page2Sprite.rotationY === 360) {
-  //     document.getElementById('main').style.top = -window.innerHeight*2 + 'px'
-  //     requestAnimationFrame(s2);
-  //     return 
-  //   }
-  // }
-  requestAnimationFrame(s7);
-}
+// render()
 
 </script>
 </html>
