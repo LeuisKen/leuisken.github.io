@@ -71,6 +71,12 @@ document.getElementsByClassName('btn')[0].onclick = function() {
   document.getElementById('main').style.top = -window.innerHeight*12 + 'px'
 }
 
+var bgImg = document.createElement('img')
+bgImg.src = './images/back.png'
+bgImg.onload = function() {
+  document.getElementsByClassName('back')[0].style.display = 'block'
+}
+
 var imgs = [
   './images/11_back.jpg',
   './images/11_btn.png',
