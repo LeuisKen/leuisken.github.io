@@ -562,6 +562,7 @@ function s6() {
     page6.rotate(3, 0, 0).update()
   } else {
     document.getElementById('main').style.top = -window.innerHeight*7 + 'px'
+    requestAnimationFrame(s7);
     return 
   }
   requestAnimationFrame(s6);
@@ -585,35 +586,35 @@ var page7Container = C3D.create({
     {
       type: 'plane',
       name: 's1',
-      position: [0, 0, 0],
+      position: [0, 250, 0],
       size: [460, 377],
       material: [{image: './images/page7_s1.png'}]
     },
     {
       type: 'plane',
       name: 's2',
-      position: [0, 0, 0],
+      position: [0, 250, 0],
       size: [482, 457],
       material: [{image: './images/page7_s2.png'}]
     },
     {
       type: 'plane',
       name: 's3',
-      position: [0, 0, 0],
+      position: [0, 250, 0],
       size: [518, 457],
       material: [{image: './images/page7_s3.png'}]
     },
     {
       type: 'plane',
       name: 's4',
-      position: [0, 0, 0],
+      position: [0, 250, 0],
       size: [476, 408],
       material: [{image: './images/page7_s4.png'}]
     },
     {
       type: 'plane',
       name: 'car',
-      position: [0, 0, 0],
+      position: [-3000, -1000, -8200],
       size: [569, 319],
       material: [{image: './images/page1_car.png'}]
     },
@@ -626,8 +627,57 @@ var page7Container = C3D.create({
     }
   ]
 })
+page7Container.s1.alpha = 0
+page7Container.s2.alpha = 0
+page7Container.s3.alpha = 0
+page7Container.s4.alpha = 0
+page7Container.s1.update()
+page7Container.s2.update()
+page7Container.s3.update()
+page7Container.s4.update()
 
 page7.addChild(page7Container)
+
+function s7() {
+  if (page7Container.car.z < 0) {
+    page7Container.car.move(72, 30.952380, 200).update()
+    if (page7Container.s1.alpha < 1) {
+      page7Container.s1.alpha += 0.1
+      page7Container.s1.update()
+    } else if (page7Container.s2.alpha < 1) {
+      page7Container.s2.alpha += 0.1
+      page7Container.s2.update()
+    } else if (page7Container.s3.alpha < 1) {
+      page7Container.s3.alpha += 0.1
+      page7Container.s3.update()
+    } else if (page7Container.s4.alpha < 1) {
+      page7Container.s4.alpha += 0.1
+      page7Container.s4.update()
+    }
+  } else {
+    return
+  }
+  // else if (page1Sprite.x < 0) {
+  //   page1Sprite.move(20, 20, 0).update()
+  // } else if(page1.rotationY !== 90) {
+  //   if (page1.rotationY === 0) {
+  //     setTimeout(function() {
+  //       page1.rotationY += 3
+  //       requestAnimationFrame(s1);
+  //     }, 1000)
+  //     return
+  //   }
+  //   page1.rotate(0, 3, 0).update()
+  // } else {
+  //   page2Sprite.rotate(0, 3, 0).update()
+  //   if (page2Sprite.rotationY === 360) {
+  //     document.getElementById('main').style.top = -window.innerHeight*2 + 'px'
+  //     requestAnimationFrame(s2);
+  //     return 
+  //   }
+  // }
+  requestAnimationFrame(s7);
+}
 
 </script>
 </html>
