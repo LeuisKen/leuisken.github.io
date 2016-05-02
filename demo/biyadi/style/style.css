@@ -136,6 +136,7 @@ body, #wrapper {
   appearance:none;
   -moz-appearance:none;
   -webkit-appearance:none;
+  width: 80px
 }
 .form option{
   font-size: 0.5em
