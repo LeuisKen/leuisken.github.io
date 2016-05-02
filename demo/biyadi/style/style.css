@@ -1,0 +1,28 @@
+#main {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 640px;
+  height: 100%;
+}
+
+#main div {
+  background-position: center;
+  position: relative;
+}
+
+#world, #start, #page2, #page3 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#start > div > div > div > div > div:first-child {
+  z-index: 10
+}
+
+#start > div > div > div > div > div:last-child {
+  z-index: -1
+}

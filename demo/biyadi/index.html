@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=640, target-densitydpi=device-dpi, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="description" content="比亚迪元，给你想要的青春。">
+  <title>这不是我要的青春</title>
+  <link rel="stylesheet" type="text/css" href="./style/normalize.css">
+  <!-- <link rel="stylesheet" type="text/css" href="./style/animate.css"> -->
+  <link rel="stylesheet" type="text/css" href="./style/style.css">
+  <script type="text/javascript" src="./scripts/css3d.js"></script>
+</head>
+<body>
+  <div id="main">
+    <div id="world"></div>
+    <div id="start"></div>
+    <div id="page2"></div>
+    <div id="page3"></div>
+    <div id="page4"></div>
+  </div>
+</body>
+<script type="text/javascript">
+
+var stage = new C3D.Stage() 
+stage.size(window.innerWidth, window.innerHeight).material({
+  color: '#000000',
+  image: './images/index_bg.jpg'
+}).update()
+
+document.getElementById('world').appendChild(stage.el)
+
+var indexSprite = new C3D.Sprite()
+indexSprite.position(0, 0, -600).update()
+stage.addChild(indexSprite)
+
+var car = new C3D.Plane()
+car.size(430, 342).position(0, 0, -9000).material({
+  image: './images/index_car.png'
+}).update()
+
+indexSprite.addChild(car)
+
+var charSprite = new C3D.Sprite()
+charSprite.position(0, 250, 0).update()
+indexSprite.addChild(charSprite)
+
+var largeChar = new C3D.Plane()
+largeChar.size(204, 100).position(0, 300, 300).material({
+  image: './images/index_char_lar.png'
+}).update()
+
+charSprite.addChild(largeChar)
+
+var smallChar = new C3D.Plane()
+smallChar.size(305, 37).position(0, 300, 300).rotation(0, 0, 180).material({
+  image: './images/index_char_sm.png'
+}).update()
+
+charSprite.addChild(smallChar)
+
+//刷新场景
+requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||
+function(callback) {
+  setTimeout(callback, 1000 / 60);
+};
+
+function changeStage() {
+  document.getElementById('main').style.top = -window.innerHeight + 'px'
+  requestAnimationFrame(s1);
+  document.removeEventListener('click', changeStage)
+}
+
+function go() {
+  if (car.z < -300) {
+    car.move(0, 0, 200).update()
+  } else if (largeChar.z > 0) {
+    largeChar.move(0, -10, -10).update()
+  }
+  if (largeChar.z < 150) {
+    smallChar.move(0, -10, -10).rotation(0, 0, smallChar.rotationZ - 6).update()
+  };
+  if (largeChar.z <= 0 && smallChar.rotationZ === 0) {
+    document.addEventListener('click', changeStage)
+    return 
+  }
+  requestAnimationFrame(go);
+}
+
+requestAnimationFrame(go);
+
+var mainStage = new C3D.Stage()
+mainStage.size(window.innerWidth, window.innerHeight).material({
+  color: '#cccccc',
+  image: './images/page1_bg.jpg'
+}).update()
+
+document.getElementById('start').appendChild(mainStage.el)
+
+var page1 = new C3D.Plane()
+page1.origin(0, 0, 0).position(0, 0, -800).update()
+mainStage.addChild(page1)
+
+var page1Car = new C3D.Plane()
+page1Car.size(569, 319, 20).position(-3000, -1000, -8200).material({
+  image: './images/page1_car.png'
+}).update()
+page1.addChild(page1Car)
+
+var page1Sprite = C3D.create({
+  type: 'sprite',
+  position: [-700, -970, 0],
+  children: [
+    {
+      type: 'plane',
+      size: [1000, 900],
+      position: [0, 0, 0],
+      material: [{image: './images/page_rect.png'}]
+    },
+    {
+      type: 'plane',
+      size: [417, 57],
+      position: [0, 0, 0],
+      material: [{image: './images/page1_char_sm.png'}]
+    },
+    {
+      type: 'plane',
+      size: [210, 94],
+      position: [200, 110, 0],
+      material: [{image: './images/page1_char_lar.png'}]
+    }
+  ]
+}).update()
+page1.addChild(page1Sprite)
+
+var page2Sprite = C3D.create({
+  type: 'sprite',
+  position: [0, 0, -700],
+  rotation: [0, 270, 0],
+  children: [
+    {
+      type: 'plane',
+      position: [0, 0, 0],
+      size: [window.innerWidth, window.innerHeight],
+      material: [{image: './images/page2_bg.jpg'}]
+    }
+  ]
+})
+
+mainStage.addChild(page2Sprite)
+
+function s1() {
+  if (page1Car.z < 0) {
+    page1Car.move(72, 30.952380, 200).update()
+  } else if (page1Sprite.x < 0) {
+    page1Sprite.move(20, 20, 0).update()
+  } else if(page1.rotationY !== 90) {
+    page1.rotate(0, 3, 0).update()
+  } else {
+    page2Sprite.rotate(0, 3, 0).update()
+    if (page2Sprite.rotationY === 360) {
+      document.getElementById('main').style.top = -window.innerHeight*2 + 'px'
+      requestAnimationFrame(s2);
+      return 
+    }
+  }
+  requestAnimationFrame(s1);
+}
+
+var page2Stage = new C3D.Stage()
+page2Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+  image: './images/page2_bg.jpg'
+}).update()
+document.getElementById('page2').appendChild(page2Stage.el)
+
+var page2 = new C3D.Plane()
+page2.origin(0, 0, 0).position(0, 0, -800).update()
+page2Stage.addChild(page2)
+
+var page2Car = new C3D.Plane()
+page2Car.size(569, 319, 20).position(3000, -1000, -8200).material({
+  image: './images/page2_car.png'
+}).update()
+page2.addChild(page2Car)
+
+var page2SpriteExtra = C3D.create({
+  type: 'sprite',
+  position: [800, -1050, 0],
+  children: [
+    {
+      type: 'plane',
+      size: [1000, 900],
+      position: [0, 0, 0],
+      material: [{image: './images/page2_rect.png'}]
+    },
+    {
+      type: 'plane',
+      size: [356, 147],
+      position: [0, 0, 0],
+      material: [{image: './images/page2_char_lar.png'}]
+    }
+  ]
+}).update()
+page2.addChild(page2SpriteExtra)
+
+var page3Sprite = C3D.create({
+  type: 'sprite',
+  position: [0, 0, -700],
+  rotation: [270, 0, 0],
+  children: [
+    {
+      type: 'plane',
+      position: [0, 0, 0],
+      size: [window.innerWidth, window.innerHeight],
+      material: [{image: './images/page3_bg.jpg'}]
+    }
+  ]
+})
+
+page2Stage.addChild(page3Sprite)
+
+function s2() {
+  if (page2Car.z < 0) {
+    page2Car.move(-72, 30.952380, 200).update()
+  } else if (page2SpriteExtra.x > 0) {
+    page2SpriteExtra.move(-20, 20, 0).update()
+  } else if (page2.rotationX !== 90) {
+    page2.rotate(3, 0, 0).update()
+  } else {
+    page3Sprite.rotate(3, 0, 0).update()
+    if (page3Sprite.rotationX === 360) {
+      document.getElementById('main').style.top = -window.innerHeight*3 + 'px'
+      requestAnimationFrame(s3);
+      return 
+    }
+  }
+  requestAnimationFrame(s2);
+}
+
+var page3Stage = new C3D.Stage()
+page3Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+  image: './images/page3_bg.jpg'
+}).update()
+document.getElementById('page3').appendChild(page3Stage.el)
+
+var page3 = new C3D.Plane()
+page3.origin(0, 0, 0).position(0, 0, -800).update()
+page3Stage.addChild(page3)
+
+var page3SpriteExtra = C3D.create({
+  type: 'sprite',
+  position: [1000, 0, 0],
+  children: [
+    {
+      type: 'plane',
+      size: [800, 416],
+      scale: [2, 2, 1],
+      position: [0, 0, 0],
+      material: [{image: './images/page3_person.png'}]
+    },
+    {
+      type: 'plane',
+      name: 'text',
+      size: [478, 202],
+      position: [0, 200, 0],
+      material: [{image: './images/page3_char_lar.png'}]
+    }
+  ]
+}).update()
+page3SpriteExtra.text.alpha = 0
+page3SpriteExtra.text.update()
+page3.addChild(page3SpriteExtra)
+
+var page3Car = new C3D.Plane()
+page3Car.size(569, 319, 20).position(-3000, -1000, -8200).material({
+  image: './images/page1_car.png'
+}).update()
+page3.addChild(page3Car)
+
+var page4Sprite = C3D.create({
+  type: 'sprite',
+  position: [0, 0, -700],
+  rotation: [270, 0, 0],
+  children: [
+    {
+      type: 'plane',
+      position: [0, 0, 0],
+      size: [window.innerWidth, window.innerHeight],
+      material: [{image: './images/page1_bg.jpg'}]
+    }
+  ]
+})
+
+page3Stage.addChild(page4Sprite)
+
+function s3() {
+  if (page3Car.z < 0) {
+    page3Car.move(72, 21.42857, 200).update()
+  } else if (page3SpriteExtra.x > 0) {
+    page3SpriteExtra.move(-20, 0, 0).update()
+  } else if (page3SpriteExtra.text.alpha < 1) {
+    page3SpriteExtra.text.alpha += 0.02
+    page3SpriteExtra.text.update()
+  } else if (page3.rotationX !== 90) {
+    page3.rotate(3, 0, 0).update()
+  } else {
+    page4Sprite.rotate(3, 0, 0).update()
+    if (page4Sprite.rotationX === 360) {
+      document.getElementById('main').style.top = -window.innerHeight*4 + 'px'
+      requestAnimationFrame(s4);
+      return 
+    }
+  }
+  requestAnimationFrame(s3);
+}
+
+var page4Stage = new C3D.Stage()
+page4Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+  image: './images/page1_bg.jpg'
+}).update()
+document.getElementById('page4').appendChild(page4Stage.el)
+
+var page4 = new C3D.Plane()
+page4.origin(0, 0, 0).position(0, 0, -800).update()
+page4Stage.addChild(page4)
+
+var page4Container = C3D.create({
+  type: 'sprite',
+  position: [0, 0, 0],
+  children: [
+    {
+      type: 'plane',
+      name: 'text',
+      position: [0, 0, 0],
+      size: [203, 540],
+      material: [{image: './images/page4_char.png'}]
+    },
+    {
+      type: 'plane',
+      name: 'left_line',
+      position: [0, 0, 0],
+      size: [338, 2696],
+      material: [{image: './images/page4_line_left.png'}]
+    },
+    {
+      type: 'plane',
+      name: 'right_line',
+      position: [0, 0, 0],
+      size: [565, 2569],
+      material: [{image: './images/page4_line_right.png'}]
+    }
+  ]
+})
+
+page4Container.text.alpha = 0
+page4Container.text.update()
+page4.addChild(page4Container)
+
+function s4() {
+  if (page4Container.left_line.x > -500) {
+    page4Container.left_line.move(-10, -20, 0).update()
+    page4Container.right_line.move(10, 20, 0).update()
+    page4Container.text.alpha += 0.02
+    page4Container.text.update()
+  } else {
+    return 
+  }
+  // else if (page3SpriteExtra.x > 0) {
+  //   page3SpriteExtra.move(-20, 0, 0).update()
+  // } else if (page3SpriteExtra.text.alpha < 1) {
+  //   page3SpriteExtra.text.alpha += 0.02
+  //   page3SpriteExtra.text.update()
+  // } else if (page3.rotationX !== 90) {
+  //   page3.rotate(3, 0, 0).update()
+  // } else {
+  //   page4Sprite.rotate(3, 0, 0).update()
+  //   if (page4Sprite.rotationX === 360) {
+  //     document.getElementById('main').style.top = -window.innerHeight*4 + 'px'
+  //     return 
+  //   }
+  // }
+  requestAnimationFrame(s4);
+}
+
+</script>
+</html>
