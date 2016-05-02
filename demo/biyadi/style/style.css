@@ -126,8 +126,8 @@ body, #wrapper {
 .form input,.form select{
   border: none;
   display: block;
-  width: 102px;
-  height: 25px;
+  width: 100px;
+  height: 24px;
   font-size: 1em;
   background: #000;
   color: #fea200
