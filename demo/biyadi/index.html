@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=640, target-densitydpi=device-dpi, user-scalable=no">
+  <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="description" content="比亚迪元，给你想要的青春。">
   <title>这不是我要的青春</title>
@@ -11,13 +11,16 @@
   <link rel="stylesheet" type="text/css" href="./style/style.css">
   <script type="text/javascript" src="./scripts/css3d.js"></script>
 </head>
-<body>
+<body scroll="no">
   <div id="main">
     <div id="world"></div>
     <div id="start"></div>
     <div id="page2"></div>
     <div id="page3"></div>
     <div id="page4"></div>
+    <div id="page5"></div>
+    <div id="page6"></div>
+    <div id="page7"></div>
   </div>
 </body>
 <script type="text/javascript">
@@ -135,12 +138,12 @@ page1.addChild(page1Sprite)
 
 var page2Sprite = C3D.create({
   type: 'sprite',
-  position: [0, 0, -700],
+  position: [0, 0, 0],
   rotation: [0, 270, 0],
   children: [
     {
       type: 'plane',
-      position: [0, 0, 0],
+      position: [0, 0, -85],
       size: [window.innerWidth, window.innerHeight],
       material: [{image: './images/page2_bg.jpg'}]
     }
@@ -155,6 +158,13 @@ function s1() {
   } else if (page1Sprite.x < 0) {
     page1Sprite.move(20, 20, 0).update()
   } else if(page1.rotationY !== 90) {
+    if (page1.rotationY === 0) {
+      setTimeout(function() {
+        page1.rotationY += 3
+        requestAnimationFrame(s1);
+      }, 1000)
+      return
+    }
     page1.rotate(0, 3, 0).update()
   } else {
     page2Sprite.rotate(0, 3, 0).update()
@@ -205,12 +215,12 @@ page2.addChild(page2SpriteExtra)
 
 var page3Sprite = C3D.create({
   type: 'sprite',
-  position: [0, 0, -700],
+  position: [0, 0, 0],
   rotation: [270, 0, 0],
   children: [
     {
       type: 'plane',
-      position: [0, 0, 0],
+      position: [0, 0, -260],
       size: [window.innerWidth, window.innerHeight],
       material: [{image: './images/page3_bg.jpg'}]
     }
@@ -225,6 +235,13 @@ function s2() {
   } else if (page2SpriteExtra.x > 0) {
     page2SpriteExtra.move(-20, 20, 0).update()
   } else if (page2.rotationX !== 90) {
+    if (page2.rotationX === 0) {
+      setTimeout(function() {
+        page2.rotationX += 3
+        requestAnimationFrame(s2);
+      }, 1000)
+      return
+    }
     page2.rotate(3, 0, 0).update()
   } else {
     page3Sprite.rotate(3, 0, 0).update()
@@ -279,12 +296,12 @@ page3.addChild(page3Car)
 
 var page4Sprite = C3D.create({
   type: 'sprite',
-  position: [0, 0, -700],
+  position: [0, 0, 0],
   rotation: [270, 0, 0],
   children: [
     {
       type: 'plane',
-      position: [0, 0, 0],
+      position: [0, 0, -260],
       size: [window.innerWidth, window.innerHeight],
       material: [{image: './images/page1_bg.jpg'}]
     }
@@ -302,6 +319,13 @@ function s3() {
     page3SpriteExtra.text.alpha += 0.02
     page3SpriteExtra.text.update()
   } else if (page3.rotationX !== 90) {
+    if (page3.rotationX === 0) {
+      setTimeout(function() {
+        page3.rotationX += 3
+        requestAnimationFrame(s3);
+      }, 1000)
+      return
+    }
     page3.rotate(3, 0, 0).update()
   } else {
     page4Sprite.rotate(3, 0, 0).update()
@@ -356,31 +380,254 @@ page4Container.text.alpha = 0
 page4Container.text.update()
 page4.addChild(page4Container)
 
+var page5Sprite = C3D.create({
+  type: 'sprite',
+  position: [0, 0, 0],
+  rotation: [270, 0, 0],
+  children: [
+    {
+      type: 'plane',
+      position: [0, 0, -260],
+      size: [window.innerWidth, window.innerHeight],
+      material: [{image: './images/page5_bg.jpg'}]
+    }
+  ]
+})
+
+page4Stage.addChild(page5Sprite)
+
 function s4() {
   if (page4Container.left_line.x > -500) {
     page4Container.left_line.move(-10, -20, 0).update()
     page4Container.right_line.move(10, 20, 0).update()
     page4Container.text.alpha += 0.02
     page4Container.text.update()
+  } else if (page4.rotationX !== 90) {
+    if (page4.rotationX === 0) {
+      setTimeout(function() {
+        page4.rotationX += 3
+        requestAnimationFrame(s4);
+      }, 1000)
+      return
+    }
+    page4.rotate(3, 0, 0).update()
   } else {
-    return 
+    page5Sprite.rotate(3, 0, 0).update()
+    if (page5Sprite.rotationX === 360) {
+      document.getElementById('main').style.top = -window.innerHeight*5 + 'px'
+      requestAnimationFrame(s5);
+      return 
+    }
   }
-  // else if (page3SpriteExtra.x > 0) {
-  //   page3SpriteExtra.move(-20, 0, 0).update()
-  // } else if (page3SpriteExtra.text.alpha < 1) {
-  //   page3SpriteExtra.text.alpha += 0.02
-  //   page3SpriteExtra.text.update()
-  // } else if (page3.rotationX !== 90) {
-  //   page3.rotate(3, 0, 0).update()
-  // } else {
-  //   page4Sprite.rotate(3, 0, 0).update()
-  //   if (page4Sprite.rotationX === 360) {
-  //     document.getElementById('main').style.top = -window.innerHeight*4 + 'px'
-  //     return 
-  //   }
-  // }
   requestAnimationFrame(s4);
 }
+
+var page5Stage = new C3D.Stage()
+page5Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+  image: './images/page5_bg.jpg'
+}).update()
+document.getElementById('page5').appendChild(page5Stage.el)
+
+var page5 = new C3D.Plane()
+page5.origin(0, 0, 0).position(0, 0, -800).update()
+page5Stage.addChild(page5)
+
+var page5Container = C3D.create({
+  type: 'sprite',
+  position: [0, 0, 0],
+  children: [
+    {
+      type: 'plane',
+      name: 'band',
+      position: [0, 1000, 0],
+      size: [809, 339],
+      material: [{image: './images/page5_band.png'}]
+    },
+    {
+      type: 'plane',
+      name: 'car',
+      position: [0, 370, 0],
+      scale: [0, 0, 0],
+      size: [601, 124],
+      material: [{image: './images/page5_car.png'}]
+    },
+    {
+      type: 'plane',
+      name: 'char',
+      position: [0, 0, 0],
+      size: [430, 209],
+      material: [{image: './images/page5_char.png'}]
+    }
+  ]
+})
+
+page5Container.char.alpha = 0
+page5Container.char.update()
+page5.addChild(page5Container)
+
+var page6Sprite = C3D.create({
+  type: 'sprite',
+  position: [0, 0, 0],
+  rotation: [270, 0, 0],
+  children: [
+    {
+      type: 'plane',
+      position: [0, 0, -260],
+      size: [window.innerWidth, window.innerHeight],
+      material: [{image: './images/page6_bg.png'}]
+    }
+  ]
+})
+
+page5Stage.addChild(page6Sprite)
+
+function s5() {
+  if (page5Container.car.scaleX < 1) {
+    page5Container.car.scale(page5Container.car.scaleX + 0.02, page5Container.car.scaleY + 0.02, page5Container.car.scaleX + 0.02).update()
+  } else if (page5Container.band.y > 510) {
+    page5Container.band.move(0, -10, 0).update()
+  } else if (page5Container.char.alpha < 1) {
+    page5Container.char.alpha += 0.02
+    page5Container.char.update()
+  } else if (page5.rotationX !== 90) {
+    if (page5.rotationX === 0) {
+      setTimeout(function() {
+        page5.rotationX += 3
+        requestAnimationFrame(s5);
+      }, 1000)
+      return
+    }
+    page5.rotate(3, 0, 0).update()
+  } else {
+    page6Sprite.rotate(3, 0, 0).update()
+    if (page6Sprite.rotationX === 360) {
+      document.getElementById('main').style.top = -window.innerHeight*6 + 'px'
+      requestAnimationFrame(s6);
+      return 
+    }
+  }
+  requestAnimationFrame(s5);
+}
+
+var page6Stage = new C3D.Stage()
+page6Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+  color: '#000000',
+  image: './images/page6_bg.png'
+}).update()
+document.getElementById('page6').appendChild(page6Stage.el)
+
+var page6 = new C3D.Plane()
+page6.origin(0, 0, 0).position(0, 0, -700).update()
+page6Stage.addChild(page6)
+
+var page6Container = C3D.create({
+  type: 'sprite',
+  position: [0, 0, 0],
+  children: [
+    {
+      type: 'plane',
+      name: 'car',
+      position: [0, 370, 0],
+      size: [644, 337],
+      material: [{image: './images/page6_car.png'}]
+    },
+    {
+      type: 'plane',
+      name: 'char',
+      position: [0, 0, 0],
+      size: [430, 201],
+      material: [{image: './images/page6_char.png'}]
+    }
+  ]
+})
+
+page6Container.char.alpha = 0
+page6Container.char.update()
+page6.addChild(page6Container)
+
+function s6() {
+  if (page6Container.car.y < 720) {
+    page6Container.car.move(0, 10, 0).update()
+  } else if (page6Container.char.alpha < 1) {
+    page6Container.char.alpha += 0.02
+    page6Container.char.update()
+  } else if (page6.rotationX !== 90) {
+    if (page6.rotationX === 0) {
+      setTimeout(function() {
+        page6.rotationX += 3
+        requestAnimationFrame(s6);
+      }, 1000)
+      return
+    }
+    page6.rotate(3, 0, 0).update()
+  } else {
+    document.getElementById('main').style.top = -window.innerHeight*7 + 'px'
+    return 
+  }
+  requestAnimationFrame(s6);
+}
+
+var page7Stage = new C3D.Stage()
+page7Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
+  color: '#000000',
+  image: './images/page5_bg.jpg'
+}).update()
+document.getElementById('page7').appendChild(page7Stage.el)
+
+var page7 = new C3D.Plane()
+page7.origin(0, 0, 0).position(0, 0, -700).update()
+page7Stage.addChild(page7)
+
+var page7Container = C3D.create({
+  type: 'sprite',
+  position: [0, 0, 0],
+  children: [
+    {
+      type: 'plane',
+      name: 's1',
+      position: [0, 0, 0],
+      size: [460, 377],
+      material: [{image: './images/page7_s1.png'}]
+    },
+    {
+      type: 'plane',
+      name: 's2',
+      position: [0, 0, 0],
+      size: [482, 457],
+      material: [{image: './images/page7_s2.png'}]
+    },
+    {
+      type: 'plane',
+      name: 's3',
+      position: [0, 0, 0],
+      size: [518, 457],
+      material: [{image: './images/page7_s3.png'}]
+    },
+    {
+      type: 'plane',
+      name: 's4',
+      position: [0, 0, 0],
+      size: [476, 408],
+      material: [{image: './images/page7_s4.png'}]
+    },
+    {
+      type: 'plane',
+      name: 'car',
+      position: [0, 0, 0],
+      size: [569, 319],
+      material: [{image: './images/page1_car.png'}]
+    },
+    {
+      type: 'plane',
+      name: 'char',
+      position: [0, 0, 0],
+      size: [539, 274],
+      material: [{image: './images/page7_char.png'}]
+    }
+  ]
+})
+
+page7.addChild(page7Container)
 
 </script>
 </html>

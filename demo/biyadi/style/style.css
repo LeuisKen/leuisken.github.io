@@ -4,6 +4,10 @@
   left: 0px;
   width: 640px;
   height: 100%;
+  touch-action: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 #main div {
@@ -11,7 +15,7 @@
   position: relative;
 }
 
-#world, #start, #page2, #page3 {
+#world, #start, #page2, #page3, #page4, #page5, #page6 {
   position: absolute;
   top: 0px;
   left: 0px;
