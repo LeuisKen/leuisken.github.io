@@ -203,6 +203,16 @@ function render() {
 
   charSprite.addChild(smallChar)
 
+  var aChar = new C3D.Plane()
+  aChar.size(96, 23).position(0, 90, 0).material({
+    image: './images/a.png'
+  }).update()
+
+  aChar.alpha = 0
+  aChar.updateV()
+
+  charSprite.addChild(aChar)
+
   // 刷新场景
   requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||
   function(callback) {
@@ -223,13 +233,20 @@ function render() {
     } else if (largeChar.z > 0) {
       largeChar.move(0, -10, -10).updateT()
     }
-    if (largeChar.z < 150) {
-      smallChar.move(0, -10, -10).rotation(0, 0, smallChar.rotationZ - 6).updateT()
+    if (largeChar.z < 150 && smallChar.rotationZ !== 0) {
+      smallChar.move(0, -10, -10).rotate(0, 0, -6).updateT()
     };
     if (largeChar.z <= 0 && smallChar.rotationZ === 0) {
-      document.addEventListener('touchstart', changeStage)
-      document.getElementById('start').appendChild(mainStage.el)
-      return
+      if (aChar.alpha < 1) {
+        aChar.alpha += 0.05
+        aChar.updateV()
+        requestAnimationFrame(go);
+        return
+      } else {
+        document.addEventListener('touchstart', changeStage)
+        document.getElementById('start').appendChild(mainStage.el)
+        return
+      }
     }
     requestAnimationFrame(go);
   }
