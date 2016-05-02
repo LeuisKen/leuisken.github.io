@@ -11,6 +11,7 @@
   <script type="text/javascript" src="./scripts/css3d.js"></script>
 </head>
 <body scroll="no">
+  <audio id="ibgm" preload="auto" src="./main.mp3"></audio>
   <div id="wrapper">
   <div class="layer" id="layer"></div>
   <div class="back" id="back"></div>
@@ -209,6 +210,7 @@ function render() {
   };
 
   function changeStage() {
+    document.getElementById('ibgm').play()
     document.getElementById('main').style.top = -window.innerHeight + 'px'
     indexSprite.remove()
     requestAnimationFrame(s1);
@@ -298,7 +300,7 @@ function render() {
 
   function s1() {
     if (page1Car.z < 0) {
-      page1Car.move(72, 30.952380, 200).updateT()
+      page1Car.move(36, 16, 100).updateT()
     } else if (page1Sprite.x < 0) {
       page1Sprite.move(20, 20, 0).updateT()
     } else if(page1.rotationY !== 90) {
@@ -306,7 +308,7 @@ function render() {
         setTimeout(function() {
           page1.rotationY += 3
           requestAnimationFrame(s1);
-        }, 1000)
+        }, 2000)
         return
       }
       page1.rotate(0, 3, 0).updateT()
@@ -394,7 +396,7 @@ function render() {
         setTimeout(function() {
           page2.rotationX += 3
           requestAnimationFrame(s2);
-        }, 1000)
+        }, 2000)
         return
       }
       page2.rotate(3, 0, 0).updateT()
@@ -471,7 +473,7 @@ function render() {
         setTimeout(function() {
           page3.rotationX += 3
           requestAnimationFrame(s3);
-        }, 1000)
+        }, 2000)
         return
       }
       page3.rotate(3, 0, 0).updateT()
@@ -542,7 +544,7 @@ function render() {
         setTimeout(function() {
           page4.rotationX += 3
           requestAnimationFrame(s4);
-        }, 1000)
+        }, 2000)
         return
       }
       page4.rotate(3, 0, 0).updateT()
@@ -614,7 +616,7 @@ function render() {
         setTimeout(function() {
           page5.rotationX += 3
           requestAnimationFrame(s5);
-        }, 1000)
+        }, 2000)
         return
       }
       page5.rotate(3, 0, 0).updateT()
@@ -676,7 +678,7 @@ function render() {
         setTimeout(function() {
           page6.rotationX += 3
           requestAnimationFrame(s6);
-        }, 1000)
+        }, 1500)
         return
       }
       page6.rotate(3, 0, 0).updateT()
@@ -791,7 +793,7 @@ function render() {
         document.getElementById('page8').appendChild(page8Stage.el)
         page7.remove()
         requestAnimationFrame(s8);
-      }, 1000)
+      }, 1500)
       return
     }
     requestAnimationFrame(s7);
@@ -867,7 +869,7 @@ function render() {
         document.getElementById('page9').appendChild(page9Stage.el)
         page8.remove()
         requestAnimationFrame(s9);
-      }, 1000)
+      }, 1500)
       return
     }
     requestAnimationFrame(s8);
@@ -988,31 +990,31 @@ function render() {
 
   function s9() {
     if (page9Container.car.alpha < 1) {
-      page9Container.car.alpha += 0.02
+      page9Container.car.alpha += 0.05
       page9Container.car.updateV()
     } else if (page9Container.tel.alpha < 1) {
-      page9Container.tel.alpha += 0.02
+      page9Container.tel.alpha += 0.05
       page9Container.tel.updateV()
     } else if (page9Container['4G'].alpha < 1) {
-      page9Container['4G'].alpha += 0.02
+      page9Container['4G'].alpha += 0.05
       page9Container['4G'].updateV()
     } else if (page9Container.signal_left1.alpha < 1) {
-      page9Container.signal_left1.alpha += 0.02
+      page9Container.signal_left1.alpha += 0.05
       page9Container.signal_left1.updateV()
-      page9Container.signal_right1.alpha += 0.02
+      page9Container.signal_right1.alpha += 0.05
       page9Container.signal_right1.updateV()
     } else if (page9Container.signal_left2.alpha < 1) {
-      page9Container.signal_left2.alpha += 0.02
+      page9Container.signal_left2.alpha += 0.05
       page9Container.signal_left2.updateV()
-      page9Container.signal_right2.alpha += 0.02
+      page9Container.signal_right2.alpha += 0.05
       page9Container.signal_right2.updateV()
     } else if (page9Container.signal_left3.alpha < 1) {
-      page9Container.signal_left3.alpha += 0.02
+      page9Container.signal_left3.alpha += 0.05
       page9Container.signal_left3.updateV()
-      page9Container.signal_right3.alpha += 0.02
+      page9Container.signal_right3.alpha += 0.05
       page9Container.signal_right3.updateV()
     } else if (page9Container.char.alpha < 1) {
-      page9Container.char.alpha += 0.02
+      page9Container.char.alpha += 0.05
       page9Container.char.updateV()
     } else {
       setTimeout(function() {

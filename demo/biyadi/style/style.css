@@ -3,6 +3,10 @@ body, #wrapper {
   position: relative;
 }
 
+audio {
+  display: none;
+}
+
 .layer{
   position: absolute;
   top: 0;
