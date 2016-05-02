@@ -3,10 +3,6 @@ body, #wrapper {
   position: relative;
 }
 
-audio {
-  display: none;
-}
-
 .layer{
   position: absolute;
   top: 0;
@@ -111,29 +107,35 @@ audio {
   padding-top: 20%;
 }
 .form form{
-  height: 60%;
-  width: 80%;
+  height: 300px;
+  width: 280px;
   background: url('../images/12_border.png') no-repeat;
   background-size: 100% 100%;
   margin: 0 auto;
-  padding-top: 30%
+  padding-top: 70px;
 }
 .form div{
   box-sizing: border-box;
-  width: 70%;
-  height: 10%;
+  width: 160px;
+  height: 30px;
   margin: 0 auto;
-  padding: 10px;
-  padding-left: 25%;
+  padding: 2px;
+  padding-left: 54px;
 }
+
 .form input,.form select{
   border: none;
   display: block;
-  width: 84%;
-  height: 110%;
+  width: 102px;
+  height: 25px;
   font-size: 1em;
   background: #000;
   color: #fea200
+}
+.form select{
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
 }
 .form option{
   font-size: 0.5em
@@ -146,17 +148,17 @@ audio {
 .form .phone{
   background: url('../images/12_in2.png') no-repeat;
   background-size: 100% 100%;
-  margin-top: 15%;
+  margin-top: 35px;
 }
 .form .add{
   background: url('../images/12_in3.png') no-repeat;
   background-size: 100% 100%;
-  margin-top: 15%;
+  margin-top: 35px;
 }
 .form .submit{
-  height: 10%;
-  width: 40%;
-  margin: 20% auto 0;
+  height: 30px;
+  width: 100px;
+  margin: 60px auto 0;
   padding: 4px 0;
   border: 2px solid #ff0413;
   border-radius: 15px;
