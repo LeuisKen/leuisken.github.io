@@ -72,9 +72,9 @@ document.getElementById('page11').style.height = window.innerHeight + 'px'
 document.getElementById('page12').style.width = window.innerWidth + 'px'
 document.getElementById('page12').style.height = window.innerHeight + 'px'
 
-document.getElementsByClassName('btn')[0].onclick = function() {
+document.getElementsByClassName('btn')[0].addEventListener( 'touchstart',function() {
   document.getElementById('main').style.top = -window.innerHeight*12 + 'px'
-}
+})
 
 var bgImg = document.createElement('img')
 bgImg.src = './images/back.png'
