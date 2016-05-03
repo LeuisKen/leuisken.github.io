@@ -139,10 +139,8 @@ var imgs = [
   './images/page10_s3.jpg',
   './images/page10_s4.jpg'
 ];
-function callback () {
-  render()
-}
-loadImg(imgs,callback)
+
+loadImg(imgs,render)
 
 function loadImg (imgs,callback) {
   var imgsLen = imgs.length;
