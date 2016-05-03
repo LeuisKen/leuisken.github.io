@@ -39,7 +39,6 @@ body, #wrapper {
 #main div {
   background-position: center;
   position: relative;
-  background: #000;
 }
 
 #world, #start, #page2, #page3, #page4, #page5, #page6, #page7, #page8, #page9, #page10 {
