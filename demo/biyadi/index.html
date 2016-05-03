@@ -454,22 +454,6 @@ function render() {
   }).update()
   page3.addChild(page3Car)
 
-  var page4Sprite = C3D.create({
-    type: 'sprite',
-    position: [0, 0, (window.innerHeight + 24)/(-1.6)],
-    rotation: [270, 0, 0],
-    children: [
-      {
-        type: 'plane',
-        position: [0, 0, 0],
-        size: [window.innerWidth, window.innerHeight],
-        material: [{image: './images/page1_bg.jpg'}]
-      }
-    ]
-  })
-
-  page3Stage.addChild(page4Sprite)
-
   function s3() {
     if (page3Car.z < 0) {
       page3Car.move(72, 21.42857, 200).updateT()
@@ -488,15 +472,11 @@ function render() {
       }
       page3.rotate(3, 0, 0).updateT()
     } else {
-      page4Sprite.rotate(3, 0, 0).updateT()
-      if (page4Sprite.rotationX === 360) {
-        document.getElementById('main').style.top = -window.innerHeight*4 + 'px'
-        document.getElementById('page4').appendChild(page4Stage.el)
-        page3.remove()
-        page4Sprite.remove()
-        requestAnimationFrame(s4);
-        return
-      }
+      document.getElementById('main').style.top = -window.innerHeight*4 + 'px'
+      document.getElementById('page4').appendChild(page4Stage.el)
+      page3.remove()
+      requestAnimationFrame(s4);
+      return
     }
     requestAnimationFrame(s3);
   }
@@ -542,22 +522,6 @@ function render() {
   page4Container.text.update()
   page4.addChild(page4Container)
 
-  var page5Sprite = C3D.create({
-    type: 'sprite',
-    position: [0, 0, (window.innerHeight + 24)/(-1.6)],
-    rotation: [270, 0, 0],
-    children: [
-      {
-        type: 'plane',
-        position: [0, 0, 0],
-        size: [window.innerWidth, window.innerHeight],
-        material: [{image: './images/page5_bg.jpg'}]
-      }
-    ]
-  })
-
-  page4Stage.addChild(page5Sprite)
-
   function s4() {
     if (page4Container.left_line.x > -500) {
       page4Container.left_line.move(-10, -20, 0).updateT()
@@ -574,15 +538,11 @@ function render() {
       }
       page4.rotate(3, 0, 0).updateT()
     } else {
-      page5Sprite.rotate(3, 0, 0).updateT()
-      if (page5Sprite.rotationX === 360) {
-        document.getElementById('main').style.top = -window.innerHeight*5 + 'px'
-        document.getElementById('page5').appendChild(page5Stage.el)
-        page4.remove()
-        page5Sprite.remove()
-        requestAnimationFrame(s5);
-        return
-      }
+      document.getElementById('main').style.top = -window.innerHeight*5 + 'px'
+      document.getElementById('page5').appendChild(page5Stage.el)
+      page4.remove()
+      requestAnimationFrame(s5);
+      return
     }
     requestAnimationFrame(s4);
   }
@@ -629,22 +589,6 @@ function render() {
   page5Container.char.update()
   page5.addChild(page5Container)
 
-  var page6Sprite = C3D.create({
-    type: 'sprite',
-    position: [0, 0, 0],
-    rotation: [270, 0, 0],
-    children: [
-      {
-        type: 'plane',
-        position: [0, 0, -260],
-        size: [window.innerWidth, window.innerHeight],
-        material: [{image: './images/page6_bg.png'}]
-      }
-    ]
-  })
-
-  page5Stage.addChild(page6Sprite)
-
   function s5() {
     if (page5Container.car.scaleX < 1) {
       page5Container.car.scale(page5Container.car.scaleX + 0.02, page5Container.car.scaleY + 0.02, page5Container.car.scaleX + 0.02).updateT()
@@ -663,15 +607,11 @@ function render() {
       }
       page5.rotate(3, 0, 0).updateT()
     } else {
-      page6Sprite.rotate(3, 0, 0).updateT()
-      if (page6Sprite.rotationX === 360) {
-        document.getElementById('main').style.top = -window.innerHeight*6 + 'px'
-        document.getElementById('page6').appendChild(page6Stage.el)
-        page5.remove()
-        page6Sprite.remove()
-        requestAnimationFrame(s6);
-        return
-      }
+      document.getElementById('main').style.top = -window.innerHeight*6 + 'px'
+      document.getElementById('page6').appendChild(page6Stage.el)
+      page5.remove()
+      requestAnimationFrame(s6);
+      return
     }
     requestAnimationFrame(s5);
   }
