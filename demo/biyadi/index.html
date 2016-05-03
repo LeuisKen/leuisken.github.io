@@ -713,7 +713,6 @@ function render() {
       document.getElementById('main').style.top = -window.innerHeight*7 + 'px'
       document.getElementById('page7').appendChild(page7Stage.el)
       page6.remove()
-      page7Sprite.remove()
       requestAnimationFrame(s7);
       return
     }
@@ -821,7 +820,6 @@ function render() {
         document.getElementById('main').style.top = -window.innerHeight*8 + 'px'
         document.getElementById('page8').appendChild(page8Stage.el)
         page7.remove()
-        page8Sprite.remove()
         requestAnimationFrame(s8);
       }, 1000)
       return
@@ -896,7 +894,6 @@ function render() {
         document.getElementById('main').style.top = -window.innerHeight*9 + 'px'
         document.getElementById('page9').appendChild(page9Stage.el)
         page8.remove()
-        page9Sprite.remove()
         requestAnimationFrame(s9);
       }, 1000)
       return
@@ -1048,7 +1045,6 @@ function render() {
         document.getElementById('main').style.top = -window.innerHeight*10 + 'px'
         document.getElementById('page10').appendChild(page10Stage.el)
         page9.remove()
-        page10Sprite.remove()
         requestAnimationFrame(s10);
       }, 1000)
       return
@@ -1131,8 +1127,10 @@ function render() {
       page10S4.rotate(0, 3, 0).updateT()
     } else {
       document.getElementById('main').style.top = -window.innerHeight*11 + 'px'
-      page9.remove()
-      page10Sprite.remove()
+      page10S1.remove()
+      page10S2.remove()
+      page10S3.remove()
+      page10S4.remove()
       return
     }
     requestAnimationFrame(s10);
