@@ -312,7 +312,6 @@ function render() {
     } else {
       page2Sprite.rotate(0, 3, 0).updateT()
       if (page2Sprite.rotationY === 360) {
-        return
         document.getElementById('main').style.top = -window.innerHeight*2 + 'px'
         page1.remove()
         page2Sprite.remove()
@@ -390,7 +389,6 @@ function render() {
       }
       page2.rotate(3, 0, 0).updateT()
     } else {
-      // return
       page3Sprite.rotate(3, 0, 0).updateT()
       if (page3Sprite.rotationX === 360) {
         document.getElementById('main').style.top = -window.innerHeight*3 + 'px'
