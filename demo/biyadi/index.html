@@ -221,6 +221,7 @@ function render() {
 
   function changeStage() {
     document.getElementById('ibgm').play()
+    console.log(+new Date())
     document.getElementById('main').style.top = -window.innerHeight + 'px'
     indexSprite.remove()
     requestAnimationFrame(s1);
@@ -325,7 +326,7 @@ function render() {
         setTimeout(function() {
           page1.rotationY += 3
           requestAnimationFrame(s1);
-        }, 2000)
+        }, 3500)
         return
       }
       page1.rotate(0, 3, 0).updateT()
@@ -341,6 +342,7 @@ function render() {
         page2Sprite.remove()
         document.getElementById('page2').appendChild(page2Stage.el)
         requestAnimationFrame(s2);
+        console.log(+new Date())
         return
       }
     }
@@ -428,6 +430,7 @@ function render() {
         document.getElementById('page3').appendChild(page3Stage.el)
         page2.remove()
         page3Sprite.remove()
+        console.log(+new Date)
         requestAnimationFrame(s3);
         return
       }
@@ -498,6 +501,7 @@ function render() {
       document.getElementById('main').style.top = -window.innerHeight*4 + 'px'
       document.getElementById('page4').appendChild(page4Stage.el)
       page3.remove()
+      console.log(+new Date)
       requestAnimationFrame(s4);
       return
     }
@@ -561,7 +565,7 @@ function render() {
         setTimeout(function() {
           page4.rotationX += 3
           requestAnimationFrame(s4);
-        }, 2000)
+        }, 4632)
         return
       }
       page4.rotate(3, 0, 0).updateT()
@@ -569,6 +573,7 @@ function render() {
       document.getElementById('main').style.top = -window.innerHeight*5 + 'px'
       document.getElementById('page5').appendChild(page5Stage.el)
       page4.remove()
+      console.log(+new Date)
       requestAnimationFrame(s5);
       return
     }
@@ -633,7 +638,7 @@ function render() {
         setTimeout(function() {
           page5.rotationX += 3
           requestAnimationFrame(s5);
-        }, 2000)
+        }, 0)
         return
       }
       page5.rotate(3, 0, 0).updateT()
@@ -641,7 +646,10 @@ function render() {
       document.getElementById('main').style.top = -window.innerHeight*6 + 'px'
       document.getElementById('page6').appendChild(page6Stage.el)
       page5.remove()
-      requestAnimationFrame(s6);
+      setTimeout(function() {
+        console.log(+new Date)
+        requestAnimationFrame(s6);
+      }, 1000)
       return
     }
     requestAnimationFrame(s5);
@@ -649,10 +657,7 @@ function render() {
 
   var page6Stage = new C3D.Stage()
   page6Stage.size(window.innerWidth, window.innerHeight).position(0, 0, 0).material({
-    color: '#000000',
-    image: './images/page6_bg.png',
-    size: '100%',
-    repeat: 'no-repeat'
+    color: '#000000'
   }).update()
 
   var page6 = new C3D.Plane()
@@ -663,6 +668,13 @@ function render() {
     type: 'sprite',
     position: [0, 0, 0],
     children: [
+      {
+        type: 'plane',
+        name: 'bg',
+        position: [0, 0, 0],
+        size: [1334, 1790],
+        material: [{ image: './images/page6_bg.png', repeat: 'no-repeat'}]
+      },
       {
         type: 'plane',
         name: 'car',
@@ -687,6 +699,7 @@ function render() {
   function s6() {
     if (page6Container.car.y < 720) {
       page6Container.car.move(0, 5, 0).updateT()
+      page6Container.bg.move(0, 5, 0).updateT()
     } else if (page6Container.char.alpha < 1) {
       page6Container.char.alpha += 0.02
       page6Container.char.updateV()
@@ -695,7 +708,7 @@ function render() {
         setTimeout(function() {
           page6.rotationX += 3
           requestAnimationFrame(s6);
-        }, 1500)
+        }, 4434)
         return
       }
       page6.rotate(3, 0, 0).updateT()
@@ -703,6 +716,9 @@ function render() {
       document.getElementById('main').style.top = -window.innerHeight*7 + 'px'
       document.getElementById('page7').appendChild(page7Stage.el)
       page6.remove()
+      console.log(+new Date)
+      console.log(1)
+
       requestAnimationFrame(s7);
       return
     }
@@ -809,6 +825,8 @@ function render() {
         document.getElementById('main').style.top = -window.innerHeight*8 + 'px'
         document.getElementById('page8').appendChild(page8Stage.el)
         page7.remove()
+      console.log(+new Date)
+
         requestAnimationFrame(s8);
       }, 1500)
       return
@@ -885,6 +903,8 @@ function render() {
         document.getElementById('main').style.top = -window.innerHeight*9 + 'px'
         document.getElementById('page9').appendChild(page9Stage.el)
         page8.remove()
+      console.log(+new Date)
+
         requestAnimationFrame(s9);
       }, 1500)
       return
@@ -1038,6 +1058,8 @@ function render() {
         document.getElementById('main').style.top = -window.innerHeight*10 + 'px'
         document.getElementById('page10').appendChild(page10Stage.el)
         page9.remove()
+      console.log(+new Date)
+
         requestAnimationFrame(s10);
       }, 1000)
       return
@@ -1051,22 +1073,22 @@ function render() {
   }).update()
 
   var page10S1 = new C3D.Plane()
-  page10S1.size(643, 1040).position(0, 0, -740).material({
+  page10S1.size(640, 1039).position(0, 0, -740).material({
     image: './images/page10_s1.jpg'
   }).update()
 
   var page10S2 = new C3D.Plane()
-  page10S2.size(643, 1040).position(0, 0, -740).rotation(0, 270, 0).material({
+  page10S2.size(640, 1039).position(0, 0, -740).rotation(0, 270, 0).material({
     image: './images/page10_s2.jpg'
   }).update()
 
   var page10S3 = new C3D.Plane()
-  page10S3.size(643, 1040).position(0, 0, -740).rotation(0, 270, 0).material({
+  page10S3.size(640, 1039).position(0, 0, -740).rotation(0, 270, 0).material({
     image: './images/page10_s3.jpg'
   }).update()
 
   var page10S4 = new C3D.Plane()
-  page10S4.size(643, 1040).position(0, 0, -740).rotation(0, 270, 0).material({
+  page10S4.size(640, 1039).position(0, 0, -740).rotation(0, 270, 0).material({
     image: './images/page10_s4.jpg'
   }).update()
 
