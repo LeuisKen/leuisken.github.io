@@ -213,9 +213,11 @@ function render() {
     document.removeEventListener('click', changeStage)
   }
 
+  window.car = car
+
   function go() {
     if (car.scaleX < 0.7) {
-      car.scale(car.scaleX + 0.02, car.scaleY + 0.02, car.scaleZ + 0.02).updateS()
+      car.scale(car.scaleX + 0.02, car.scaleY + 0.02, car.scaleZ + 0.02).updateT()
     } else if (largeChar.z > 0) {
       largeChar.move(0, -10, -10).updateT()
     }
@@ -621,7 +623,7 @@ function render() {
 
   function s5() {
     if (page5Container.car.scaleX < 1) {
-      page5Container.car.scale(page5Container.car.scaleX + 0.02, page5Container.car.scaleY + 0.02, page5Container.car.scaleX + 0.02).updateS()
+      page5Container.car.scale(page5Container.car.scaleX + 0.02, page5Container.car.scaleY + 0.02, page5Container.car.scaleX + 0.02).updateT()
     } else if (page5Container.band.y > 510) {
       page5Container.band.move(0, -10, 0).updateT()
     } else if (page5Container.char.alpha < 1) {
