@@ -1,4 +1,4 @@
-body {
+body, #wrapper {
   overflow: hidden;
 }
 
@@ -91,7 +91,7 @@ body {
 }
 .last .btn{
   background: url('../images/11_btn.png') no-repeat;
-  background-size: 100% 100%; 
+  background-size: 100% 100%;
   width: 232px;
   height: 67px;
   margin: 0 auto;
@@ -136,7 +136,7 @@ body {
 .form .name{
   background: url('../images/12_in1.png') no-repeat;
   background-size: 100% 100%;
-  
+
 }
 .form .phone{
   background: url('../images/12_in2.png') no-repeat;

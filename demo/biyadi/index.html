@@ -11,7 +11,8 @@
   <link rel="stylesheet" type="text/css" href="./style/style.css">
   <script type="text/javascript" src="./scripts/css3d.js"></script>
 </head>
-<body style="width: 414px; height: 736px" scroll="no">
+<body scroll="no">
+  <div id="wrapper">
   <div class="layer" id="layer"></div>
   <div class="back" id="back"></div>
   <div id="main">
@@ -55,11 +56,15 @@
       </div>
     </div>
   </div>
+  </div>
 </body>
 <script type="text/javascript">
 
 document.getElementsByTagName('body')[0].style.width = window.innerWidth + 'px'
 document.getElementsByTagName('body')[0].style.height = window.innerHeight + 'px'
+
+document.getElementById('wrapper').style.width = window.innerWidth + 'px'
+document.getElementById('wrapper').style.height = window.innerHeight + 'px'
 
 document.getElementById('page11').style.width = window.innerWidth + 'px'
 document.getElementById('page11').style.height = window.innerHeight + 'px'
