@@ -468,9 +468,6 @@ function render() {
     ]
   })
 
-  page4Sprite.visible = false
-  page4Sprite.updateV()
-
   page3Stage.addChild(page4Sprite)
 
   function s3() {
@@ -491,10 +488,6 @@ function render() {
       }
       page3.rotate(3, 0, 0).updateT()
     } else {
-      if (!page4Sprite.visible) {
-        page4Sprite.visible = true
-        page4Sprite.updateV()
-      }
       page4Sprite.rotate(3, 0, 0).updateT()
       if (page4Sprite.rotationX === 360) {
         document.getElementById('main').style.top = -window.innerHeight*4 + 'px'
@@ -563,9 +556,6 @@ function render() {
     ]
   })
 
-  page5Sprite.visible = false
-  page5Sprite.updateV()
-
   page4Stage.addChild(page5Sprite)
 
   function s4() {
@@ -584,10 +574,6 @@ function render() {
       }
       page4.rotate(3, 0, 0).updateT()
     } else {
-      if (!page5Sprite.visible) {
-        page5Sprite.visible = true
-        page5Sprite.updateV()
-      }
       page5Sprite.rotate(3, 0, 0).updateT()
       if (page5Sprite.rotationX === 360) {
         document.getElementById('main').style.top = -window.innerHeight*5 + 'px'
@@ -657,9 +643,6 @@ function render() {
     ]
   })
 
-  page6Sprite.visible = false
-  page6Sprite.updateV()
-
   page5Stage.addChild(page6Sprite)
 
   function s5() {
@@ -680,10 +663,6 @@ function render() {
       }
       page5.rotate(3, 0, 0).updateT()
     } else {
-      if (!page6Sprite.visible) {
-        page6Sprite.visible = true
-        page6Sprite.updateV()
-      }
       page6Sprite.rotate(3, 0, 0).updateT()
       if (page6Sprite.rotationX === 360) {
         document.getElementById('main').style.top = -window.innerHeight*6 + 'px'
