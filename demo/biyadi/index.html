@@ -797,19 +797,19 @@ function render() {
   function s7() {
     if (page7Container.car.z < 0) {
       page7Container.car.move(36, 15.952380, 100).updateT()
-      if (page7Container.s1.alpha < 1) {
+      if (page7Container.s1 !== undefined && page7Container.s1.alpha < 1) {
         page7Container.s1.alpha += 0.05
         page7Container.s1.updateV()
-      } else if (page7Container.s2.alpha < 1) {
-        page7Container.s1.remove()
+      } else if (page7Container.s2 !== undefined && page7Container.s2.alpha < 1) {
+        !!page7Container.s1 ? page7Container.s1.remove() : null
         page7Container.s2.alpha += 0.05
         page7Container.s2.updateV()
-      } else if (page7Container.s3.alpha < 1) {
-        page7Container.s2.remove()
+      } else if (page7Container.s3 !== undefined && page7Container.s3.alpha < 1) {
+        !!page7Container.s2 ? page7Container.s2.remove() : null
         page7Container.s3.alpha += 0.05
         page7Container.s3.updateV()
       } else if (page7Container.s4.alpha < 1) {
-        page7Container.s3.remove()
+        !!page7Container.s3 ? page7Container.s3.remove() : null
         page7Container.s4.alpha += 0.05
         page7Container.s4.updateV()
       }
