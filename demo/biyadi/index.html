@@ -565,7 +565,7 @@ function render() {
         setTimeout(function() {
           page4.rotationX += 3
           requestAnimationFrame(s4);
-        }, 4632)
+        }, 3432)
         return
       }
       page4.rotate(3, 0, 0).updateT()
@@ -708,7 +708,7 @@ function render() {
         setTimeout(function() {
           page6.rotationX += 3
           requestAnimationFrame(s6);
-        }, 4434)
+        }, 1800)
         return
       }
       page6.rotate(3, 0, 0).updateT()
@@ -825,10 +825,9 @@ function render() {
         document.getElementById('main').style.top = -window.innerHeight*8 + 'px'
         document.getElementById('page8').appendChild(page8Stage.el)
         page7.remove()
-      console.log(+new Date)
-
+        console.log(+new Date)
         requestAnimationFrame(s8);
-      }, 1500)
+      }, 3500)
       return
     }
     requestAnimationFrame(s7);
@@ -1101,45 +1100,45 @@ function render() {
     if (page10S1.rotationY < 90) {
       if (page10S1.rotationY === 0) {
         setTimeout(function() {
-          page10S1.rotationY += 3
+          page10S1.rotationY += 6
           requestAnimationFrame(s10);
         }, 1000)
         return
       }
-      page10S1.rotate(0, 3, 0).updateT()
+      page10S1.rotate(0, 6, 0).updateT()
     } else if (page10S2.rotationY < 360) {
-      page10S2.rotate(0, 3, 0).updateT()
+      page10S2.rotate(0, 6, 0).updateT()
     } else if (page10S2.rotationY < 450) {
       if (page10S2.rotationY === 360) {
         setTimeout(function() {
-          page10S2.rotationY += 3
+          page10S2.rotationY += 6
           requestAnimationFrame(s10);
         }, 1000)
         return
       }
-      page10S2.rotate(0, 3, 0).updateT()
+      page10S2.rotate(0, 6, 0).updateT()
     } else if (page10S3.rotationY < 360) {
-      page10S3.rotate(0, 3, 0).updateT()
+      page10S3.rotate(0, 6, 0).updateT()
     } else if (page10S3.rotationY < 450) {
       if (page10S3.rotationY === 360) {
         setTimeout(function() {
-          page10S3.rotationY += 3
+          page10S3.rotationY += 6
           requestAnimationFrame(s10);
         }, 1000)
         return
       }
-      page10S3.rotate(0, 3, 0).updateT()
+      page10S3.rotate(0, 6, 0).updateT()
     } else if (page10S4.rotationY < 360) {
-      page10S4.rotate(0, 3, 0).updateT()
+      page10S4.rotate(0, 6, 0).updateT()
     } else if (page10S4.rotationY < 450) {
       if (page10S4.rotationY === 360) {
         setTimeout(function() {
-          page10S4.rotationY += 3
+          page10S4.rotationY += 6
           requestAnimationFrame(s10);
         }, 1000)
         return
       }
-      page10S4.rotate(0, 3, 0).updateT()
+      page10S4.rotate(0, 6, 0).updateT()
     } else {
       document.getElementById('main').style.top = -window.innerHeight*11 + 'px'
       page10S1.remove()
