@@ -281,12 +281,12 @@ function render() {
 
   var page2Sprite = C3D.create({
     type: 'sprite',
-    position: [0, 0, 0],
+    position: [0, 0, -475],
     rotation: [0, 270, 0],
     children: [
       {
         type: 'plane',
-        position: [0, 0, -100],
+        position: [0, 0, 0],
         size: [window.innerWidth, window.innerHeight],
         material: [{image: './images/page2_bg.jpg'}]
       }
@@ -360,12 +360,12 @@ function render() {
 
   var page3Sprite = C3D.create({
     type: 'sprite',
-    position: [0, 0, -800],
+    position: [0, 0, -475],
     rotation: [270, 0, 0],
     children: [
       {
         type: 'plane',
-        position: [0, 0, -260],
+        position: [0, 0, 0],
         size: [window.innerWidth, window.innerHeight],
         material: [{image: './images/page3_bg.jpg'}]
       }
@@ -389,6 +389,7 @@ function render() {
       }
       page2.rotate(3, 0, 0).updateT()
     } else {
+      // return
       page3Sprite.rotate(3, 0, 0).updateT()
       if (page3Sprite.rotationX === 360) {
         document.getElementById('main').style.top = -window.innerHeight*3 + 'px'
@@ -443,12 +444,12 @@ function render() {
 
   var page4Sprite = C3D.create({
     type: 'sprite',
-    position: [0, 0, 0],
+    position: [0, 0, -475],
     rotation: [270, 0, 0],
     children: [
       {
         type: 'plane',
-        position: [0, 0, -260],
+        position: [0, 0, 0],
         size: [window.innerWidth, window.innerHeight],
         material: [{image: './images/page1_bg.jpg'}]
       }
@@ -531,12 +532,12 @@ function render() {
 
   var page5Sprite = C3D.create({
     type: 'sprite',
-    position: [0, 0, 0],
+    position: [0, 0, -475],
     rotation: [270, 0, 0],
     children: [
       {
         type: 'plane',
-        position: [0, 0, -260],
+        position: [0, 0, 0],
         size: [window.innerWidth, window.innerHeight],
         material: [{image: './images/page5_bg.jpg'}]
       }
