@@ -215,7 +215,7 @@ function render() {
     document.getElementById('main').style.top = -window.innerHeight + 'px'
     indexSprite.remove()
     requestAnimationFrame(s1);
-    document.removeEventListener('click', changeStage)
+    document.removeEventListener('touchstart', changeStage)
   }
 
   function go() {
@@ -228,7 +228,7 @@ function render() {
       smallChar.move(0, -10, -10).rotation(0, 0, smallChar.rotationZ - 6).updateT()
     };
     if (largeChar.z <= 0 && smallChar.rotationZ === 0) {
-      document.addEventListener('click', changeStage)
+      document.addEventListener('touchstart', changeStage)
       document.getElementById('start').appendChild(mainStage.el)
       return
     }
