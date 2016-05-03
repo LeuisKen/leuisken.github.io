@@ -1,5 +1,6 @@
 body, #wrapper {
   overflow: hidden;
+  position: relative;
 }
 
 .layer{
