@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — AntagningX</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: #1a1a2e;
+            background: #f8f9fa;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            padding: 3rem 2.5rem;
+        }
+        h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.25rem;
+        }
+        .subtitle {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        h2 {
+            font-size: 1.15rem;
+            margin-top: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+        p, li {
+            color: #343a40;
+            font-size: 0.95rem;
+        }
+        p { margin-bottom: 0.75rem; }
+        ul {
+            margin: 0.5rem 0 1rem 1.5rem;
+        }
+        li { margin-bottom: 0.35rem; }
+        a { color: #0d6efd; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .updated {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e9ecef;
+            color: #6c757d;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Privacy Policy</h1>
+        <p class="subtitle">AntagningX — Chrome Extension</p>
+
+        <h2>Overview</h2>
+        <p>
+            AntagningX is a browser extension that displays historical admission statistics
+            from UHR (Universitets- och högskolerådet) on course search result pages at
+            universityadmissions.se and antagning.se. Your privacy is important to us, and
+            the extension is designed to operate without collecting any personal data.
+        </p>
+
+        <h2>Data Collection</h2>
+        <p>AntagningX does <strong>not</strong> collect, store, or transmit any personal data. Specifically:</p>
+        <ul>
+            <li>No personal information (name, email, etc.) is collected.</li>
+            <li>No browsing history or web activity is tracked.</li>
+            <li>No cookies are set by the extension.</li>
+            <li>No analytics or telemetry data is gathered.</li>
+            <li>No data is sent to any external server.</li>
+        </ul>
+
+        <h2>How the Extension Works</h2>
+        <p>
+            The extension reads application codes displayed on course cards within
+            universityadmissions.se and antagning.se. These codes are matched against
+            admission statistics data that is <strong>bundled locally</strong> within the
+            extension package. All processing happens entirely in your browser.
+        </p>
+
+        <h2>Permissions</h2>
+        <p>The extension requests the following permissions, each used solely for its stated purpose:</p>
+        <ul>
+            <li>
+                <strong>Host access to uhr.se</strong> — Used to embed UHR's statistics detail
+                page in an iframe modal and to auto-dismiss the cookie consent banner within
+                that iframe.
+            </li>
+            <li>
+                <strong>declarativeNetRequest</strong> — Used to remove response headers
+                (X-Frame-Options, Content-Security-Policy) on uhr.se sub-frame requests so the
+                iframe can load.
+            </li>
+            <li>
+                <strong>Content scripts on universityadmissions.se and antagning.se</strong> —
+                Used to inject admission statistics onto course cards on these sites.
+            </li>
+        </ul>
+
+        <h2>Third-Party Services</h2>
+        <p>
+            AntagningX does not integrate with any third-party services, advertising networks,
+            or analytics platforms.
+        </p>
+
+        <h2>Changes to This Policy</h2>
+        <p>
+            If this privacy policy is updated, the revised version will be posted at this URL.
+            The extension's functionality and data practices will remain transparent.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+            If you have questions about this privacy policy, please open an issue on the
+            <a href="https://github.com/JiaxunWei/AntagningX">GitHub repository</a>.
+        </p>
+
+        <p class="updated">Last updated: March 16, 2026</p>
+    </div>
+</body>
+</html>
